@@ -53,7 +53,10 @@ namespace Festivalcito.Server.Controllers{
         [HttpGet]
         public IEnumerable<Shift> ReadAllShifts()
         {
-            return Repository.ReadAllShifts();
+            var x = Repository.ReadAllShifts();
+            Console.WriteLine($"Controller : {x.Count()}");
+
+            return x;
         }
 
         // Kalder UpdateShift i ShiftRepository

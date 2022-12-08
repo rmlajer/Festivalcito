@@ -28,7 +28,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
 
                 //returnShift = connection.Query<Shift>(SQL).ToList().First();
 
-                Console.WriteLine($"{returnShift.ShiftName}");
+                Console.WriteLine($"{returnShift.Name}");
                 return returnShift;
             }
             
@@ -37,7 +37,8 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
         
         public List<Shift> ReadAllShifts()
         {
-            var SQL = "SELECT * from Shift";
+            Console.WriteLine("ReadAllShifts");
+            var SQL = "SELECT  * FROM public.shift;";
             List<Shift> returnList = new List<Shift>();
             using (var connection = new NpgsqlConnection(new PgAdminContext().connstring))
             {
@@ -45,11 +46,13 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
                 
                 foreach (var shiftX in returnList)
                 {
-                    Console.WriteLine($"{shiftX.ShiftName}");
+                    Console.WriteLine($"{shiftX.Name}");
                 }
+
+                Console.WriteLine($"Repository : {returnList.Count()}");
             }
 
-            return new List<Shift>();
+            return returnList;
 
         }
 

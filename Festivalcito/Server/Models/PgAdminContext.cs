@@ -8,7 +8,7 @@ namespace Festivalcito.Server.Models
 
         public PgAdminContext()
 		{
-            connstring = "UserID=postgres;Password=sally0312;Host=localhost;Port=5432;Database=DesignSkema";
+            connstring = "UserID=arvppmkz;Password=PRfiDeTpnyfXNpAqQ221u9tQsx2_RUrV;Host=mouse.db.elephantsql.com;Port=5432;Database=arvppmkz";
         }
     }
 }

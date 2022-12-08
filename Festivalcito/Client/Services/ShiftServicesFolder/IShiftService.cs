@@ -1,17 +1,15 @@
 ﻿using System;
+using Festivalcito.Shared.Models;
 namespace Festivalcito.Client.Services.ShiftServicesFolder
 {
 	public interface IShiftService
 	{
-        Task<Shelter[]?> GetAllItems();
-        Task<CustomerBooking[]?> GetAllBookings();
-
-        Task<int> AddItem(CustomerBooking costumerInfo);
-        Task<int> DeleteItem(string id);
-        Task<Shelter> GetItem(string id);
-        Task<int> UpdateItem(CustomerBooking item);
-
-
+     
+        Task<bool> CreateShift(Shift shift);
+        Task<Shift> ReadShift(int shiftId);
+        Task<Shift[]?> ReadAllShifts();
+        Task<bool> UpdateShift(Shift shift);
+        Task <bool> DeleteShift(int ShiftID);
 
     }
 }

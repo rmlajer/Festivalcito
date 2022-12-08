@@ -1,11 +1,25 @@
 ﻿@page "/"
-
-<PageTitle>Index</PageTitle>
+@using Festivalcito.Client.Services.ShiftServicesFolder;
+@using Festivalcito.Shared.Models;
 
 <h1>Hello, world!</h1>
 
 @code{
-    //[Inject]
-    //public IShiftService? Service { get; set; }
+    [Inject]
+    public IShiftService? ShiftService { get; set; }
+
+    private List<Shift> ShiftsList = new List<Shift>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        ShiftsList = (await ShiftService!.ReadAllShifts())!.ToList();
+        Console.WriteLine("INdex"+ ShiftsList.Count());
+        foreach (Shift shiftX in ShiftsList)
+        {
+            Console.WriteLine($"{shiftX.Name}, {shiftX.StartTime}");
+        }
+
+    }
 
 }

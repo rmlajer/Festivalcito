@@ -1,4 +1,7 @@
+using Festivalcito.Server.Models.ShiftRepositoryFolder;
 using Microsoft.AspNetCore.ResponseCompression;
+using Festivalcito.Server.Models;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+builder.Services.AddScoped<IShiftRepository, ShiftRepository>();
 
 var app = builder.Build();
 
