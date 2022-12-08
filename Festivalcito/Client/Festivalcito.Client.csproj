@@ -13,6 +13,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.9" PrivateAssets="all" />
+    <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +30,9 @@
     <None Remove="Services\AreaServicesFolder\" />
     <None Remove="Services\PersonServicesFolder\" />
     <None Remove="Services\ShiftServicesFolder\" />
+    <None Remove="Dapper" />
+    <None Remove="System.Net.Http.Json" />
+    <None Remove="Microsoft.Extensions.Http" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
