@@ -9,4 +9,10 @@
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="SQL statements \" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SQL statements \" />
+  </ItemGroup>
 </Project>
