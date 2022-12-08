@@ -13,6 +13,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.9" PrivateAssets="all" />
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Npgsql" Version="6.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+    <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,4 +27,20 @@
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Dapper" />
+    <None Remove="Npgsql" />
+    <None Remove="Microsoft.Extensions.Http" />
+    <None Remove="System.Net.Http.Json" />
+    <None Remove="Services\" />
+    <None Remove="Services\ShiftServiceFolder\" />
+    <None Remove="Services\AreaServiceFolder\" />
+    <None Remove="Services\PersonServiceFolder\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Services\ShiftServiceFolder\" />
+    <Folder Include="Services\AreaServiceFolder\" />
+    <Folder Include="Services\PersonServiceFolder\" />
+  </ItemGroup>
 </Project>

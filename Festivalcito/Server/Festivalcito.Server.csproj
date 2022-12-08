@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.9" />
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Npgsql" Version="6.0.7" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,8 +20,12 @@
 
   <ItemGroup>
     <None Remove="Controllers\" />
+    <None Remove="Dapper" />
+    <None Remove="Npgsql" />
+    <None Remove="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 </Project>
