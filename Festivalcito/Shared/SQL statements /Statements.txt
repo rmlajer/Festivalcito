@@ -1,0 +1,74 @@
+﻿
+//Creating the  Tables for database 
+
+1.
+
+Create table Area(
+AreaId serial primary key, 
+AreaName text not null 
+)
+
+
+2.
+
+Create table AssignedList( 
+AssignedListId serial primary key,
+AreaId integer, 
+AssignedPerson integer
+)
+
+
+
+3.
+
+Create table PersonList (
+PersonId  serial primary key, 
+Assigned boolean, 
+IsCoordinator boolean, 
+EmailAdress text, 
+FirstName text, 
+LastName text, 
+DateOfBirth date, 
+Address text, 
+PostalCode text, 
+City text, 
+Country text,
+Nationality text, 
+DanishLevel smallint, 
+Gender text, 
+MembershipPaid boolean
+
+)
+
+4.
+create table Shift (
+ShiftId serial primary key, 
+StartTime timestamp without time zone, 
+EndTime timestamp without time zone,
+RequiredVolunteers integer, 
+AgeMin integer, 
+HourMultiplier double precision,
+IsLocked bool
+	
+)
+
+5.
+
+create table ShiftAssignedList (
+ShiftAssignedListId serial primary key, 
+ShiftId integer, 
+AssignmentId integer
+	
+)
+
+
+
+6.
+
+create table LoginCredentials (
+LoginCredentials serial primary key, 
+UserEmail text, 
+HashedPassword text
+
+
+)
