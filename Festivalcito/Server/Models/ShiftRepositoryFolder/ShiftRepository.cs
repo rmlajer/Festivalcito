@@ -20,12 +20,21 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
 
         public Shift ReadShift(int shiftId){
 
-          
-            return new Shift();
+            var SQL = $"SELECT * from Shift WHERE ShiftID = {shiftId}";
+            Shift returnShift = new Shift();
+            using (var connection = new NpgsqlConnection(new PgAdminContext().connstring))
+            {
+                returnShift = connection.Query<Shift>(SQL).First();
+
+                //returnShift = connection.Query<Shift>(SQL).ToList().First();
+
+                Console.WriteLine($"{returnShift.ShiftName}");
+                return returnShift;
+            }
+            
         }
 
-
-
+        
         public List<Shift> ReadAllShifts()
         {
             var SQL = "SELECT * from Shift";
