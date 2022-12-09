@@ -44,7 +44,7 @@ namespace Festivalcito.Server.Controllers{
         [HttpGet("{id:int}")]
         public Shift ReadShift(int id)
         {
-            throw new NotImplementedException();
+            return Repository.ReadShift(id);
         }
 
 
@@ -53,10 +53,7 @@ namespace Festivalcito.Server.Controllers{
         [HttpGet]
         public IEnumerable<Shift> ReadAllShifts()
         {
-            var x = Repository.ReadAllShifts();
-            Console.WriteLine($"Controller : {x.Count()}");
-
-            return x;
+            return Repository.ReadAllShifts();
         }
 
         // Kalder UpdateShift i ShiftRepository

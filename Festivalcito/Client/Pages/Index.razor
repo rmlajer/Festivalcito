@@ -11,15 +11,33 @@
     private List<Shift> ShiftsList = new List<Shift>();
 
 
-    protected override async Task OnInitializedAsync()
-    {
+    protected override async Task OnInitializedAsync(){
         ShiftsList = (await ShiftService!.ReadAllShifts())!.ToList();
+
         Console.WriteLine("INdex"+ ShiftsList.Count());
         foreach (Shift shiftX in ShiftsList)
         {
             Console.WriteLine($"{shiftX.Name}, {shiftX.StartTime}");
         }
 
+        Shift x = new Shift();
+        x.Name = "Test1";
+        x.StartTime = new DateTime(2022, 12 , 09);
+        x.EndTime = x.StartTime = new DateTime(2022, 12, 10);
+        x.AgeMin = 18;
+        x.IsLocked = false;
+        x.RequiredVolunteers = 10;
+        x.HourMultiplier = 1.1f;
+
+        await ShiftService.CreateShift(x);
+        //Console.WriteLine(await ShiftService.ReadAllShifts());
+
+
+        /*
+        x.Name = "Name changed";
+        await ShiftService.UpdateShift(x);
+        Console.WriteLine(await ShiftService.ReadAllShifts());
+        */
     }
 
 }

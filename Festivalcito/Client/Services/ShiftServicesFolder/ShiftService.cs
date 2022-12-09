@@ -3,10 +3,9 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using Festivalcito.Shared.Models;
 
-namespace Festivalcito.Client.Services.ShiftServicesFolder
-{
-	public class ShiftService : IShiftService
-	{
+namespace Festivalcito.Client.Services.ShiftServicesFolder{
+	public class ShiftService : IShiftService{
+
         private readonly HttpClient httpClient;
 
         public ShiftService(HttpClient httpClient)
@@ -15,28 +14,31 @@ namespace Festivalcito.Client.Services.ShiftServicesFolder
         }
 
 
-        public Task<bool> CreateShift(Shift shift)
+        public async Task<int> CreateShift(Shift shift)
         {
-            throw new NotImplementedException();
+            var response = await httpClient.PostAsJsonAsync<Shift>("api/Shift", shift);
+            var responseStatusCode = response.StatusCode;
+            return (int)responseStatusCode;
         }
 
-        public Task<Shift> ReadShift(int shiftId)
+        public async Task<Shift> ReadShift(int shiftId)
         {
-            throw new NotImplementedException();
+            return (await httpClient.GetFromJsonAsync<Shift>("api/Shift/" + shiftId))!;
         }
 
-        public Task<Shift[]?> ReadAllShifts()
+        public async Task<Shift[]?> ReadAllShifts()
         {
-            var result = httpClient.GetFromJsonAsync<Shift[]>("api/Shift");
-            return result;
+            return await httpClient.GetFromJsonAsync<Shift[]>("api/Shift");
         }
 
-        public Task<bool> UpdateShift(Shift shift)
+        public async Task<int> UpdateShift(Shift shift)
         {
-            throw new NotImplementedException();
+            var response = await httpClient.PutAsJsonAsync<Shift>("api/Shift", shift);
+            var responseStatusCode = response.StatusCode;
+            return (int)responseStatusCode;
         }
 
-        public Task<bool> DeleteShift(int ShiftID)
+        public async Task<int> DeleteShift(int ShiftID)
         {
             throw new NotImplementedException();
         }
