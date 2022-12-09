@@ -4,7 +4,7 @@ using Npgsql;
 using Festivalcito.Shared.Models;
 namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
 
-
+    //Indeholder metoder til CRUD funktionalitet på tablen shift.
 	public class ShiftRepository : GlobalConnections, IShiftRepository{
 
 		public ShiftRepository()
@@ -12,6 +12,8 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
 		}
 
         public bool CreateShift(Shift shift){
+            //Tager et Shift object og indsætter via SQL statement i vores database
+            //Formatere time og float for at det passer med postgreSQL
             Console.WriteLine("CreateShift - Repository");
             var sql = $"INSERT INTO public.shift(" +
                 $"starttime, endtime, requiredvolunteers, agemin, hourmultiplier, islocked, name)" +
@@ -25,6 +27,8 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
                 $"'{shift.Name}')";
             Console.WriteLine("sql: " + sql);
 
+            //Isolere "var connection" fra resten af scope ved brug af using
+            //forsøger at eksikvere sql statement mod database
             using (var connection = new NpgsqlConnection(PGadminConnection)){
                 try{
                     connection.Execute(sql);
@@ -35,27 +39,33 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
                     return false;
                 }
             }
+
+
         }
 
-
+        //Læser et shift objekt fra databasen ved brug af shiftID
         public Shift ReadShift(int shiftId){
             Console.WriteLine("ReadShift");
             var SQL = $"SELECT * from Shift WHERE ShiftID = {shiftId}";
+
+            //Isolere "var connection" fra resten af scope ved brug af using
+            //forsøger at eksikvere sql statement mod database
             Shift returnShift = new Shift();
             using (var connection = new NpgsqlConnection(PGadminConnection)){
                 returnShift = connection.Query<Shift>(SQL).First();
-
-                //returnShift = connection.Query<Shift>(SQL).ToList().First();
                 return returnShift;
             }
             
         }
 
-        
+        //Læser alle shifts objekter fra databasen
         public List<Shift> ReadAllShifts() { 
             Console.WriteLine("ReadAllShifts");
             var SQL = "SELECT  * FROM public.shift;";
             List<Shift> returnList = new List<Shift>();
+
+            //Isolere "var connection" fra resten af scope ved brug af using
+            //forsøger at eksikvere sql statement mod database
             using (var connection = new NpgsqlConnection(PGadminConnection))
             {
                 returnList = connection.Query<Shift>(SQL).ToList();
@@ -65,7 +75,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
             return returnList;
 
         }
-
+        //Overskriver et entry i tablen shift med det nye objeckt shift af klassen Shift
         public bool UpdateShift(Shift shift)
         {
             Console.WriteLine("UpdateShift");
@@ -81,6 +91,9 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
 
             Console.WriteLine("sql: " + sql);
 
+
+            //Isolere "var connection" fra resten af scope ved brug af using
+            //forsøger at eksikvere sql statement mod database
             using (var connection = new NpgsqlConnection(PGadminConnection)){
                 try
                 {
@@ -94,13 +107,15 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
                 }
             }
         }
-        public bool DeleteShift(int ShiftID){
 
-
-
+        //Sletter et entry ved brug af ShiftId
+        public bool DeleteShift(int ShiftId){
             Console.WriteLine("DeleteShift");
-            var sql = $"DELETE FROM public.shift WHERE shiftid = {ShiftID}";
+            var sql = $"DELETE FROM public.shift WHERE shiftid = {ShiftId}";
 
+
+            //Isolere "var connection" fra resten af scope ved brug af using
+            //forsøger at eksikvere sql statement mod database
             using (var connection = new NpgsqlConnection(PGadminConnection)){
                 try{
                     connection.Execute(sql);

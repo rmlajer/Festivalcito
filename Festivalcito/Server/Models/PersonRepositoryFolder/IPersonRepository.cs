@@ -5,10 +5,11 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder
 {
 	public interface IPersonRepository
 	{
-        void CreatePerson(Person person);
-        void ReadPerson(Person person);
-        void UpdatePerson(Person person);
-        void DeletePerson(Person person);
+        bool CreatePerson(Person person);
+        Person ReadPerson(int personId);
+        List<Person> ReadAllPersons();
+        bool UpdatePerson(Person person);
+        bool DeletePerson(int personId);
     }
 }
 

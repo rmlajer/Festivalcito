@@ -12,7 +12,7 @@ namespace Festivalcito.Server.Controllers{
     /// Controlleren fungerer altså som bindeled og tillader os at skifte dele af programmet uden at ødelægge eksisterende struktur.
 
     [ApiController]
-    [Route("api/Shift")]
+    [Route("api/shift")]
 
 
     public class ShiftController : ControllerBase

@@ -16,31 +16,31 @@ namespace Festivalcito.Client.Services.ShiftServicesFolder{
 
         public async Task<int> CreateShift(Shift shift)
         {
-            var response = await httpClient.PostAsJsonAsync<Shift>("api/Shift", shift);
+            var response = await httpClient.PostAsJsonAsync<Shift>("api/shift/", shift);
             var responseStatusCode = response.StatusCode;
             return (int)responseStatusCode;
         }
 
         public async Task<Shift> ReadShift(int shiftId)
         {
-            return (await httpClient.GetFromJsonAsync<Shift>("api/Shift/" + shiftId))!;
+            return (await httpClient.GetFromJsonAsync<Shift>("api/shift/" + shiftId))!;
         }
 
         public async Task<Shift[]?> ReadAllShifts()
         {
-            return await httpClient.GetFromJsonAsync<Shift[]>("api/Shift");
+            return await httpClient.GetFromJsonAsync<Shift[]>("api/shift/");
         }
 
         public async Task<int> UpdateShift(Shift shift)
         {
-            var response = await httpClient.PutAsJsonAsync<Shift>("api/Shift", shift);
+            var response = await httpClient.PutAsJsonAsync<Shift>("api/shift/", shift);
             var responseStatusCode = response.StatusCode;
             return (int)responseStatusCode;
         }
 
         public async Task<int> DeleteShift(int ShiftID)
         {
-            var response = await httpClient.DeleteAsync("api/Shift/" + ShiftID);
+            var response = await httpClient.DeleteAsync("api/shift/" + ShiftID);
             var responseStatusCode = response.StatusCode;
             return (int)responseStatusCode;
         }

@@ -4,10 +4,11 @@ using Festivalcito.Shared.Models;
 namespace Festivalcito.Server.Models.AreaRepositoryFolder
 {
 	public interface IAreaRepository{
-        void CreateArea(Area area);
-        void ReadArea(Area area);
-        void UpdateArea(Area area);
-        void DeleteArea(Area area);
+        bool CreateArea(Area area);
+        Area ReadArea(int areaId);
+        List<Area> ReadAllAreas();
+        bool UpdateArea(Area area);
+        bool DeleteArea(int areaId);
     }
 }
 
