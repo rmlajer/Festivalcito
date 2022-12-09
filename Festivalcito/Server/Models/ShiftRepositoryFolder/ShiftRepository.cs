@@ -16,25 +16,22 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
             var sql = $"INSERT INTO public.shift(" +
                 $"starttime, endtime, requiredvolunteers, agemin, hourmultiplier, islocked, name)" +
                 $"VALUES (" +
-                $"'{shift.StartTime}'," +
-                $"'{shift.EndTime}'," +
+                $"'{shift.StartTime.ToString("yyyy-MM-dd HH:mm:ss").Replace("\"", "").Replace(".",":")}'," +
+                $"'{shift.EndTime.ToString("yyyy-MM-dd HH:mm:ss").Replace("\"", "").Replace(".", ":")}'," +
                 $"{shift.RequiredVolunteers}," +
                 $"{shift.AgeMin}," +
-                $"{shift.HourMultiplier}," +
+                $"'{shift.HourMultiplier.ToString().Replace(",",".")}'," +
                 $"{shift.IsLocked}," +
-                $"{shift.Name})";
-
-            Console.WriteLine("Name: " + shift.Name);
+                $"'{shift.Name}')";
+            Console.WriteLine("sql: " + sql);
 
             using (var connection = new NpgsqlConnection(PGadminConnection)){
                 try{
-                    Console.WriteLine(shift.StartTime.ToString("yyyy-MM-dd HH-mm-ss"));
-                    Console.WriteLine(shift.EndTime);
                     connection.Execute(sql);
                     return true;
                 }
                 catch (Exception e){
-                    Console.WriteLine("Couldn't add the shift to the list" + e.Message);
+                    Console.WriteLine("Couldn't add the shift to the list: " + e.Message);
                     return false;
                 }
             }
@@ -73,25 +70,34 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
         {
             Console.WriteLine("UpdateShift");
             var sql = $"UPDATE public.shift " +
-                $"SET starttime={shift.StartTime}, endtime={shift.EndTime}, requiredvolunteers={shift.RequiredVolunteers}, agemin={shift.AgeMin}, " +
-                $"hourmultiplier={shift.HourMultiplier}, islocked={shift.IsLocked}, name={shift.Name}" +
+                $"SET starttime='{shift.StartTime.ToString("yyyy-MM-dd HH:mm:ss").Replace("\"", "").Replace(".", ":")}'," +
+                $"endtime='{shift.EndTime.ToString("yyyy-MM-dd HH:mm:ss").Replace("\"", "").Replace(".", ":")}'," +
+                $"requiredvolunteers={shift.RequiredVolunteers}," +
+                $"agemin={shift.AgeMin}," +
+                $"hourmultiplier='{shift.HourMultiplier.ToString().Replace(",", ".")}'," +
+                $"islocked={shift.IsLocked}," +
+                $"name='{shift.Name}' " +
                 $"WHERE shiftid = {shift.ShiftID}";
 
-            using (var connection = new NpgsqlConnection(PGadminConnection))
-            {
+            Console.WriteLine("sql: " + sql);
+
+            using (var connection = new NpgsqlConnection(PGadminConnection)){
                 try
                 {
                     connection.Execute(sql);
                     return true;
                 }
-                catch
+                catch (Exception e)
                 {
-                    Console.WriteLine("Couldn't update the shift in the list");
+                    Console.WriteLine("Couldn't update the shift in the list: " + e.Message);
                     return false;
                 }
             }
         }
         public bool DeleteShift(int ShiftID){
+
+
+
             Console.WriteLine("DeleteShift");
             var sql = $"DELETE FROM public.shift WHERE shiftid = {ShiftID}";
 

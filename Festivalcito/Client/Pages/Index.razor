@@ -12,6 +12,7 @@
 
 
     protected override async Task OnInitializedAsync(){
+        /*
         ShiftsList = (await ShiftService!.ReadAllShifts())!.ToList();
 
         Console.WriteLine("INdex"+ ShiftsList.Count());
@@ -19,9 +20,9 @@
         {
             Console.WriteLine($"{shiftX.Name}, {shiftX.StartTime}");
         }
-
+        */
         Shift x = new Shift();
-        x.Name = "Test1";
+        x.Name = "HEJ";
         x.StartTime = new DateTime(2022, 12 , 09);
         x.EndTime = x.StartTime = new DateTime(2022, 12, 10);
         x.AgeMin = 18;
@@ -29,15 +30,16 @@
         x.RequiredVolunteers = 10;
         x.HourMultiplier = 1.1f;
 
-        await ShiftService.CreateShift(x);
-        //Console.WriteLine(await ShiftService.ReadAllShifts());
+        await ShiftService!.CreateShift(x);
+        x = (await ShiftService.ReadShift(1));
+        Console.WriteLine(x.Name);
 
-
-        /*
         x.Name = "Name changed";
         await ShiftService.UpdateShift(x);
-        Console.WriteLine(await ShiftService.ReadAllShifts());
-        */
+        Console.WriteLine((await ShiftService.ReadAllShifts())!.First().Name);
+
+        await ShiftService.DeleteShift(6);
+
     }
 
 }

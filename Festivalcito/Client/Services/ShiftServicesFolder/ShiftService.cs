@@ -40,7 +40,9 @@ namespace Festivalcito.Client.Services.ShiftServicesFolder{
 
         public async Task<int> DeleteShift(int ShiftID)
         {
-            throw new NotImplementedException();
+            var response = await httpClient.DeleteAsync("api/Shift/" + ShiftID);
+            var responseStatusCode = response.StatusCode;
+            return (int)responseStatusCode;
         }
 
 

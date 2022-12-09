@@ -34,9 +34,10 @@ namespace Festivalcito.Server.Controllers{
         // Kalder CreateShift i ShiftRepository
         // Opretter Shift i DB
         [HttpPost]
-        public void CreateShift(Shift item)
+        public void CreateShift(Shift shift)
         {
-            Repository.CreateShift(item);
+            Console.WriteLine("Controller - " + shift.Name);
+            Repository.CreateShift(shift);
         }
 
         // Kalder ReadShift i ShiftRepository
