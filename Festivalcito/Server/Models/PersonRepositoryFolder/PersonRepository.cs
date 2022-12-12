@@ -18,7 +18,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
             Console.WriteLine("CreatePerson - Repository");
             var sql = $"INSERT INTO public.personlist" +
                 $"(assigned, iscoordinator, emailadress, firstname, lastname, dateofbirth," +
-                $"address, postalcode, city, country, nationality, danishlevel, gender, membershippaid)" +
+                $"address, postalcode, city, country, nationality, danishlevel, gender, membershippaid, phonenumber)" +
                 $"VALUES (" +
                 $"  {person.Assigned}," +
                 $"  {person.IsCoordinator}," +
@@ -33,7 +33,8 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
                 $" '{person.Nationality}'," +
                 $"  {person.DanishLevel}, " +
                 $" '{person.Gender}', " +
-                $" {person.MembershipPaid})";
+                $" {person.MembershipPaid}" +
+                $" {person.PhoneNumber})";
 
             Console.WriteLine("sql: " + sql);
 
@@ -61,7 +62,22 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
         {
             Console.WriteLine("ReadPerson");
             var SQL = $"SELECT * from public.personlist WHERE personID = {personId}";
+            Console.WriteLine(SQL);
+            //Isolere "var connection" fra resten af scope ved brug af using
+            //forsøger at eksikvere sql statement mod database
+            Person returnPerson = new Person();
+            using (var connection = new NpgsqlConnection(PGadminConnection))
+            {
+                returnPerson = connection.Query<Person>(SQL).First();
+                return returnPerson;
+            }
+        }
 
+        public Person ReadPersonEmail(string email)
+        {
+            Console.WriteLine("ReadPerson");
+            var SQL = $"SELECT * from public.personlist WHERE emailaddress ilike '{email}'";
+            Console.WriteLine(SQL);
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
             Person returnPerson = new Person();
@@ -112,7 +128,8 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
                 $"nationality ='{person.Nationality}', " +
                 $"danishlevel ={person.DanishLevel}, " +
                 $"gender ='{person.Gender}', " +
-                $"membershippaid ={person.MembershipPaid} " +
+                $"membershippaid ={person.MembershipPaid}, " +
+                $"phonenumber = {person.PhoneNumber}" +
                 $"WHERE personId = {person.PersonID}"; 
 
 

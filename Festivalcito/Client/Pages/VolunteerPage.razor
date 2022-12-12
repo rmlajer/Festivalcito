@@ -3,27 +3,87 @@
 
 <h1>Volunteer info</h1>
 
-<div>
 
-    <EditForm EditContext="@EditContext" class="row p-3"
-              OnValidSubmit="@HandleValidSubmit"
-              OnInvalidSubmit="@HandleInvalidSubmit">
+<div style="width: 100%;">
+    <div style="width: 50%; height: 100px; float: left;">
+        <EditForm EditContext="@EditContext" class="row p-1"
+                  OnValidSubmit="@HandleValidSubmit"
+                  OnInvalidSubmit="@HandleInvalidSubmit">
+            <DataAnnotationsValidator />
 
-        <DataAnnotationsValidator />
+            <span>Email</span>
+            <input @bind="@emailInput" />
+            <button type="submit" onclick="@(() => getUserInfo(emailInput))">Get info</button>
+            <div class="w-50 p-3">
+                <h5><strong>First name</strong></h5>
+                <InputText @bind-Value="@PersonValidation.FirstName" class="form-control" />
+                <ValidationMessage For="@(() => PersonValidation.FirstName)" />
+            </div>
+            <div class="w-50 p-3">
+                <h5><strong>Last name</strong></h5>
+                <InputText @bind-Value="@PersonValidation.LastName" class="form-control" />
+                <ValidationMessage For="@(() => PersonValidation.LastName)" />
+            </div>
+            <div class="w-50 p-3">
+                <h5><strong>DateOfBirth</strong></h5>
+                <InputDate @bind-Value="@PersonValidation.DateOfBirth" class="form-control" />
+                <ValidationMessage For="@(() => PersonValidation.DateOfBirth)" />
+            </div>
+            <div class="w-50 p-3">
+                <h5><strong>Gender</strong></h5>
+                <InputText @bind-Value="@PersonValidation.Gender" class="form-control" />
+                <ValidationMessage For="@(() => PersonValidation.Gender)" />
+            </div>
+            <div class="w-50 p-3">
+                <h5><strong>Email</strong></h5>
+                <InputText @bind-Value="@PersonValidation.EmailAddress" class="form-control" />
+                <ValidationMessage For="@(() => PersonValidation.EmailAddress)" />
+            </div>
+            <div class="w-50 p-3">
+                <h5><strong>Phone number</strong></h5>
+                <InputText @bind-Value="@PersonValidation.PhoneNumber" class="form-control" />
+                <ValidationMessage For="@(() => PersonValidation.PhoneNumber)" />
+            </div>
+            <div class="w-50 p-3">
+                <h5><strong>Address</strong></h5>
+                <InputText @bind-Value="@PersonValidation.Address" class="form-control" />
+                <ValidationMessage For="@(() => PersonValidation.Address)" />
+            </div>
+            <div class="w-50 p-3">
+                <h5><strong>Country</strong></h5>
+                <InputText @bind-Value="@PersonValidation.Country" class="form-control" />
+                <ValidationMessage For="@(() => PersonValidation.Country)" />
+            </div>
+            <div class="w-50 p-3">
+                <h5><strong>PostalCode</strong></h5>
+                <InputText @bind-Value="@PersonValidation.PostalCode" class="form-control" />
+                <ValidationMessage For="@(() => PersonValidation.PostalCode)" />
+            </div>
+            <div class="w-50 p-3">
+                <h5><strong>City</strong></h5>
+                <InputText @bind-Value="@PersonValidation.City" class="form-control" />
+                <ValidationMessage For="@(() => PersonValidation.City)" />
+            </div>
+            <div class="w-50 p-3">
+                <h5><strong>DanishLevel</strong></h5>
+                <InputNumber @bind-Value="@PersonValidation.DanishLevel" class="form-control" />
+                <ValidationMessage For="@(() => PersonValidation.DanishLevel)" />
+            </div>
+            <div class="w-50 p-3">
+                <h5><strong>Nationality</strong></h5>
+                <InputText @bind-Value="@PersonValidation.Nationality" class="form-control" />
+                <ValidationMessage For="@(() => PersonValidation.Nationality)" />
+            </div>
 
-        <h5><strong>Navn</strong></h5>
-        <InputText @bind-Value="@PersonValidation.FirstName" class="form-control" />
-        <ValidationMessage For="@(() => PersonValidation.FirstName)" />
-
-        <h5>Email</h5>
-        <InputText @bind-Value="@PersonValidation.EmailAddress" class="form-control" />
-        <ValidationMessage For="@(() => PersonValidation.EmailAddress)" />
-
-        
-        <button type="submit" style="color:green">Send</button>
 
 
-    </EditForm>
+
+            <button type="submit" style="color:green">Update</button>
 
 
+        </EditForm>
+    </div>
+    <div style="margin-left: 50%; height: 100px; background: blue;">
+        Right Div
+    </div>
 </div>

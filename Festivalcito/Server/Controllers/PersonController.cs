@@ -41,6 +41,13 @@ namespace Festivalcito.Server.Controllers{
             return Repository.ReadPerson(id);
         }
 
+        //Trækker info på email
+        [HttpGet("{email}")]
+        public Person ReadPersonEmail(string email)
+        {
+            return Repository.ReadPersonEmail(email);
+        }
+
 
         //Kalder ReadAllPerson i PersonRepository
         // Henter alle Persons fra DB

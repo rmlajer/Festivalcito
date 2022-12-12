@@ -22,6 +22,10 @@ namespace Festivalcito.Client.Services.PersonServicesFolder{
         {
             return (await httpClient.GetFromJsonAsync<Person>("api/person/" + personId))!;
         }
+        public async Task<Person> ReadPersonEmail(string email)
+        {
+            return (await httpClient.GetFromJsonAsync<Person>("api/person/" + email))!;
+        }
         public async Task<Person[]?> ReadAllPersons()
         {
             return await httpClient.GetFromJsonAsync<Person[]>("api/person/");
