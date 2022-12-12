@@ -1,6 +1,6 @@
 ﻿using System;
 using Festivalcito.Server.Models.PersonRepositoryFolder;
-using Festivalcito.Shared.Models;
+using Festivalcito.Shared.Classes;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 

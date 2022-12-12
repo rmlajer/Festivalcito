@@ -1,4 +1,4 @@
-﻿using Festivalcito.Shared.Models;
+﻿using Festivalcito.Shared.Classes;
 
 namespace Festivalcito.Client.Services.ShiftAssignedServicesFolder
 {

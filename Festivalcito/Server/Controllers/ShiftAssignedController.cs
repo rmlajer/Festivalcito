@@ -1,5 +1,5 @@
 ﻿using Festivalcito.Server.Models.ShiftAssignedRepositoryFolder;
-using Festivalcito.Shared.Models;
+using Festivalcito.Shared.Classes;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 

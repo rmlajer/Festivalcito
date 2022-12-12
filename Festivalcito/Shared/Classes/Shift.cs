@@ -1,7 +1,7 @@
 ﻿using System;
-namespace Festivalcito.Shared.Models
-{
-	public class Shift
+namespace Festivalcito.Shared.Classes {
+
+    public class Shift
 	{
         public int ShiftID { get; set; }
         public string? Name { get; set; }

@@ -1,5 +1,5 @@
 ﻿using System;
-using Festivalcito.Shared.Models;
+using Festivalcito.Shared.Classes;
 using System.Net.Http.Json;
 
 namespace Festivalcito.Client.Services.AreaServicesFolder

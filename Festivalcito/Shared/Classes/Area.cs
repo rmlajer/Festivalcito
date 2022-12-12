@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Festivalcito.Shared.Models
+namespace Festivalcito.Shared.Classes
 {
 	public class Area
 	{

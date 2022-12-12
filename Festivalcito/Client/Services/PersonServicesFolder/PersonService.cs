@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Net.Http.Json;
-using Festivalcito.Shared.Models;
+using Festivalcito.Shared.Classes;
 
 namespace Festivalcito.Client.Services.PersonServicesFolder{
 	public class PersonService : IPersonService{

@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Components.Forms;
-using Festivalcito.Shared.Models;
+using Festivalcito.Shared.Classes;
 
 namespace Festivalcito.Client.Pages{
 

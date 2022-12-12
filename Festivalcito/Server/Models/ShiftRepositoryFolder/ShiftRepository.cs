@@ -1,7 +1,7 @@
 ﻿using System;
 using Dapper;
 using Npgsql;
-using Festivalcito.Shared.Models;
+using Festivalcito.Shared.Classes;
 namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
 
     //Indeholder metoder til CRUD funktionalitet på tablen shift.

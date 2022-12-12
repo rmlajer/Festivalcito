@@ -1,6 +1,6 @@
 ﻿using System;
 using Festivalcito.Client.Services.PersonServicesFolder;
-using Festivalcito.Shared.Models;
+using Festivalcito.Shared.Classes;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 

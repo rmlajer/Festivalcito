@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Festivalcito.Server.Models.ShiftRepositoryFolder;
 using Festivalcito.Server.Models;
-using Festivalcito.Shared.Models;
+using Festivalcito.Shared.Classes;
 
 namespace Festivalcito.Server.Controllers{
 

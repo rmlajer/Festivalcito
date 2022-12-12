@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Festivalcito.Shared.Models{
+namespace Festivalcito.Shared.Classes{
 	public class Person{
 		public int PersonID { get; set; }
         public bool Assigned { get; set; }
