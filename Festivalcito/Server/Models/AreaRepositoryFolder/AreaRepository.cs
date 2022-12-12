@@ -5,7 +5,6 @@ using Festivalcito.Shared.Models;
 
 namespace Festivalcito.Server.Models.AreaRepositoryFolder{
 	public class AreaRepository : GlobalConnections, IAreaRepository{
-
 		public AreaRepository()
 		{
 		}

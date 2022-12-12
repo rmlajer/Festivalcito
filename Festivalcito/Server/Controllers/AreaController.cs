@@ -4,8 +4,7 @@ using Festivalcito.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace Festivalcito.Server.Controllers
-{
+namespace Festivalcito.Server.Controllers{
     /// AreaController håndterer kald af metoder som kommer fra services og kalder de respektive metoder i AreaRepository
     /// Controlleren fungerer altså som bindeled og tillader os at skifte dele af programmet uden at ødelægge eksisterende struktur.
 
@@ -13,15 +12,13 @@ namespace Festivalcito.Server.Controllers
     [Route("api/area")]
 
 
-    public class AreaController : ControllerBase
-    {
+    public class AreaController : ControllerBase{
         private readonly IAreaRepository Repository = new AreaRepository();
 
 
         //contructor tjekker om repository er tom og hvis den er, laves et nyt repository 
 
-        public AreaController(IAreaRepository shelterRepository)
-        {
+        public AreaController(IAreaRepository shelterRepository){
             if (Repository == null && shelterRepository != null)
             {
                 Repository = shelterRepository;
@@ -32,8 +29,7 @@ namespace Festivalcito.Server.Controllers
         // Kalder CreateArea i AreaRepository
         // Opretter Area i DB
         [HttpPost]
-        public void CreateArea(Area Area)
-        {
+        public void CreateArea(Area Area){
             
             Repository.CreateArea(Area);
         }
@@ -41,8 +37,7 @@ namespace Festivalcito.Server.Controllers
         // Kalder ReadArea i AreaRepository
         //Den kaldte metode henter specifik Area fra DB baseret på AreaID
         [HttpGet("{id:int}")]
-        public Area ReadArea(int id)
-        {
+        public Area ReadArea(int id){
             return Repository.ReadArea(id);
         }
 
@@ -50,8 +45,7 @@ namespace Festivalcito.Server.Controllers
         //Kalder ReadAllArea i AreaRepository
         // Henter alle Areas fra DB
         [HttpGet]
-        public IEnumerable<Area> ReadAllAreas()
-        {
+        public IEnumerable<Area> ReadAllAreas(){
             return Repository.ReadAllAreas();
         }
 

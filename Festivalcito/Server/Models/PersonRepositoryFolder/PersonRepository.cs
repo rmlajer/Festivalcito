@@ -3,8 +3,7 @@ using Festivalcito.Shared.Models;
 using Dapper;
 using Npgsql;
 
-namespace Festivalcito.Server.Models.PersonRepositoryFolder
-{
+namespace Festivalcito.Server.Models.PersonRepositoryFolder{
     public class PersonRepository : GlobalConnections, IPersonRepository {
 
         public PersonRepository()

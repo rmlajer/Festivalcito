@@ -13,8 +13,6 @@ namespace Festivalcito.Server.Controllers{
 
     [ApiController]
     [Route("api/shift")]
-
-
     public class ShiftController : ControllerBase
     {
         private readonly IShiftRepository Repository = new ShiftRepository();
