@@ -9,7 +9,8 @@ namespace Festivalcito.Client.Pages{
         private Person PersonValidation = new Person();
         private LoginCredentials LoginValidation = new LoginCredentials();
 
-        private EditContext? EditContext;
+        private EditContext? EditContextLogin;
+        private EditContext? EditContextRegistration;
 
         public Registration_LoginPage()
 		{
@@ -25,9 +26,11 @@ namespace Festivalcito.Client.Pages{
         {
             Console.WriteLine("HandleInvalidSubmit Called...");
         }
-
-
-
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            EditContextLogin = new EditContext(LoginValidation);
+        }
 
     }
 }

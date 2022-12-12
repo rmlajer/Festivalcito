@@ -9,14 +9,14 @@
         <div style="width: 50%; height: 500px; float: left; background-color:lightgray">
 
         </div>
-
+        
         <div style="margin-left: 50%; height: 500px; background-color:lightskyblue">
-            <EditForm>
+            <EditForm EditContext="EditContextLogin">
                 <div class="form-group">
                     
                     <div class="w-50">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <input type="email" @bind="@LoginValidation.UserEmail" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     
@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <div class="w-50">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        <input type="password" @bind="@LoginValidation.HashedPassword" class="form-control" id="exampleInputPassword1" placeholder="Password">
                     </div>
                 </div>
                 <div class="form-check">

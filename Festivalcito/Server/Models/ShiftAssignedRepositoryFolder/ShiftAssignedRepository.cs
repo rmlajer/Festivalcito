@@ -79,8 +79,7 @@ namespace Festivalcito.Server.Models.ShiftAssignedRepositoryFolder
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection))
-            {
+            using (var connection = new NpgsqlConnection(PGadminConnection)){
                 try
                 {
                     connection.Execute(sql);

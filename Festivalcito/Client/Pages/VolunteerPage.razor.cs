@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Components.Forms;
 
 namespace Festivalcito.Client.Pages{
 
-
-
 	partial class VolunteerPage{
 
         [Inject]

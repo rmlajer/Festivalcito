@@ -3,7 +3,7 @@
 @using Festivalcito.Client.Services.ShiftAssignedServicesFolder;
 @using Festivalcito.Client.Services.PersonServicesFolder;
 @using Festivalcito.Client.Services.AreaServicesFolder;
-@using Festivalcito.Shared.Classes;
+@using Festivalcito.Shared.Classes';
 
 <h1>Hello, world!</h1>
 
@@ -125,13 +125,7 @@
         ShiftAssigned tmpShiftAssigned = new ShiftAssigned();
         newShiftAssigned.ShiftId = 1;
         newShiftAssigned.AssignmentId = 3;
-        //await ShiftAssignedService!.CreateShiftAssigned(newShiftAssigned);
-        tmpShiftAssigned = await ShiftAssignedService!.ReadShiftAssigned(4);
-        Console.WriteLine(tmpShiftAssigned.ShiftAssignedlistId);
-        Console.WriteLine(tmpShiftAssigned.ShiftId);
-        Console.WriteLine(tmpShiftAssigned.AssignmentId);
-
-        await ShiftAssignedService!.DeleteShiftAssigned(4);
+        await ShiftAssignedService!.CreateShiftAssigned(newShiftAssigned);
     }
 
 }
