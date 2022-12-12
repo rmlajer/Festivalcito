@@ -4,7 +4,8 @@ using Festivalcito.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace Festivalcito.Server.Controllers{
+namespace Festivalcito.Server.Controllers
+{
     /// AreaController håndterer kald af metoder som kommer fra services og kalder de respektive metoder i AreaRepository
     /// Controlleren fungerer altså som bindeled og tillader os at skifte dele af programmet uden at ødelægge eksisterende struktur.
 
@@ -18,10 +19,10 @@ namespace Festivalcito.Server.Controllers{
 
         //contructor tjekker om repository er tom og hvis den er, laves et nyt repository 
 
-        public AreaController(IAreaRepository shelterRepository){
-            if (Repository == null && shelterRepository != null)
+        public AreaController(IAreaRepository areaRepository){
+            if (Repository == null && areaRepository != null)
             {
-                Repository = shelterRepository;
+                Repository = areaRepository;
                 Console.WriteLine("Repository initialized");
             }
         }

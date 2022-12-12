@@ -35,7 +35,6 @@
     <None Remove="Microsoft.Extensions.Http" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
     <Folder Include="Services\AreaServicesFolder\" />
     <Folder Include="Services\PersonServicesFolder\" />
     <Folder Include="Services\ShiftServicesFolder\" />

@@ -1,5 +1,6 @@
 using Festivalcito.Client;
 using Festivalcito.Client.Services.ShiftServicesFolder;
+using Festivalcito.Client.Services.ShiftAssignedServicesFolder;
 using Festivalcito.Client.Services.PersonServicesFolder;
 using Festivalcito.Client.Services.AreaServicesFolder;
 using Microsoft.AspNetCore.Components.Web;
@@ -19,6 +20,9 @@ builder.Services.AddHttpClient<IPersonService, PersonService>(client => {
     client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
 });
 builder.Services.AddHttpClient<IAreaService, AreaService>(client => {
+    client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
+});
+builder.Services.AddHttpClient<IShiftAssignedService, ShiftAssignedService>(client => {
     client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
 });
 
