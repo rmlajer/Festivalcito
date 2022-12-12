@@ -13,6 +13,7 @@
     public IPersonService? PersonService { get; set; }
 
     private List<Shift> ShiftsList = new List<Shift>();
+    private List<Person> PersonList = new List<Person>();
 
 
     protected override async Task OnInitializedAsync()
@@ -46,7 +47,17 @@
         await ShiftService.DeleteShift(6);
         */
 
+        Person CreatePersonX = new Person();
+        CreatePersonX.FirstName = "Bob";
+        CreatePersonX.LastName = "Dylan";
+        CreatePersonX.Assigned = false;
+        CreatePersonX.IsCoordinator = false;
+        CreatePersonX.Email = "Bob@mail.com";
+        CreatePersonX.DateOfBirth = DateTime.Today;
+        CreatePersonX.Address = "Mågevej 2";
+        await PersonService!.CreatePerson(CreatePersonX);
 
+        PersonList = (await PersonService!.ReadAllPersons())!.ToList();
 
 
     }

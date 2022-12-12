@@ -7,9 +7,6 @@ namespace Festivalcito.Client.Services.PersonServicesFolder
 {
 	public class PersonService
 	{
-		public PersonService()
-		{
-		}
 
         private readonly HttpClient httpClient;
 
