@@ -22,7 +22,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
                 $"VALUES (" +
                 $"  {person.Assigned}," +
                 $"  {person.IsCoordinator}," +
-                $" '{person.Email}', " +
+                $" '{person.EmailAddress}', " +
                 $" '{person.FirstName}'," +
                 $" '{person.LastName}'," +
                 $" '{person.DateOfBirth.ToString("yyyy-MM-dd HH:mm:ss").Replace("\"", "").Replace(".", ":")}', " +
@@ -33,7 +33,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
                 $" '{person.Nationality}'," +
                 $"  {person.DanishLevel}, " +
                 $" '{person.Gender}', " +
-                $" '{person.MembershipPaid}'";
+                $" {person.MembershipPaid})";
 
             Console.WriteLine("sql: " + sql);
 
@@ -100,19 +100,19 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
             Console.WriteLine("UpdatePerson");
             var sql = $"UPDATE public.personlist SET " +
                 $"assigned= {person.Assigned}, " +
-                $"iscoordinator= {person.IsCoordinator}, " +
-                $"emailadress= '{person.Email}', " +
-                $"firstname= '{person.FirstName}', " +
-                $"lastname= '{person.LastName}', " +
-                $"dateofbirth={person.DateOfBirth.ToString("yyyy-MM-dd HH:mm:ss").Replace("\"", "").Replace(".", ":")}',  " +
-                $"address= '{person.Address}', " +
-                $"postalcode= '{person.PostalCode}', " +
-                $"city='{person.City}', " +
-                $"country='{person.Country}', " +
-                $"nationality='{person.Nationality}', " +
-                $"danishlevel={person.DanishLevel}, " +
-                $"gender='{person.Gender}', " +
-                $"membershippaid={person.MembershipPaid}'" +
+                $"iscoordinator = {person.IsCoordinator}, " +
+                $"emailaddress = '{person.EmailAddress}', " +
+                $"firstname = '{person.FirstName}', " +
+                $"lastname = '{person.LastName}', " +
+                $"dateofbirth ='{person.DateOfBirth.ToString("yyyy-MM-dd HH:mm:ss").Replace("\"", "").Replace(".", ":")}',  " +
+                $"address = '{person.Address}', " +
+                $"postalcode = '{person.PostalCode}', " +
+                $"city ='{person.City}', " +
+                $"country ='{person.Country}', " +
+                $"nationality ='{person.Nationality}', " +
+                $"danishlevel ={person.DanishLevel}, " +
+                $"gender ='{person.Gender}', " +
+                $"membershippaid ={person.MembershipPaid} " +
                 $"WHERE personId = {person.PersonID}"; 
 
 

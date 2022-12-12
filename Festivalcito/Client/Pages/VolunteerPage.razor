@@ -1,0 +1,29 @@
+﻿@page "/volunteerPage"
+
+
+<h1>Volunteer info</h1>
+
+<div>
+
+    <EditForm EditContext="@EditContext" class="row p-3"
+              OnValidSubmit="@HandleValidSubmit"
+              OnInvalidSubmit="@HandleInvalidSubmit">
+
+        <DataAnnotationsValidator />
+
+        <h5><strong>Navn</strong></h5>
+        <InputText @bind-Value="@PersonValidation.FirstName" class="form-control" />
+        <ValidationMessage For="@(() => PersonValidation.FirstName)" />
+
+        <h5>Email</h5>
+        <InputText @bind-Value="@PersonValidation.EmailAddress" class="form-control" />
+        <ValidationMessage For="@(() => PersonValidation.EmailAddress)" />
+
+        
+        <button type="submit" style="color:green">Send</button>
+
+
+    </EditForm>
+
+
+</div>

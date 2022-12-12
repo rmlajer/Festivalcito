@@ -3,10 +3,8 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using Festivalcito.Shared.Models;
 
-namespace Festivalcito.Client.Services.PersonServicesFolder
-{
-	public class PersonService
-	{
+namespace Festivalcito.Client.Services.PersonServicesFolder{
+	public class PersonService : IPersonService{
 
         private readonly HttpClient httpClient;
 

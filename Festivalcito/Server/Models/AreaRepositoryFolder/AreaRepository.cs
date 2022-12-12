@@ -67,7 +67,7 @@ namespace Festivalcito.Server.Models.AreaRepositoryFolder{
         public bool UpdateArea(Area area)
         {
             Console.WriteLine("UpdateShift");
-            var sql = $"UPDATE public.area SET areaname={area.AreaName} WHERE areaid = {area.AreaID}";
+            var sql = $"UPDATE public.area SET areaname='{area.AreaName}' WHERE areaid = {area.AreaID}";
 
             Console.WriteLine("sql: " + sql);
 
