@@ -13,6 +13,8 @@ namespace Festivalcito.Client.Pages{
         [Inject]
         public IPersonService? PersonService { get; set; }
 
+        List<Person> listOfAllPeople = new List<Person>();
+
         public string emailInput = "bob@mail.com";
 
         private Person PersonValidation = new Person();
@@ -28,7 +30,7 @@ namespace Festivalcito.Client.Pages{
 
         private void HandleValidSubmit()
         {
-            
+            PersonService!.UpdatePerson(PersonValidation);
         }
 
         private void HandleInvalidSubmit()
@@ -40,11 +42,24 @@ namespace Festivalcito.Client.Pages{
             base.OnInitialized();
             EditContext = new EditContext(PersonValidation);
         }
-
-        public async void getUserInfo(string email)
+        protected override async Task OnInitializedAsync()
         {
-            PersonValidation = (await PersonService!.ReadPersonEmail(email));
+            listOfAllPeople = (await PersonService!.ReadAllPersons())!.ToList();
+        }
+
+        public void getUserInfo(string email)
+        {
+            foreach (Person person in listOfAllPeople)
+            {
+                Console.WriteLine(person.ToString());
+                if (person.EmailAddress!.ToLower() == emailInput.ToLower())
+                {
+                    PersonValidation = person;
+                }
+            }
             Console.WriteLine(PersonValidation.ToString());
+
+
         }
     }
 

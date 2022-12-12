@@ -1,8 +1,7 @@
 ﻿using System;
-namespace Festivalcito.Shared.Models
-{
-	public class Person
-	{
+
+namespace Festivalcito.Shared.Models{
+	public class Person{
 		public int PersonID { get; set; }
         public bool Assigned { get; set; }
         public bool IsCoordinator { get; set; }
@@ -20,16 +19,18 @@ namespace Festivalcito.Shared.Models
         public string? Gender { get; set; }
         public bool MembershipPaid { get; set; }
 
-        public Area? area { get; set; }
-
+        public string? areaName { get; set; }
 
         public Person()
 		{
 		}
 
+        
+
+
         public override string ToString()
         {
-            return $"{FirstName}, {LastName}, {Assigned}, {IsCoordinator}, {EmailAddress}, {DateOfBirth}, {Address}, {PostalCode}, {City}, {Country}, {Nationality}, {DanishLevel}, {Gender}, {MembershipPaid}";
+            return $"{FirstName}, {LastName}, {Assigned}, {IsCoordinator}, {EmailAddress}, {DateOfBirth}, {Address}, {PostalCode}, {City}, {Country}, {Nationality}, {DanishLevel}, {Gender}, {MembershipPaid}, {areaName}";
         }
     }
 }

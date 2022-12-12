@@ -1,12 +1,7 @@
-﻿@page "/volunteerPage"
+﻿@page "/Coordinator_VolunteerPage"
 
 
-<h1>Volunteer info</h1>
-
-<span>Email</span>
-<input @bind="@emailInput" />
-<button onclick="@(() => getUserInfo(emailInput))">Get info</button>
-
+<h1>Coordinator_VolunteerPage info</h1>
 
 <div style="width: 100%;">
     <div style="width: 50%; height: 100px; float: left;">
@@ -74,7 +69,17 @@
                 <InputText @bind-Value="@PersonValidation.Nationality" class="form-control" />
                 <ValidationMessage For="@(() => PersonValidation.Nationality)" />
             </div>
-            <button type="submit" style="color:green">Update</button> 
+            <div class="w-50 p-3">
+                <h5><strong>Assigned</strong></h5>
+                <InputCheckbox @bind-Value="@PersonValidation.Assigned" class="form-control" />
+                <ValidationMessage For="@(() => PersonValidation.Assigned)" />
+            </div>
+            <div class="w-50 p-3">
+                <h5><strong>Area</strong></h5>
+                <InputNumber @bind-Value="@PersonValidation.areaName" class="form-control" />
+                <ValidationMessage For="@(() => PersonValidation.areaName)" />
+            </div>
+            <button type="submit" style="color:green">Update</button>
         </EditForm>
     </div>
 </div>

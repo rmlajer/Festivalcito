@@ -107,6 +107,23 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
             return returnList;
         }
 
+        public List<Person> ReadAllAssignedPersons()
+        {
+            Console.WriteLine("ReadAllPersons");
+            var SQL = "SELECT  * FROM public.personlist";
+            List<Person> returnList = new List<Person>();
+
+            //Isolere "var connection" fra resten af scope ved brug af using
+            //forsøger at eksikvere sql statement mod database
+            using (var connection = new NpgsqlConnection(PGadminConnection))
+            {
+                returnList = connection.Query<Person>(SQL).ToList();
+
+            }
+
+            return returnList;
+        }
+
 
 
         //Overskriver et entry i tablen Person med det nye objeckt Person af klassen Person
