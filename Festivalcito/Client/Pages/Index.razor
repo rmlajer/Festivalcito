@@ -131,11 +131,11 @@
         newShiftAssigned.ShiftId = 1;
         newShiftAssigned.AssignmentId = 3;
         await ShiftAssignedService!.CreateShiftAssigned(newShiftAssigned);
-        */ 
+        
         Assigned x = new Assigned();
 
 
-        x.AreaId = 3;
+        x.AreaId = 2;
         x.AssignedPerson = 3;
 
 
@@ -145,7 +145,10 @@
 
         Console.WriteLine(x.AssignmentId);
 
+            */
 
+        Person person = await PersonService!.ReadPersonJoinArea(3);
+        //Person person1 = await PersonService!.ReadPersonJoinArea(3);
     }
 
 

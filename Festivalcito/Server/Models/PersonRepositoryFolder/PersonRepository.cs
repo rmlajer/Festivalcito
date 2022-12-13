@@ -75,7 +75,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
 
         public Person ReadPersonEmail(string email)
         {
-            Console.WriteLine("ReadPerson");
+            Console.WriteLine("Repository - ReadPerson");
             var SQL = $"SELECT * from public.personlist WHERE emailaddress ilike '{email}'";
             Console.WriteLine(SQL);
             //Isolere "var connection" fra resten af scope ved brug af using
@@ -86,6 +86,30 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
                 returnPerson = connection.Query<Person>(SQL).First();
                 return returnPerson;
             }
+        }
+
+        public Person ReadPersonJoinArea(int personId){
+
+            Console.WriteLine("ReadPersonJoinArea");
+
+            /*
+            var SQL = $"SELECT personid, assigned, iscoordinator, emailaddress, firstname, lastname, dateofbirth," +
+                $"address, postalcode, city, country, nationality, danishlevel, gender, membershippaid, phonenumber, areaname " +
+                $"FROM public.personlist " +
+                $"INNER JOIN public.assignedlist on personid = assignedperson " +
+                $"INNER JOIN public.area on area.areaid = assignedlist.areaid " +
+                $"WHERE personid = {personId}";
+            Console.WriteLine(SQL);
+            //Isolere "var connection" fra resten af scope ved brug af using
+            //forsøger at eksikvere sql statement mod database
+            Person returnPerson = new Person();
+            using (var connection = new NpgsqlConnection(PGadminConnection))
+            {
+                returnPerson = connection.Query<Person>(SQL).First();
+                return returnPerson;
+            }
+            */
+            return new Person();
         }
 
 

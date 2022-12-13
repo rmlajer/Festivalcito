@@ -12,6 +12,7 @@ namespace Festivalcito.Shared.Classes {
         public float HourMultiplier { get; set; }
         public bool IsLocked { get; set; }
 
+        public string? areaName { get; set; }
 
         public Shift()
 		{

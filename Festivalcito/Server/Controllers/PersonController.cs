@@ -1,5 +1,4 @@
-﻿using System;
-using Festivalcito.Server.Models.PersonRepositoryFolder;
+﻿using Festivalcito.Server.Models.PersonRepositoryFolder;
 using Festivalcito.Shared.Classes;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -35,17 +34,22 @@ namespace Festivalcito.Server.Controllers{
 
         // Kalder ReadPerson i PersonRepository
         //Den kaldte metode henter specifik Person fra DB baseret på PersonID
+        [Route("/nojoin/")]
         [HttpGet("{id:int}")]
         public Person ReadPerson(int id)
         {
+            Console.WriteLine("Controller - ReadPerson");
             return Repository.ReadPerson(id);
         }
 
-        //Trækker info på email
-        [HttpGet("{email}")]
-        public Person ReadPersonEmail(string email)
+
+        [Route("/yesjoin/")]
+        [HttpGet("{id:int}")]
+        public Person ReadPersonJoinArea(int id)
         {
-            return Repository.ReadPersonEmail(email);
+            Console.WriteLine("Controller - ReadPersonJoinArea");
+            Console.WriteLine();
+            return Repository.ReadPersonJoinArea(id);
         }
 
 
@@ -54,6 +58,7 @@ namespace Festivalcito.Server.Controllers{
         [HttpGet]
         public IEnumerable<Person> ReadAllPersons()
         {
+            Console.WriteLine("Controller - ReadAllPersons");
             return Repository.ReadAllPersons();
         }
 
