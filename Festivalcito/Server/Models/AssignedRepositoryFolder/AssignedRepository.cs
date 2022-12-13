@@ -1,6 +1,6 @@
 ﻿using System;
 using Dapper;
-using Festivalcito.Shared.Models;
+using Festivalcito.Shared.Classes;
 using Npgsql;
 
 namespace Festivalcito.Server.Models.AssignedRepositoryFolder
