@@ -3,8 +3,7 @@ using Dapper;
 using Npgsql;
 using Festivalcito.Shared.Classes;
 
-namespace Festivalcito.Server.Models.AreaRepositoryFolder
-{
+namespace Festivalcito.Server.Models.AreaRepositoryFolder{
 	public class AreaRepository : GlobalConnections, IAreaRepository{
 		public AreaRepository()
 		{

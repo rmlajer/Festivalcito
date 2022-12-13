@@ -10,10 +10,6 @@
     <SupportedPlatform Include="browser" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="SQL statements \" />
     <None Remove="Models\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SQL statements \" />
   </ItemGroup>
 </Project>
