@@ -16,7 +16,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
             //Formatere time og float for at det passer med postgreSQL
             Console.WriteLine("CreateShift - Repository");
             var sql = $"INSERT INTO public.shift(" +
-                $"starttime, endtime, requiredvolunteers, agemin, hourmultiplier, islocked, name)" +
+                $"starttime, endtime, requiredvolunteers, agemin, hourmultiplier, islocked, shiftname)" +
                 $"VALUES (" +
                 $"'{shift.StartTime.ToString("yyyy-MM-dd HH:mm:ss").Replace("\"", "").Replace(".",":")}'," +
                 $"'{shift.EndTime.ToString("yyyy-MM-dd HH:mm:ss").Replace("\"", "").Replace(".", ":")}'," +
@@ -46,7 +46,9 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
         //Læser et shift objekt fra databasen ved brug af shiftID
         public Shift ReadShift(int shiftId){
             Console.WriteLine("ReadShift");
-            var SQL = $"SELECT * from Shift WHERE ShiftID = {shiftId}";
+            var SQL = $"SELECT shiftid, starttime,endtime,requiredvolunteers, " +
+                $"agemin,hourmultiplier,islocked,shiftname,areaname " +
+                $"from Shift left join area on area.areaid = Shift.areaid";
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
@@ -86,7 +88,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
                 $"agemin={shift.AgeMin}," +
                 $"hourmultiplier='{shift.HourMultiplier.ToString().Replace(",", ".")}'," +
                 $"islocked={shift.IsLocked}," +
-                $"name='{shift.Name}' " +
+                $"shiftname='{shift.Name}' " +
                 $"WHERE shiftid = {shift.ShiftID}";
 
             Console.WriteLine("sql: " + sql);

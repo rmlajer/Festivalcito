@@ -91,25 +91,20 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
         public Person ReadPersonJoinArea(int personId){
 
             Console.WriteLine("ReadPersonJoinArea");
-
-            /*
-            var SQL = $"SELECT personid, assigned, iscoordinator, emailaddress, firstname, lastname, dateofbirth," +
-                $"address, postalcode, city, country, nationality, danishlevel, gender, membershippaid, phonenumber, areaname " +
-                $"FROM public.personlist " +
-                $"INNER JOIN public.assignedlist on personid = assignedperson " +
-                $"INNER JOIN public.area on area.areaid = assignedlist.areaid " +
-                $"WHERE personid = {personId}";
+            var SQL = $"SELECT person.personid, assigned, iscoordinator, emailaddress, firstname, lastname," +
+                $"dateofbirth, address, postalcode, city, country, nationality, danishlevel, gender, membershippaid," +
+                $"phonenumber, areaname " +
+                $"FROM public.person " +
+                $"INNER JOIN public.personassignment on personassignment.personid = person.personid " +
+                $"INNER JOIN public.area on area.areaid = personassignment.areaid where person.personid = {personId}";
             Console.WriteLine(SQL);
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
             Person returnPerson = new Person();
-            using (var connection = new NpgsqlConnection(PGadminConnection))
-            {
+            using (var connection = new NpgsqlConnection(PGadminConnection)){
                 returnPerson = connection.Query<Person>(SQL).First();
                 return returnPerson;
             }
-            */
-            return new Person();
         }
 
 

@@ -14,33 +14,33 @@ namespace Festivalcito.Client.Services.PersonServicesFolder{
         }
 
         public async Task<int> CreatePerson(Person person) {
-            var response = await httpClient.PostAsJsonAsync<Person>("api/person", person);
+            var response = await httpClient.PostAsJsonAsync<Person>("api/person/", person);
             var responseStatusCode = response.StatusCode;
             return (int)responseStatusCode;
         }
         public async Task<Person> ReadPerson(int personId)
         {
-            return (await httpClient.GetFromJsonAsync<Person>("api/person/nojoin/" + personId))!;
+            return (await httpClient.GetFromJsonAsync<Person>("api/person/" + personId))!;
         }
 
         public async Task<Person> ReadPersonJoinArea(int personId)
         {
-            return (await httpClient.GetFromJsonAsync<Person>("api/person/yesjoin/" + personId))!;
+            return (await httpClient.GetFromJsonAsync<Person>("api/person/joinarea/" + personId))!;
         }
 
         public async Task<Person[]?> ReadAllPersons()
         {
-            return await httpClient.GetFromJsonAsync<Person[]>("api/person");
+            return await httpClient.GetFromJsonAsync<Person[]>("api/person/");
         }
         public async Task<int> UpdatePerson(Person person)
         {
-            var response = await httpClient.PutAsJsonAsync<Person>("api/person", person);
+            var response = await httpClient.PutAsJsonAsync<Person>("api/person/", person);
             var responseStatusCode = response.StatusCode;
             return (int)responseStatusCode;
         }
         public async Task<int> DeletePerson(int personID)
         {
-            var response = await httpClient.DeleteAsync("api/person" + personID);
+            var response = await httpClient.DeleteAsync("api/person/" + personID);
             var responseStatusCode = response.StatusCode;
             return (int)responseStatusCode;
         }

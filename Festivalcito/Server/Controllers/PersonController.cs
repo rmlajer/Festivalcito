@@ -6,14 +6,13 @@ using System.Net;
 namespace Festivalcito.Server.Controllers{
 	
     [ApiController]
-    [Route("api/person")]
-    public class PersonController : ControllerBase
-    {
+    [Route("api/person/")]
+    public class PersonController : ControllerBase{
+
         private readonly IPersonRepository Repository = new PersonRepository();
 
 
-        //contructor tjekker om repository er tom og hvis den er, laves et nyt repository 
-
+        //contructor tjekker om repository er tom og hvis den er, laves et nyt
         public PersonController(IPersonRepository personRepository)
         {
             if (Repository == null && personRepository != null)
@@ -34,7 +33,6 @@ namespace Festivalcito.Server.Controllers{
 
         // Kalder ReadPerson i PersonRepository
         //Den kaldte metode henter specifik Person fra DB baseret på PersonID
-        [Route("/nojoin/")]
         [HttpGet("{id:int}")]
         public Person ReadPerson(int id)
         {
@@ -42,13 +40,11 @@ namespace Festivalcito.Server.Controllers{
             return Repository.ReadPerson(id);
         }
 
-
-        [Route("/yesjoin/")]
-        [HttpGet("{id:int}")]
+        [HttpGet("joinarea/{id:int}")]
         public Person ReadPersonJoinArea(int id)
         {
             Console.WriteLine("Controller - ReadPersonJoinArea");
-            Console.WriteLine();
+            Console.WriteLine("id : " + id);
             return Repository.ReadPersonJoinArea(id);
         }
 
@@ -79,14 +75,12 @@ namespace Festivalcito.Server.Controllers{
             Console.WriteLine("Server: Delete item called: id = " + id);
 
             bool deleted = Repository.DeletePerson(id);
-            if (deleted)
-            {
+            if (deleted){
                 Console.WriteLine("Server: Item deleted succces");
                 int code = (int)HttpStatusCode.OK;
                 return new StatusCodeResult(code);
             }
-            else
-            {
+            else{
                 Console.WriteLine("Server: Item deleted fail - not found");
                 int code = (int)HttpStatusCode.NotFound;
                 return new StatusCodeResult(code);

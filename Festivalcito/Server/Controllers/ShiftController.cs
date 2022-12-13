@@ -13,15 +13,14 @@ namespace Festivalcito.Server.Controllers{
 
     [ApiController]
     [Route("api/shift")]
-    public class ShiftController : ControllerBase
-    {
+    public class ShiftController : ControllerBase{
+
         private readonly IShiftRepository Repository = new ShiftRepository();
 
 
         //contructor tjekker om repository er tom og hvis den er, laves et nyt repository 
 
-        public ShiftController(IShiftRepository shelterRepository)
-        {
+        public ShiftController(IShiftRepository shelterRepository){
             if (Repository == null && shelterRepository != null)
             {
                 Repository = shelterRepository;
@@ -32,8 +31,7 @@ namespace Festivalcito.Server.Controllers{
         // Kalder CreateShift i ShiftRepository
         // Opretter Shift i DB
         [HttpPost]
-        public void CreateShift(Shift shift)
-        {
+        public void CreateShift(Shift shift){
             Console.WriteLine("Controller - " + shift.Name);
             Repository.CreateShift(shift);
         }
@@ -41,25 +39,29 @@ namespace Festivalcito.Server.Controllers{
         // Kalder ReadShift i ShiftRepository
         //Den kaldte metode henter specifik Shift fra DB baseret på ShiftID
         [HttpGet("{id:int}")]
-        public Shift ReadShift(int id)
-        {
+        public Shift ReadShift(int id){
             return Repository.ReadShift(id);
+        }
+
+        [HttpGet("joinarea/{id:int}")]
+        public Person ReadShiftJoinArea(int id)
+        {
+            Console.WriteLine("Controller - ReadShiftJoinArea");
+            return Repository.ReadPersonJoinArea(id);
         }
 
 
         //Kalder ReadAllShift i ShiftRepository
         // Henter alle Shifts fra DB
         [HttpGet]
-        public IEnumerable<Shift> ReadAllShifts()
-        {
+        public IEnumerable<Shift> ReadAllShifts(){
             return Repository.ReadAllShifts();
         }
 
         // Kalder UpdateShift i ShiftRepository
         // Opdaterer Shift i DB - Alle kolonner i en række bliver opdateret
         [HttpPut]
-        public void UpdateShift(Shift shift)
-        {
+        public void UpdateShift(Shift shift){
             Repository.UpdateShift(shift);
         }
 
@@ -67,8 +69,7 @@ namespace Festivalcito.Server.Controllers{
         // Kalder DeleteShift i ShiftRepository
         // Sletter specifik Shift på ID i DB
         [HttpDelete("{id:int}")]
-        public StatusCodeResult DeleteShift(int id)
-        {
+        public StatusCodeResult DeleteShift(int id){
             Console.WriteLine("Server: Delete item called: id = " + id);
 
             bool deleted = Repository.DeleteShift(ShiftID: id);
