@@ -17,7 +17,7 @@ namespace Festivalcito.Server.Models.ShiftAssignedRepositoryFolder
             //Tager et ShiftAssigned object og indsætter via SQL statement i vores database
             //Formatere time og float for at det passer med postgreSQL
             Console.WriteLine("CreateShiftAssigned - Repository");
-            var sql = $"INSERT INTO public.shiftAssignedList(" +
+            var sql = $"INSERT INTO public.ShiftAssignment(" +
                 $"shiftid, assignmentid)" +
                 $"VALUES (" +
                 $"{shiftAssigned.ShiftId}," +
@@ -43,7 +43,7 @@ namespace Festivalcito.Server.Models.ShiftAssignedRepositoryFolder
         public ShiftAssigned ReadShiftAssigned(int shiftAssignedListId)
         {
             Console.WriteLine("ReadShiftAssigned");
-            var SQL = $"SELECT * from public.ShiftAssignedList WHERE ShiftAssignedListid = {shiftAssignedListId}";
+            var SQL = $"SELECT * from public.ShiftAssignment WHERE ShiftAssignmentid = {shiftAssignedListId}";
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
@@ -57,7 +57,7 @@ namespace Festivalcito.Server.Models.ShiftAssignedRepositoryFolder
         public List<ShiftAssigned> ReadAllShiftAssigned()
         {
             Console.WriteLine("ReadAllShiftAssigned");
-            var SQL = "SELECT  * FROM public.ShiftAssignedList;";
+            var SQL = "SELECT  * FROM public.ShiftAssignment;";
             List<ShiftAssigned> returnList = new List<ShiftAssigned>();
 
             //Isolere "var connection" fra resten af scope ved brug af using
@@ -74,7 +74,7 @@ namespace Festivalcito.Server.Models.ShiftAssignedRepositoryFolder
         public bool DeleteShiftAssigned(int shiftAssignedListId)
         {
             Console.WriteLine("DeleteShiftAssigned");
-            var sql = $"DELETE FROM public.ShiftAssignedList WHERE ShiftAssignedListid = {shiftAssignedListId}";
+            var sql = $"DELETE FROM public.ShiftAssignment WHERE ShiftAssignmentid = {shiftAssignedListId}";
 
 
             //Isolere "var connection" fra resten af scope ved brug af using

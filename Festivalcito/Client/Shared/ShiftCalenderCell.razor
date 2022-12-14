@@ -1,0 +1,21 @@
+﻿@using Festivalcito.Shared.Classes;
+
+<tr>
+    <td>
+        <div>
+            @shift.areaName
+            <br />
+            @shift.StartTime
+            <br />
+            @shift.EndTime
+            <br />
+        </div>
+    </td>
+</tr>
+@code {
+    [Parameter]
+    public Shift shift { get; set; }
+
+
+
+}

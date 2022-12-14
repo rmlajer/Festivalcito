@@ -3,6 +3,10 @@
 
 <h1>Coordinator_VolunteerPage info</h1>
 
+<span>Email</span>
+<input @bind="@emailInput" />
+<button onclick="@(() => getUserInfo(emailInput))">Get info</button>
+
 <div style="width: 100%;">
     <div style="width: 50%; height: 100px; float: left;">
         <EditForm EditContext="@EditContext" class="row p-1"

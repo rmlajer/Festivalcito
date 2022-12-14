@@ -32,7 +32,7 @@ namespace Festivalcito.Server.Controllers{
         // Opretter Shift i DB
         [HttpPost]
         public void CreateShift(Shift shift){
-            Console.WriteLine("Controller - " + shift.Name);
+            Console.WriteLine("Controller - " + shift.ShiftName);
             Repository.CreateShift(shift);
         }
 
@@ -41,13 +41,6 @@ namespace Festivalcito.Server.Controllers{
         [HttpGet("{id:int}")]
         public Shift ReadShift(int id){
             return Repository.ReadShift(id);
-        }
-
-        [HttpGet("joinarea/{id:int}")]
-        public Person ReadShiftJoinArea(int id)
-        {
-            Console.WriteLine("Controller - ReadShiftJoinArea");
-            return Repository.ReadPersonJoinArea(id);
         }
 
 

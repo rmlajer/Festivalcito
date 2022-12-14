@@ -24,7 +24,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
                 $"{shift.AgeMin}," +
                 $"'{shift.HourMultiplier.ToString().Replace(",",".")}'," +
                 $"{shift.IsLocked}," +
-                $"'{shift.Name}')";
+                $"'{shift.ShiftName}')";
             Console.WriteLine("sql: " + sql);
 
             //Isolere "var connection" fra resten af scope ved brug af using
@@ -48,7 +48,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
             Console.WriteLine("ReadShift");
             var SQL = $"SELECT shiftid, starttime,endtime,requiredvolunteers, " +
                 $"agemin,hourmultiplier,islocked,shiftname,areaname " +
-                $"from Shift left join area on area.areaid = Shift.areaid";
+                $"from Shift INNER JOIN area on area.areaid = Shift.areaid WHERE shiftid = {shiftId}";
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
@@ -63,7 +63,9 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
         //Læser alle shifts objekter fra databasen
         public List<Shift> ReadAllShifts() { 
             Console.WriteLine("ReadAllShifts");
-            var SQL = "SELECT  * FROM public.shift;";
+            var SQL = $"SELECT shiftid, starttime,endtime,requiredvolunteers, " +
+                $"agemin,hourmultiplier,islocked,shiftname,areaname " +
+                $"from Shift INNER JOIN area on area.areaid = Shift.areaid";
             List<Shift> returnList = new List<Shift>();
 
             //Isolere "var connection" fra resten af scope ved brug af using
@@ -88,7 +90,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
                 $"agemin={shift.AgeMin}," +
                 $"hourmultiplier='{shift.HourMultiplier.ToString().Replace(",", ".")}'," +
                 $"islocked={shift.IsLocked}," +
-                $"shiftname='{shift.Name}' " +
+                $"shiftname='{shift.ShiftName}' " +
                 $"WHERE shiftid = {shift.ShiftID}";
 
             Console.WriteLine("sql: " + sql);

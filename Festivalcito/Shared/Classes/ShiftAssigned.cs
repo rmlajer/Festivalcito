@@ -8,7 +8,7 @@ namespace Festivalcito.Shared.Classes{
 
     public class ShiftAssigned{
 
-        public int ShiftAssignedlistId { get; set; }
+        public int ShiftAssignmentid { get; set; }
         public int? ShiftId { get; set; }
         public int? AssignmentId { get; set; }
 

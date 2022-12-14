@@ -17,7 +17,7 @@ public bool CreateAssigned(Assigned Assigned)
 {
     //Tager et assigned Assigned object og indsætter via SQL statement i vores database
     Console.WriteLine("CreateAssigned - Repository");
-    var sql = $"INSERT INTO public.assignedList(" +
+    var sql = $"INSERT INTO public.personassignment(" +
         $"AssignedPerson, AreaId)" +
         $"VALUES (" +
        $" { Assigned.AssignedPerson}," +
@@ -43,7 +43,7 @@ public bool CreateAssigned(Assigned Assigned)
 public Assigned ReadAssigned(int AssignmentId)
 {
     Console.WriteLine("ReadAssigned");
-    var SQL = $"SELECT * from public.assignedList WHERE AssignedListid = {AssignmentId}";
+    var SQL = $"SELECT * from public.personassignment WHERE personassignmentid = {AssignmentId}";
 
     //Isolere "var connection" fra resten af scope ved brug af using
     //forsøger at eksikvere sql statement mod database
@@ -57,7 +57,7 @@ public Assigned ReadAssigned(int AssignmentId)
 public List<Assigned> ReadAllAssigned()
 {
     Console.WriteLine("ReadAllAssigned");
-    var SQL = "SELECT  * FROM public.assignedList;";
+    var SQL = "SELECT  * FROM public.personassignment;";
     List<Assigned> returnList = new List<Assigned>();
 
     //Isolere "var connection" fra resten af scope ved brug af using
@@ -74,7 +74,7 @@ public List<Assigned> ReadAllAssigned()
 public bool DeleteAssigned(int AssignedListId)
 {
     Console.WriteLine("DeleteAssigned");
-    var sql = $"DELETE FROM public.assignedList WHERE AssignedListid = {AssignedListId}";
+    var sql = $"DELETE FROM public.personassignment WHERE personassignmentid = {AssignedListId}";
 
 
     //Isolere "var connection" fra resten af scope ved brug af using

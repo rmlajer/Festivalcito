@@ -11,17 +11,16 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
         }    
         
 
-        public bool CreatePerson(Person person)
-        {
+        public bool CreatePerson(Person person){
             //Tager et Person object og indsætter via SQL statement i vores database
             //Formatere DateOfBirth for at det passer med postgreSQL 
             Console.WriteLine("CreatePerson - Repository");
-            var sql = $"INSERT INTO public.personlist" +
-                $"(assigned, iscoordinator, emailadress, firstname, lastname, dateofbirth," +
+            var sql = $"INSERT INTO public.person" +
+                $"(assigned, iscoordinator, emailaddress, firstname, lastname, dateofbirth," +
                 $"address, postalcode, city, country, nationality, danishlevel, gender, membershippaid, phonenumber)" +
                 $"VALUES (" +
-                $"  {person.Assigned}," +
-                $"  {person.IsCoordinator}," +
+                $"  false," +
+                $"  false," +
                 $" '{person.EmailAddress}', " +
                 $" '{person.FirstName}'," +
                 $" '{person.LastName}'," +
@@ -33,8 +32,8 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
                 $" '{person.Nationality}'," +
                 $"  {person.DanishLevel}, " +
                 $" '{person.Gender}', " +
-                $" {person.MembershipPaid}" +
-                $" {person.PhoneNumber})";
+                $" false, " +
+                $" '{person.PhoneNumber}')";
 
             Console.WriteLine("sql: " + sql);
 
@@ -58,10 +57,9 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
 
 
         //Læser et Person objekt fra databasen ved brug af personID
-        public Person ReadPerson(int personId)
-        {
+        public Person ReadPerson(int personId){
             Console.WriteLine("ReadPerson");
-            var SQL = $"SELECT * from public.personlist WHERE personID = {personId}";
+            var SQL = $"SELECT * from public.person WHERE personID = {personId}";
             Console.WriteLine(SQL);
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
@@ -76,7 +74,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
         public Person ReadPersonEmail(string email)
         {
             Console.WriteLine("Repository - ReadPerson");
-            var SQL = $"SELECT * from public.personlist WHERE emailaddress ilike '{email}'";
+            var SQL = $"SELECT * from public.person WHERE emailaddress ilike '{email}'";
             Console.WriteLine(SQL);
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
@@ -98,13 +96,26 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
                 $"INNER JOIN public.personassignment on personassignment.personid = person.personid " +
                 $"INNER JOIN public.area on area.areaid = personassignment.areaid where person.personid = {personId}";
             Console.WriteLine(SQL);
+
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            Person returnPerson = new Person();
-            using (var connection = new NpgsqlConnection(PGadminConnection)){
-                returnPerson = connection.Query<Person>(SQL).First();
-                return returnPerson;
+            
+            try
+            {
+                Person returnPerson = new Person();
+                using (var connection = new NpgsqlConnection(PGadminConnection))
+                {
+                    returnPerson = connection.Query<Person>(SQL).First();
+                    return returnPerson;
+                }
             }
+            catch (Exception e)
+            {
+                Person returnPersonError = new Person();
+                returnPersonError.areaName = e.Message;
+                return returnPersonError;
+            }
+            
         }
 
 
@@ -112,7 +123,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
         public List<Person> ReadAllPersons()
         {
             Console.WriteLine("ReadAllPersons");
-            var SQL = "SELECT  * FROM public.personlist;";
+            var SQL = "SELECT  * FROM public.person";
             List<Person> returnList = new List<Person>();
 
             //Isolere "var connection" fra resten af scope ved brug af using
@@ -129,7 +140,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
         public List<Person> ReadAllAssignedPersons()
         {
             Console.WriteLine("ReadAllPersons");
-            var SQL = "SELECT  * FROM public.personlist";
+            var SQL = "SELECT  * FROM public.person";
             List<Person> returnList = new List<Person>();
 
             //Isolere "var connection" fra resten af scope ved brug af using
@@ -146,11 +157,10 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
 
 
         //Overskriver et entry i tablen Person med det nye objeckt Person af klassen Person
-        public bool UpdatePerson(Person person)
-        {
+        public bool UpdatePerson(Person person){
 
             Console.WriteLine("UpdatePerson");
-            var sql = $"UPDATE public.personlist SET " +
+            var sql = $"UPDATE public.person SET " +
                 $"assigned= {person.Assigned}, " +
                 $"iscoordinator = {person.IsCoordinator}, " +
                 $"emailaddress = '{person.EmailAddress}', " +
@@ -195,7 +205,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
         {
 
             Console.WriteLine("DeletePerson");
-            var sql = $"DELETE FROM public.personlist WHERE personid = {personId}";
+            var sql = $"DELETE FROM public.person WHERE personid = {personId}";
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database

@@ -19,25 +19,33 @@ namespace Festivalcito.Client.Pages{
 
         private EditContext? EditContext;
 
-        public Coordinator_VolunteerPage()
-		{
+        public Coordinator_VolunteerPage(){
 		}
 
-        protected override void OnInitialized()
-        {
+        protected override void OnInitialized(){
             base.OnInitialized();
             //PersonValidation.area = new Area();
             EditContext = new EditContext(PersonValidation);
         }
 
-        private void HandleValidSubmit()
-        {
+        private void HandleValidSubmit(){
 
         }
 
-        private void HandleInvalidSubmit()
-        {
+        private void HandleInvalidSubmit(){
             Console.WriteLine("HandleInvalidSubmit Called...");
+        }
+
+        public void getUserInfo(string email){
+            foreach (Person person in listOfAllPeople)
+            {
+                Console.WriteLine(person.ToString());
+                if (person.EmailAddress!.ToLower() == emailInput.ToLower())
+                {
+                    PersonValidation = person;
+                }
+            }
+            Console.WriteLine(PersonValidation.ToString());
         }
     }
 }

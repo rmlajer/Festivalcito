@@ -2,40 +2,95 @@
 <h1>Welcome to the registration / loginPage</h1>
 
 
-<div>
-    <div style="width: 100%;">
-        <div style="width: 50%; height: 500px; float: left; background-color:lightgray">
 
-        </div>
-        
-        <div style="margin-left: 50%; height: 500px; background-color:lightskyblue">
-            <EditForm EditContext="EditContextLogin">
-                <div class="form-group">
-                    
-                    <div class="w-50">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" @bind="@LoginValidation.UserEmail" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+
+<div style="display: flex">
+    <div style="flex: 70%;background-color:lightskyblue;height:600px">
+        <h1 style="height:50px">Registration</h1>
+        <div style="display: flex; height: 650px">
+            <div style="flex: 50%;">
+                <EditForm EditContext="EditContextRegistration">
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">First name</label>
+                        <input @bind="@PersonValidation.FirstName" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Bob">
                     </div>
-                    
-                </div>
-                <div class="form-group">
-                    <div class="w-50">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" @bind="@LoginValidation.HashedPassword" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">Address</label>
+                        <input @bind="@PersonValidation.Address" type="text" class="form-control" id="exampleFormControlInput1" placeholder="street 1">
                     </div>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </EditForm>
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">Postal code</label>
+                        <input @bind="@PersonValidation.PostalCode" type="email" class="form-control" id="exampleFormControlInput1" placeholder="8000">
+                    </div>
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">Date of birth</label>
+                        <input @bind="@PersonValidation.DateOfBirth" type="date" class="form-control" id="exampleFormControlInput1">
+                    </div>
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">Country</label>
+                        <input @bind="@PersonValidation.Country" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Denmark">
+                    </div>
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">Danish level</label>
+                        <input @bind="@PersonValidation.DanishLevel" type="email" class="form-control" id="exampleFormControlInput1" placeholder="3">
+                    </div>
+                </EditForm>
+            </div>
+            <div style="flex: 50%;height:650px">
+                <EditForm EditContext="EditContextRegistration">
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">Last name</label>
+                        <input @bind="@PersonValidation.LastName" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Marly">
+                    </div>
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                        <input @bind="@PersonValidation.EmailAddress" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                    </div>
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">City</label>
+                        <input @bind="@PersonValidation.City" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Los Angeles">
+                    </div>
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">Gender</label>
+                        <input @bind="@PersonValidation.Gender" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Male">
+                    </div>
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">Nationality</label>
+                        <input @bind="@PersonValidation.Nationality" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Danish">
+                    </div>
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">Phone number</label>
+                        <input @bind="@PersonValidation.PhoneNumber" type="email" class="form-control" id="exampleFormControlInput1" placeholder="8888 8888">
+                    </div>
+                </EditForm>
+                <button @onclick="@submitClicked">Submit application</button>
+            </div>
+            
         </div>
     </div>
+    <div style="flex: 30%; background-color: lightsalmon; height: 500px">
+        <h1>Login</h1>
+        <EditForm EditContext="EditContextLogin">
+            <div class="form-group" style="width: 100%; ">
+
+                <div class="w-50">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" @bind="@LoginValidation.UserEmail" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="w-50">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" @bind="@LoginValidation.HashedPassword" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                </div>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </EditForm>
+    </div>
 </div>
-
-
-
-
-

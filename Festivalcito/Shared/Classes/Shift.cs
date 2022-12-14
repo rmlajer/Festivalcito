@@ -4,7 +4,7 @@ namespace Festivalcito.Shared.Classes {
     public class Shift
 	{
         public int ShiftID { get; set; }
-        public string? Name { get; set; }
+        public string? ShiftName { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public int RequiredVolunteers { get; set; }
@@ -17,6 +17,11 @@ namespace Festivalcito.Shared.Classes {
         public Shift()
 		{
 		}
-	}
+
+        public override string ToString()
+        {
+            return $"ShiftID: {ShiftID}, Name: {ShiftName}, areaName: {areaName}";
+        }
+    }
 }
 
