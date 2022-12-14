@@ -1,4 +1,5 @@
 ﻿@page "/volunteerPage"
+@inject Blazored.LocalStorage.ILocalStorageService localStore
 @using Festivalcito.Shared.Classes;
 
 <h1>Volunteer info</h1>
@@ -7,21 +8,18 @@
 <div style="height:600px;background-color:lightgoldenrodyellow">
     <table style="width:100%;text-align:center">
         <tr>
-            <th style="width:33%">Fredag</th>
-            <th style="width:33%">Lørdag</th>
-            <th style="width:33%">Søndag</th>
+            <th style="width:33%">Friday</th>
+            <th style="width:33%">Saturday</th>
+            <th style="width:33%">Sunday</th>
         </tr>
-        @foreach (Shift shift in ListOfPersonAreaShifts){
-                <ShiftCalenderCell shift="@shift" />
-            }
-        </table>
+        @foreach (Shift shift in ListOfPersonAreaShifts)
+        {
+                shift.calculateShiftPoints();
+            <ShiftCalenderCell shift="@shift" takeShiftCallback="TakeShiftClicked" />
+        }
+    </table>
 </div>
 
-
-
-<span>Email</span>
-<input @bind="@emailInput" />
-<button onclick="@(() => getUserInfo(emailInput))">Get info</button>
 <div style="width: 100%;background-color:lightcoral">
     <EditForm EditContext="@EditContext" class="row p-1"
               OnValidSubmit="@HandleValidSubmit"

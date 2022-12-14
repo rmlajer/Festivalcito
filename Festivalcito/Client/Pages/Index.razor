@@ -1,11 +1,11 @@
 ﻿@page "/"
 @using Festivalcito.Client.Services.ShiftServicesFolder;
-@using Festivalcito.Client.Services.ShiftAssignedServicesFolder;
+@using Festivalcito.Client.Services.ShiftAssignmentServicesFolder;
 @using Festivalcito.Client.Services.PersonServicesFolder;
+@using Festivalcito.Client.Services.PersonAssignmentServicesFolder;
 @using Festivalcito.Client.Services.AreaServicesFolder;
-
-@using Festivalcito.Client.Services.AssignedServicesFolder;
 @using Festivalcito.Shared.Classes;
+@inject Blazored.LocalStorage.ILocalStorageService localStore
 
 
 <h1>Hello, world!</h1>
@@ -35,24 +35,26 @@
     public IShiftService? ShiftService { get; set; }
 
     [Inject]
-    public IShiftAssignedService? ShiftAssignedService { get; set; }
+    public IShiftAssignmentService? ShiftAssignmentService { get; set; }
 
     [Inject]
     public IPersonService? PersonService { get; set; }
 
     [Inject]
-    public IAssignedService? AssignedService { get; set; }
+    public IPersonAssignmentService? PersonAssignmentService { get; set; }
 
 
     private List<Shift> ShiftsList = new List<Shift>();
-    private List<ShiftAssigned> ShiftAssignedList = new List<ShiftAssigned>();
+    private List<ShiftAssignment> ShiftAssignedList = new List<ShiftAssignment>();
     private List<Person> PersonList = new List<Person>();
     private List<Area> AreaList = new List<Area>();
-    private List<Assigned> assignedList = new List<Assigned>();
+    private List<PersonAssignment> assignedList = new List<PersonAssignment>();
 
 
     protected override async Task OnInitializedAsync()
     {
+
+        await localStore.SetItemAsync("loggedInUserId", "bob@mail.com");
         /*
         ShiftsList = (await ShiftService!.ReadAllShifts())!.ToList();
 
@@ -123,15 +125,15 @@
         //await AreaService!.CreateArea(newArea);
         //await AreaService!.UpdateArea(newArea);
         await AreaService!.DeleteArea(1);
-            
 
-        
+
+
         ShiftAssigned newShiftAssigned = new ShiftAssigned();
         ShiftAssigned tmpShiftAssigned = new ShiftAssigned();
         newShiftAssigned.ShiftId = 1;
         newShiftAssigned.AssignmentId = 3;
         await ShiftAssignedService!.CreateShiftAssigned(newShiftAssigned);
-        
+
         Assigned x = new Assigned();
 
 
@@ -155,4 +157,4 @@
 
 
 
-    }
+}

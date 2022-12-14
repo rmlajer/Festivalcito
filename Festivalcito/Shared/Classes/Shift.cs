@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Festivalcito.Shared.Classes {
 
     public class Shift
@@ -14,9 +15,15 @@ namespace Festivalcito.Shared.Classes {
 
         public string? areaName { get; set; }
 
+        public float? shiftPoints { get; set; }
+
         public Shift()
 		{
 		}
+
+        public void calculateShiftPoints(){
+            this.shiftPoints = Convert.ToSingle(Math.Round((EndTime.Subtract(StartTime).TotalHours) * HourMultiplier, 1));
+         }
 
         public override string ToString()
         {

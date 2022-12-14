@@ -1,9 +1,9 @@
 using Festivalcito.Server.Models.ShiftRepositoryFolder;
-using Festivalcito.Server.Models.ShiftAssignedRepositoryFolder;
+using Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder;
 using Festivalcito.Server.Models.AreaRepositoryFolder;
 using Festivalcito.Server.Models.PersonRepositoryFolder;
 using Microsoft.AspNetCore.ResponseCompression;
-using Festivalcito.Server.Models.AssignedRepositoryFolder;
+using Festivalcito.Server.Models.PersonAssignmentRepositoryFolder;
 using Festivalcito.Server.Models;
 
 
@@ -17,8 +17,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IShiftRepository, ShiftRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IAreaRepository, AreaRepository>();
-builder.Services.AddScoped<IShiftAssignedRepository, ShiftAssignedRepository>();
-builder.Services.AddScoped<IAssignedRepository, AssignedRepository>();
+builder.Services.AddScoped<IShiftAssignmentRepository, ShiftAssignmentRepository>();
+builder.Services.AddScoped<IPersonAssignmentRepository, PersonAssignmentRepository>();
 
 var app = builder.Build();
 

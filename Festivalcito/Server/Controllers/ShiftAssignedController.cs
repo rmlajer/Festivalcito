@@ -1,4 +1,4 @@
-﻿using Festivalcito.Server.Models.ShiftAssignedRepositoryFolder;
+﻿using Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder;
 using Festivalcito.Shared.Classes;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -14,12 +14,12 @@ namespace Festivalcito.Server.Controllers
 
     public class ShiftAssignedController : ControllerBase
     {
-        private readonly IShiftAssignedRepository Repository = new ShiftAssignedRepository();
+        private readonly IShiftAssignmentRepository Repository = new ShiftAssignmentRepository();
 
 
         //contructor tjekker om repository er tom og hvis den er, laves et nyt repository 
 
-        public ShiftAssignedController(IShiftAssignedRepository shiftAssignedRepository)
+        public ShiftAssignedController(IShiftAssignmentRepository shiftAssignedRepository)
         {
             if (Repository == null && shiftAssignedRepository != null)
             {
@@ -31,7 +31,7 @@ namespace Festivalcito.Server.Controllers
         // Kalder CreateShiftAssigned i ShiftAssignedRepository
         // Opretter ShiftAssigned i DB
         [HttpPost]
-        public void CreateArea(ShiftAssigned shiftAssigned)
+        public void CreateArea(ShiftAssignment shiftAssigned)
         {
 
             Repository.CreateShiftAssigned(shiftAssigned);
@@ -40,7 +40,7 @@ namespace Festivalcito.Server.Controllers
         // Kalder ReadShiftAssigned i ShiftAssignedRepository
         //Den kaldte metode henter specifik ShiftAssigned fra DB baseret på ShiftAssignedID
         [HttpGet("{id:int}")]
-        public ShiftAssigned ReadShiftAssigned(int id)
+        public ShiftAssignment ReadShiftAssigned(int id)
         {
             return Repository.ReadShiftAssigned(id);
         }
@@ -49,7 +49,7 @@ namespace Festivalcito.Server.Controllers
         //Kalder ReadAllShiftAssigned i ShiftAssignedRepository
         // Henter alle ShiftAssigned fra DB
         [HttpGet]
-        public IEnumerable<ShiftAssigned> ReadAllShiftAssigned()
+        public IEnumerable<ShiftAssignment> ReadAllShiftAssigned()
         {
             return Repository.ReadAllShiftAssigned();
         }

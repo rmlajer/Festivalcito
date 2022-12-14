@@ -1,4 +1,4 @@
-﻿using Festivalcito.Server.Models.AssignedRepositoryFolder;
+﻿using Festivalcito.Server.Models.PersonAssignmentRepositoryFolder;
 using Festivalcito.Shared.Classes;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -12,14 +12,14 @@ namespace Festivalcito.Server.Controllers
     [Route("api/assigned")]
 
 
-    public class AssignedController : ControllerBase
+    public class PersonAssignmentController : ControllerBase
     {
-        private readonly IAssignedRepository Repository = new AssignedRepository();
+        private readonly IPersonAssignmentRepository Repository = new PersonAssignmentRepository();
 
 
         //contructor tjekker om repository er tom og hvis den er, laves et nyt repository 
 
-        public AssignedController(IAssignedRepository AssignedRepository)
+        public PersonAssignmentController(IPersonAssignmentRepository AssignedRepository)
         {
             if (Repository == null && AssignedRepository != null)
             {
@@ -31,7 +31,7 @@ namespace Festivalcito.Server.Controllers
         // Kalder CreateAssigned i AssignedRepository
         // Opretter Assigned i DB
         [HttpPost]
-        public void CreateArea(Assigned Assigned)
+        public void CreateArea(PersonAssignment Assigned)
         {
 
             Repository.CreateAssigned(Assigned);
@@ -40,7 +40,7 @@ namespace Festivalcito.Server.Controllers
         // Kalder ReadAssigned i tAssignedRepository
         //Den kaldte metode henter specifik Assigned fra DB baseret på SAssignedID
         [HttpGet("{id:int}")]
-        public Assigned ReadAssigned(int id)
+        public PersonAssignment ReadAssigned(int id)
         {
             return Repository.ReadAssigned(id);
         }
@@ -49,7 +49,7 @@ namespace Festivalcito.Server.Controllers
         //Kalder ReadAllAssigned i AssignedRepository
         // Henter alle Assigned fra DB
         [HttpGet]
-        public IEnumerable<Assigned> ReadAllAssigned()
+        public IEnumerable<PersonAssignment> ReadAllAssigned()
         {
             return Repository.ReadAllAssigned();
         }

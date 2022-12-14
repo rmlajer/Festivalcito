@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace Festivalcito.Shared.Classes{
 
-    public class ShiftAssigned{
+    public class ShiftAssignment
+    {
 
         public int ShiftAssignmentid { get; set; }
         public int? ShiftId { get; set; }
-        public int? AssignmentId { get; set; }
+        public int? personassignmentid { get; set; }
 
-        public ShiftAssigned()
+        public ShiftAssignment()
         {
         }
     }

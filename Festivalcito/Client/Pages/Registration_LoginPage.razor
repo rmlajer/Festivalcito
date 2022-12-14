@@ -1,4 +1,6 @@
 ﻿@page "/Registration_LoginPage"
+@inject Blazored.LocalStorage.ILocalStorageService localStore
+
 <h1>Welcome to the registration / loginPage</h1>
 
 
@@ -65,7 +67,7 @@
                 </EditForm>
                 <button @onclick="@submitClicked">Submit application</button>
             </div>
-            
+
         </div>
     </div>
     <div style="flex: 30%; background-color: lightsalmon; height: 500px">
@@ -90,7 +92,7 @@
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button @onclick="@LoginSubmitClicked" class="btn btn-primary">Login</button>
         </EditForm>
     </div>
 </div>

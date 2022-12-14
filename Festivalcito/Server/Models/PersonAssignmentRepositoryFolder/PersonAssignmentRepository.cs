@@ -3,25 +3,25 @@ using Dapper;
 using Festivalcito.Shared.Classes;
 using Npgsql;
 
-namespace Festivalcito.Server.Models.AssignedRepositoryFolder
+namespace Festivalcito.Server.Models.PersonAssignmentRepositoryFolder
 {
-    public class AssignedRepository : GlobalConnections, IAssignedRepository
+    public class PersonAssignmentRepository : GlobalConnections, IPersonAssignmentRepository
     { 
-        public AssignedRepository()
+        public PersonAssignmentRepository()
         {
         }
 
 
 
-public bool CreateAssigned(Assigned Assigned)
+public bool CreateAssigned(PersonAssignment personAssignment)
 {
     //Tager et assigned Assigned object og indsætter via SQL statement i vores database
     Console.WriteLine("CreateAssigned - Repository");
     var sql = $"INSERT INTO public.personassignment(" +
         $"AssignedPerson, AreaId)" +
         $"VALUES (" +
-       $" { Assigned.AssignedPerson}," +
-        $"'{Assigned.AreaId}')";
+       $" {personAssignment.AssignedPerson}," +
+        $"'{personAssignment.AreaId}')";
     Console.WriteLine("sql: " + sql);
 
     //Isolere "var connection" fra resten af scope ved brug af using
@@ -40,31 +40,31 @@ public bool CreateAssigned(Assigned Assigned)
         }
     }
 }
-public Assigned ReadAssigned(int AssignmentId)
+public PersonAssignment ReadAssigned(int AssignmentId)
 {
     Console.WriteLine("ReadAssigned");
     var SQL = $"SELECT * from public.personassignment WHERE personassignmentid = {AssignmentId}";
 
-    //Isolere "var connection" fra resten af scope ved brug af using
-    //forsøger at eksikvere sql statement mod database
-    Assigned returnAssigned = new Assigned();
+            //Isolere "var connection" fra resten af scope ved brug af using
+            //forsøger at eksikvere sql statement mod database
+            PersonAssignment returnAssigned = new PersonAssignment();
     using (var connection = new NpgsqlConnection(PGadminConnection))
     {
-        returnAssigned = connection.Query<Assigned>(SQL).First();
+        returnAssigned = connection.Query<PersonAssignment>(SQL).First();
         return returnAssigned;
     }
 }
-public List<Assigned> ReadAllAssigned()
+public List<PersonAssignment> ReadAllAssigned()
 {
     Console.WriteLine("ReadAllAssigned");
     var SQL = "SELECT  * FROM public.personassignment;";
-    List<Assigned> returnList = new List<Assigned>();
+    List<PersonAssignment> returnList = new List<PersonAssignment>();
 
     //Isolere "var connection" fra resten af scope ved brug af using
     //forsøger at eksikvere sql statement mod database
     using (var connection = new NpgsqlConnection(PGadminConnection))
     {
-        returnList = connection.Query<Assigned>(SQL).ToList();
+        returnList = connection.Query<PersonAssignment>(SQL).ToList();
 
     }
 

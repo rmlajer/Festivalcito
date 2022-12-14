@@ -74,16 +74,37 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
         public Person ReadPersonEmail(string email)
         {
             Console.WriteLine("Repository - ReadPerson");
-            var SQL = $"SELECT * from public.person WHERE emailaddress ilike '{email}'";
-            Console.WriteLine(SQL);
+            var SQLJoinArea = $"SELECT person.personid, assigned, iscoordinator, emailaddress, firstname, lastname," +
+                $"dateofbirth, address, postalcode, city, country, nationality, danishlevel, gender, membershippaid," +
+                $"phonenumber, areaname " +
+                $"FROM public.person " +
+                $"INNER JOIN public.personassignment on personassignment.personid = person.personid " +
+                $"INNER JOIN public.area on area.areaid = personassignment.areaid where person.emailaddress = '{email}'";
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
             Person returnPerson = new Person();
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            try
             {
-                returnPerson = connection.Query<Person>(SQL).First();
-                return returnPerson;
+                using (var connection = new NpgsqlConnection(PGadminConnection))
+                {
+                    returnPerson = connection.Query<Person>(SQLJoinArea).First();
+                    Console.WriteLine(SQLJoinArea);
+                    return returnPerson;
+                }
+                
             }
+            catch
+            {
+                var SQL = $"SELECT * from public.person WHERE emailaddress ilike '{email}'";
+                using (var connection = new NpgsqlConnection(PGadminConnection))
+                {
+                    returnPerson = connection.Query<Person>(SQL).First();
+                    Console.WriteLine(SQL);
+                    return returnPerson;
+                }
+                
+            }
+            
         }
 
         public Person ReadPersonJoinArea(int personId){

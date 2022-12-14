@@ -1,21 +1,31 @@
 ﻿@using Festivalcito.Shared.Classes;
+@using Festivalcito.Client.Pages;
+@namespace Festivalcito.Client.Shared
 
 <tr>
     <td>
-        <div>
-            @shift.areaName
+        <div style="background-color:lightsalmon">
+            ShiftName
+            @shift!.ShiftName
             <br />
-            @shift.StartTime
+            StartTime
+            @shift!.StartTime
             <br />
-            @shift.EndTime
+            Endtime
+            @shift!.EndTime
             <br />
+            shiftPoints
+            @shift!.shiftPoints
+            <br />
+            
+            <button @onclick="@takeShiftCallback"><h6>Take shift</h6></button>
         </div>
     </td>
 </tr>
 @code {
     [Parameter]
-    public Shift shift { get; set; }
+    public Shift? shift { get; set; }
 
-
-
+    [Parameter]
+    public EventCallback takeShiftCallback  { get; set; }
 }

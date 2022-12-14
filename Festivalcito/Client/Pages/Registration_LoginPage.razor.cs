@@ -3,10 +3,13 @@ using Microsoft.AspNetCore.Components.Forms;
 using Festivalcito.Shared.Classes;
 using Festivalcito.Client.Services.PersonServicesFolder;
 using Microsoft.AspNetCore.Components;
+using Blazored.LocalStorage;
 
 namespace Festivalcito.Client.Pages{
 
 	partial class Registration_LoginPage{
+        
+        List<Person> listOfAllPeople = new List<Person>();
 
         [Inject]
         public IPersonService? PersonService { get; set; }
@@ -22,9 +25,14 @@ namespace Festivalcito.Client.Pages{
         public Registration_LoginPage(){
 		}
 
+        public async void UpdateLocalStorage()
+        {
+            await localStore.SetItemAsync("loggedInUserId", LoginValidation.UserEmail);
+        }
+
 
         private void HandleValidSubmit(){
-
+            
         }
 
         private void HandleInvalidSubmit(){
@@ -51,8 +59,28 @@ namespace Festivalcito.Client.Pages{
 
         }
 
+        protected override async Task OnInitializedAsync()
+        {
+            listOfAllPeople = (await PersonService!.ReadAllPersons())!.ToList();
+        }
+
         public void submitClicked(){
             PersonService!.CreatePerson(PersonValidation);
+        }
+
+        public void LoginSubmitClicked(){
+            if (LoginValidation.UserEmail != ""){
+                Person loggedInPerson = new Person();
+                foreach (Person personInList in listOfAllPeople)
+                {
+                    if (personInList.EmailAddress!.ToLower() == LoginValidation.UserEmail!.ToLower())
+                    {
+                        loggedInPerson = personInList;
+                        //local storage save
+                        localStore.SetItemAsync("userLoggedInEmail", loggedInPerson.EmailAddress);
+                    }
+                }
+            }
         }
 
     }
