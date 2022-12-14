@@ -16,5 +16,11 @@ namespace Festivalcito.Shared.Classes{
         public ShiftAssignment()
         {
         }
+
+        public ShiftAssignment(int newShiftId, int newPersonassignmentid)
+        {
+            this.ShiftId = newShiftId;
+            this.personassignmentid = newPersonassignmentid;
+        }
     }
 }

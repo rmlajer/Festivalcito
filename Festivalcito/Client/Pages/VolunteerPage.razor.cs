@@ -1,5 +1,6 @@
 ﻿using System;
 using Festivalcito.Client.Services.PersonServicesFolder;
+using Festivalcito.Client.Services.PersonAssignmentServicesFolder;
 using Festivalcito.Client.Services.ShiftServicesFolder;
 using Festivalcito.Client.Services.ShiftAssignmentServicesFolder;
 using Festivalcito.Shared.Classes;
@@ -17,6 +18,8 @@ namespace Festivalcito.Client.Pages{
         public IShiftService? ShiftService { get; set; }
         [Inject]
         public IShiftAssignmentService? ShiftAssignmentService { get; set; }
+        [Inject]
+        public IPersonAssignmentService? PersonAssignmentService { get; set; }
 
 
         List<Person> listOfAllPeople = new List<Person>();
@@ -26,7 +29,7 @@ namespace Festivalcito.Client.Pages{
         List<Shift> ListOfPersonAreaShifts = new List<Shift>();
 
         public string loggedInUserEmail = "";
-        Person loggedInPerson = new Person();
+        
 
         private Person PersonValidation = new Person();
         private EditContext? EditContext;
@@ -83,12 +86,15 @@ namespace Festivalcito.Client.Pages{
         }
 
 
-        public async void TakeShiftClicked()
-        {
+        public async void TakeShiftClicked(Shift shift){
             Console.WriteLine("TakeShiftClicked");
             ShiftAssignment newShiftAssigned = new ShiftAssignment();
-            newShiftAssigned.personassignmentid = 1;
-            newShiftAssigned.ShiftAssignmentid = 1;
+            int personid = PersonValidation.PersonID;
+            Console.WriteLine("personid " + personid);
+            int personAssignmentId = (await PersonAssignmentService!.ReadAssigned(personid)).AssignmentId;
+            newShiftAssigned.personassignmentid = personAssignmentId;
+            newShiftAssigned.ShiftAssignmentid = shift.ShiftID;
+            Console.WriteLine("shift.ShiftID " + shift.ShiftID);
             await ShiftAssignmentService!.CreateShiftAssigned(newShiftAssigned);
         }
 

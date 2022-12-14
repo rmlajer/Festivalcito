@@ -18,7 +18,9 @@
             @shift!.shiftPoints
             <br />
             
-            <button @onclick="@takeShiftCallback"><h6>Take shift</h6></button>
+            <button @onclick="TakeShiftClicked">
+            <h6>Take shift</h6>
+            </button>
         </div>
     </td>
 </tr>
@@ -26,6 +28,13 @@
     [Parameter]
     public Shift? shift { get; set; }
 
-    [Parameter]
-    public EventCallback takeShiftCallback  { get; set; }
+    ShiftAssignment tmpShiftAssignment = new ShiftAssignment();
+
+    [Parameter, EditorRequired]
+    public EventCallback<Shift> TakeShift { get; set; }
+
+    public async Task TakeShiftClicked()
+    {
+        await TakeShift.InvokeAsync(shift);
+    }
 }

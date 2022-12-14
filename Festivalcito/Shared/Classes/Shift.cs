@@ -23,7 +23,12 @@ namespace Festivalcito.Shared.Classes {
 
         public void calculateShiftPoints(){
             this.shiftPoints = Convert.ToSingle(Math.Round((EndTime.Subtract(StartTime).TotalHours) * HourMultiplier, 1));
-         }
+        }
+
+        public void assignCurrentShiftToPerson()
+        {
+            
+        }
 
         public override string ToString()
         {

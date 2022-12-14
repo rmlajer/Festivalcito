@@ -19,8 +19,7 @@ namespace Festivalcito.Server.Controllers
 
         //contructor tjekker om repository er tom og hvis den er, laves et nyt repository 
 
-        public PersonAssignmentController(IPersonAssignmentRepository AssignedRepository)
-        {
+        public PersonAssignmentController(IPersonAssignmentRepository AssignedRepository){
             if (Repository == null && AssignedRepository != null)
             {
                 Repository = AssignedRepository;

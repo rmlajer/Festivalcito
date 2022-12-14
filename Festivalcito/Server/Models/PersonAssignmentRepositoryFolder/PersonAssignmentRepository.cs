@@ -20,7 +20,7 @@ public bool CreateAssigned(PersonAssignment personAssignment)
     var sql = $"INSERT INTO public.personassignment(" +
         $"AssignedPerson, AreaId)" +
         $"VALUES (" +
-       $" {personAssignment.AssignedPerson}," +
+       $" {personAssignment.personid}," +
         $"'{personAssignment.AreaId}')";
     Console.WriteLine("sql: " + sql);
 
