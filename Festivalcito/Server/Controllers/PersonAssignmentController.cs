@@ -33,7 +33,7 @@ namespace Festivalcito.Server.Controllers
         public void CreateArea(PersonAssignment Assigned)
         {
 
-            Repository.CreateAssigned(Assigned);
+            Repository.CreatePersonAssignment(Assigned);
         }
 
         // Kalder ReadAssigned i tAssignedRepository
@@ -41,27 +41,27 @@ namespace Festivalcito.Server.Controllers
         [HttpGet("{id:int}")]
         public PersonAssignment ReadAssigned(int id)
         {
-            return Repository.ReadAssigned(id);
+            return Repository.ReadPersonAssignment(id);
         }
 
 
         //Kalder ReadAllAssigned i AssignedRepository
         // Henter alle Assigned fra DB
         [HttpGet]
-        public IEnumerable<PersonAssignment> ReadAllAssigned()
+        public IEnumerable<PersonAssignment> ReadAllPersonAssignments()
         {
-            return Repository.ReadAllAssigned();
+            return Repository.ReadAllPersonAssignments();
         }
 
 
         // Kalder DeleteAssigned i AssignedRepository
         // Sletter specifik Assigned på ID i DB
         [HttpDelete("{id:int}")]
-        public StatusCodeResult DeleteAssigned(int id)
+        public StatusCodeResult DeletePersonAssignment(int id)
         {
             Console.WriteLine("Server: Delete item called: id = " + id);
 
-            bool deleted = Repository.DeleteAssigned(id);
+            bool deleted = Repository.DeletePersonAssignment(id);
             if (deleted)
             {
                 Console.WriteLine("Server: Item deleted succces");

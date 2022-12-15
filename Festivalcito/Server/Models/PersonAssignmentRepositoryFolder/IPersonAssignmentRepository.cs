@@ -5,10 +5,10 @@ namespace Festivalcito.Server.Models.PersonAssignmentRepositoryFolder
 {
     public interface IPersonAssignmentRepository
     {
-        bool CreateAssigned(PersonAssignment Assigned);
-        PersonAssignment ReadAssigned(int AssignedId);
-        List<PersonAssignment> ReadAllAssigned();
-        bool DeleteAssigned(int AssignedId);
+        bool CreatePersonAssignment(PersonAssignment Assigned);
+        PersonAssignment ReadPersonAssignment(int AssignedId);
+        List<PersonAssignment> ReadAllPersonAssignments();
+        bool DeletePersonAssignment(int AssignedId);
     }
 }
 

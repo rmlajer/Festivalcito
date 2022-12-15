@@ -17,11 +17,14 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
             //Tager et ShiftAssigned object og indsætter via SQL statement i vores database
             //Formatere time og float for at det passer med postgreSQL
             Console.WriteLine("CreateShiftAssigned - Repository");
-            Console.WriteLine($"CreateShiftAssigned Respoistory - {shiftAssigned.ShiftAssignmentid}");
+            Console.WriteLine($"" +
+                $"ShiftAssignmentid:{shiftAssigned.ShiftAssignmentid}," +
+                $"personassignmentid:{shiftAssigned.personassignmentid} " +
+                $"ShiftId:{shiftAssigned.ShiftId}");
             var sql = $"INSERT INTO public.ShiftAssignment(" +
                 $"shiftid, personassignmentid)" +
                 $"VALUES (" +
-                $"{shiftAssigned.ShiftAssignmentid}," +
+                $"{shiftAssigned.ShiftId}," +
                 $"{shiftAssigned.personassignmentid})";
             Console.WriteLine("sql: " + sql);
 

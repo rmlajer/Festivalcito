@@ -5,7 +5,7 @@ namespace Festivalcito.Shared.Classes
     {
         public int AreaId { get; set; }
         public int personid { get; set; }
-        public int AssignmentId { get; set; }
+        public int PersonAssignmentId { get; set; }
 
         public PersonAssignment()
         {

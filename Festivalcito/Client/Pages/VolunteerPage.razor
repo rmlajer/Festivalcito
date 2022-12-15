@@ -12,8 +12,7 @@
             <th style="width:33%">Saturday</th>
             <th style="width:33%">Sunday</th>
         </tr>
-        @foreach (Shift shift in ListOfPersonAreaShifts)
-        {
+        @foreach (Shift shift in ListOfPersonAreaShifts){
                 shift.calculateShiftPoints();
             <ShiftCalenderCell shift="@shift" TakeShift="TakeShiftClicked"/>
         }

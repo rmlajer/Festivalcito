@@ -14,8 +14,9 @@ namespace Festivalcito.Shared.Classes {
         public bool IsLocked { get; set; }
 
         public string? areaName { get; set; }
-
         public float? shiftPoints { get; set; }
+
+        public string backgroundColor = "Green";
 
         public Shift()
 		{

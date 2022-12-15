@@ -13,7 +13,7 @@ namespace Festivalcito.Server.Models.PersonAssignmentRepositoryFolder
 
 
 
-public bool CreateAssigned(PersonAssignment personAssignment)
+public bool CreatePersonAssignment(PersonAssignment personAssignment)
 {
     //Tager et assigned Assigned object og indsætter via SQL statement i vores database
     Console.WriteLine("CreateAssigned - Repository");
@@ -40,7 +40,7 @@ public bool CreateAssigned(PersonAssignment personAssignment)
         }
     }
 }
-public PersonAssignment ReadAssigned(int AssignmentId)
+public PersonAssignment ReadPersonAssignment(int AssignmentId)
 {
     Console.WriteLine("ReadAssigned");
     var SQL = $"SELECT * from public.personassignment WHERE personassignmentid = {AssignmentId}";
@@ -54,7 +54,7 @@ public PersonAssignment ReadAssigned(int AssignmentId)
         return returnAssigned;
     }
 }
-public List<PersonAssignment> ReadAllAssigned()
+public List<PersonAssignment> ReadAllPersonAssignments()
 {
     Console.WriteLine("ReadAllAssigned");
     var SQL = "SELECT  * FROM public.personassignment;";
@@ -71,7 +71,7 @@ public List<PersonAssignment> ReadAllAssigned()
     return returnList;
 }
 
-public bool DeleteAssigned(int AssignedListId)
+public bool DeletePersonAssignment(int AssignedListId)
 {
     Console.WriteLine("DeleteAssigned");
     var sql = $"DELETE FROM public.personassignment WHERE personassignmentid = {AssignedListId}";

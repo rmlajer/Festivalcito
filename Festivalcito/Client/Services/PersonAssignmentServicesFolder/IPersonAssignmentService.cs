@@ -8,10 +8,10 @@ namespace Festivalcito.Client.Services.PersonAssignmentServicesFolder
 
     public interface IPersonAssignmentService
     {
-        Task<int> CreateAssigned(PersonAssignment Assigned);
-        Task<PersonAssignment> ReadAssigned(int AssignedListId);
-        Task<PersonAssignment[]?> ReadAllAssigned();
-        Task<int> DeleteAssigned(int AssignedListId);
+        Task<int> CreatePersonAssignment(PersonAssignment Assigned);
+        Task<PersonAssignment> ReadPersonAssignment(int AssignedListId);
+        Task<PersonAssignment[]?> ReadAllPersonAssignments();
+        Task<int> DeletePersonAssignment(int AssignedListId);
     }
 }
 
