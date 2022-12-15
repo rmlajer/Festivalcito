@@ -12,14 +12,14 @@ namespace Festivalcito.Server.Controllers
     [Route("api/shiftassigned")]
 
 
-    public class ShiftAssignedController : ControllerBase
+    public class ShiftAssignmentController : ControllerBase
     {
         private readonly IShiftAssignmentRepository Repository = new ShiftAssignmentRepository();
 
 
         //contructor tjekker om repository er tom og hvis den er, laves et nyt repository 
 
-        public ShiftAssignedController(IShiftAssignmentRepository shiftAssignedRepository)
+        public ShiftAssignmentController(IShiftAssignmentRepository shiftAssignedRepository)
         {
             if (Repository == null && shiftAssignedRepository != null)
             {
@@ -34,7 +34,7 @@ namespace Festivalcito.Server.Controllers
         public void CreateArea(ShiftAssignment shiftAssigned)
         {
 
-            Repository.CreateShiftAssigned(shiftAssigned);
+            Repository.CreateShiftAssignment(shiftAssigned);
         }
 
         // Kalder ReadShiftAssigned i ShiftAssignedRepository
@@ -42,7 +42,7 @@ namespace Festivalcito.Server.Controllers
         [HttpGet("{id:int}")]
         public ShiftAssignment ReadShiftAssigned(int id)
         {
-            return Repository.ReadShiftAssigned(id);
+            return Repository.ReadShiftAssignment(id);
         }
 
 
@@ -51,7 +51,7 @@ namespace Festivalcito.Server.Controllers
         [HttpGet]
         public IEnumerable<ShiftAssignment> ReadAllShiftAssigned()
         {
-            return Repository.ReadAllShiftAssigned();
+            return Repository.ReadAllShiftAssignments();
         }
 
 
@@ -62,7 +62,7 @@ namespace Festivalcito.Server.Controllers
         {
             Console.WriteLine("Server: Delete item called: id = " + id);
 
-            bool deleted = Repository.DeleteShiftAssigned(id);
+            bool deleted = Repository.DeleteShiftAssignment(id);
             if (deleted)
             {
                 Console.WriteLine("Server: Item deleted succces");

@@ -40,10 +40,11 @@ public bool CreatePersonAssignment(PersonAssignment personAssignment)
         }
     }
 }
-public PersonAssignment ReadPersonAssignment(int AssignmentId)
+public PersonAssignment ReadPersonAssignment(int personId)
 {
-    Console.WriteLine("ReadAssigned");
-    var SQL = $"SELECT * from public.personassignment WHERE personassignmentid = {AssignmentId}";
+            Console.WriteLine("ReadPersonAssignment");
+            Console.WriteLine("ReadPersonAssignmentId: " + personId);
+    var SQL = $"SELECT * from public.personassignment WHERE personid = {personId}";
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database

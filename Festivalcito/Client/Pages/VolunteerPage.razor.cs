@@ -29,15 +29,13 @@ namespace Festivalcito.Client.Pages{
         List<Shift> ListOfPersonAreaShifts = new List<Shift>();
 
         public string loggedInUserEmail = "";
-        int personAssignmentId = 0; 
+        int personAssignmentId = 0;
         
 
         private Person PersonValidation = new Person();
         private EditContext? EditContext;
 
         public VolunteerPage(){
-
-
 		}
 
 
@@ -66,35 +64,14 @@ namespace Festivalcito.Client.Pages{
             PersonValidation = await PersonService!.ReadPersonEmail(loggedInUserEmail);
 
             listOfAllShifts = (await ShiftService!.ReadAllShifts())!.ToList();
-            listOfShiftAssignments = (await ShiftAssignmentService!.ReadAllShiftAssigned())!.ToList();
+            listOfShiftAssignments = (await ShiftAssignmentService!.ReadAllShiftAssignments())!.ToList();
             Console.WriteLine("listOfAllShifts count: " + listOfAllShifts.Count());
             Console.WriteLine("PersonValidation areaName: " + PersonValidation.areaName);
 
             personAssignmentId = (await PersonAssignmentService!.ReadPersonAssignment(PersonValidation.PersonID)).PersonAssignmentId;
             Console.WriteLine("personAssignmentId " + personAssignmentId);
+            updateShiftsTable();
 
-
-            foreach (Shift shift in listOfAllShifts)
-            {
-                
-                if (shift.areaName == PersonValidation.areaName){
-                    foreach (ShiftAssignment shiftAssignment in listOfShiftAssignments)
-                    {
-                        Console.WriteLine("shiftAssignment.personassignmentid: " + shiftAssignment.personassignmentid);
-                        Console.WriteLine("personAssignmentId: " + personAssignmentId);
-                        if (shiftAssignment.ShiftId == shift.ShiftID)
-                        {
-                            shift.backgroundColor = "red";
-                        }
-                    }
-                    ListOfPersonAreaShifts.Add(shift);
-
-                }
-            }
-
-            Console.WriteLine("ListOfPersonAreaShifts count: " + ListOfPersonAreaShifts.Count());
-
-            
         }
 
 
@@ -102,14 +79,66 @@ namespace Festivalcito.Client.Pages{
             Console.WriteLine("TakeShiftClicked");
             ShiftAssignment newShiftAssigned = new ShiftAssignment();
             int personid = PersonValidation.PersonID;
-            Console.WriteLine("personid " + personid);
+
             
             newShiftAssigned.personassignmentid = personAssignmentId;
             newShiftAssigned.ShiftId = shift.ShiftID;
-            Console.WriteLine("shift.ShiftID " + shift.ShiftID);
-            await ShiftAssignmentService!.CreateShiftAssigned(newShiftAssigned);
 
-            Console.WriteLine("TEst:" + shift!.areaName + ", " + shift.backgroundColor + "/end");
+            await ShiftAssignmentService!.CreateShiftAssignment(newShiftAssigned);
+
+            await updateLists();
+            updateShiftsTable();
+        }
+
+        public async void removeShiftClicked(int shiftId){
+            int ShiftAssignmentidTmp = findShiftAssignmentID(shiftId);
+            await ShiftAssignmentService!.DeleteShiftAssignment(ShiftAssignmentidTmp);
+            await updateLists();
+            updateShiftsTable();
+        }
+
+        public void updateShiftsTable(){
+            Console.WriteLine("updateShiftsTable");
+            
+            ListOfPersonAreaShifts.Clear();
+            foreach (Shift shift in listOfAllShifts){
+
+                if (shift.areaName == PersonValidation.areaName){
+                    foreach (ShiftAssignment shiftAssignment in listOfShiftAssignments){
+                        if (shiftAssignment.ShiftId == shift.ShiftID){
+                            shift.backgroundColor = "red";
+                            
+                        }
+                    }
+                    Console.WriteLine("color: "+shift.backgroundColor);
+                    if (shift.IsLocked == true)
+                    {
+                        shift.backgroundColor = "grey";
+                    }
+                    ListOfPersonAreaShifts.Add(shift);
+
+                }
+            }
+            
+            Console.WriteLine("ListOfPersonAreaShifts count: " + ListOfPersonAreaShifts.Count());
+            StateHasChanged();
+        }
+        public async Task updateLists()
+        {
+            listOfAllShifts = (await ShiftService!.ReadAllShifts())!.ToList();
+            listOfShiftAssignments = (await ShiftAssignmentService!.ReadAllShiftAssignments())!.ToList();
+        }
+
+        public int findShiftAssignmentID(int shiftId)
+        {
+            foreach (ShiftAssignment shiftAssignment in listOfShiftAssignments)
+            {
+                if (shiftAssignment.ShiftId == shiftId && shiftAssignment.personassignmentid == personAssignmentId)
+                {
+                    return shiftAssignment.ShiftAssignmentid;
+                }
+            }
+            return -1;
         }
 
     }

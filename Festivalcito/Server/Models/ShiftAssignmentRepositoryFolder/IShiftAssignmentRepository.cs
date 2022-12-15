@@ -5,9 +5,9 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
 {
     public interface IShiftAssignmentRepository
     {
-        bool CreateShiftAssigned(ShiftAssignment shiftAssigned);
-        ShiftAssignment ReadShiftAssigned(int shiftAssignedId);
-        List<ShiftAssignment> ReadAllShiftAssigned();
-        bool DeleteShiftAssigned(int shiftAssignedId);
+        bool CreateShiftAssignment(ShiftAssignment shiftAssigned);
+        ShiftAssignment ReadShiftAssignment(int shiftAssignedId);
+        List<ShiftAssignment> ReadAllShiftAssignments();
+        bool DeleteShiftAssignment(int shiftAssignedId);
     }
 }

@@ -12,7 +12,7 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
         }
 
 
-        public bool CreateShiftAssigned(ShiftAssignment shiftAssigned)
+        public bool CreateShiftAssignment(ShiftAssignment shiftAssigned)
         {
             //Tager et ShiftAssigned object og indsætter via SQL statement i vores database
             //Formatere time og float for at det passer med postgreSQL
@@ -44,8 +44,9 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
                 }
             }
         }
-        public ShiftAssignment ReadShiftAssigned(int shiftAssignedListId)
+        public ShiftAssignment ReadShiftAssignment(int shiftAssignedListId)
         {
+            //Skal måske rettes med where
             Console.WriteLine("ReadShiftAssigned");
             var SQL = $"SELECT * from public.ShiftAssignment WHERE ShiftAssignmentid = {shiftAssignedListId}";
 
@@ -58,7 +59,7 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
                 return returnShiftAssigned;
             }
         }
-        public List<ShiftAssignment> ReadAllShiftAssigned()
+        public List<ShiftAssignment> ReadAllShiftAssignments()
         {
             Console.WriteLine("ReadAllShiftAssigned");
             var SQL = "SELECT  * FROM public.ShiftAssignment;";
@@ -75,7 +76,7 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
             return returnList;
         }
 
-        public bool DeleteShiftAssigned(int shiftAssignedListId)
+        public bool DeleteShiftAssignment(int shiftAssignedListId)
         {
             Console.WriteLine("DeleteShiftAssigned");
             var sql = $"DELETE FROM public.ShiftAssignment WHERE ShiftAssignmentid = {shiftAssignedListId}";

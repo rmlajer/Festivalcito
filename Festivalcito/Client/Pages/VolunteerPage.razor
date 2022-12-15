@@ -14,7 +14,7 @@
         </tr>
         @foreach (Shift shift in ListOfPersonAreaShifts){
                 shift.calculateShiftPoints();
-            <ShiftCalenderCell shift="@shift" TakeShift="TakeShiftClicked"/>
+            <ShiftCalenderCell shift="@shift" TakeShift="TakeShiftClicked" RemoveShift="@(()=>removeShiftClicked(shift.ShiftID))"/>
         }
     </table>
 </div>

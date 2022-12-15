@@ -2,8 +2,7 @@
 
 namespace Festivalcito.Shared.Classes {
 
-    public class Shift
-	{
+    public class Shift{
         public int ShiftID { get; set; }
         public string? ShiftName { get; set; }
         public DateTime StartTime { get; set; }

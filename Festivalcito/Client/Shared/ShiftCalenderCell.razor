@@ -20,8 +20,11 @@
             <span><strong>ShifID:</strong></span>
             @shift!.ShiftID
             <br />
-            <button @onclick="TakeShiftClicked">
+            <button style="display:@ShiftButtonStatus(shift, "takeButton")" @onclick="TakeShiftClicked">
                 <h6>Take shift</h6>
+            </button>
+            <button style="display:@ShiftButtonStatus(shift, "removeButton")" @onclick="RemoveShiftClicked">
+                <h6>Remove shift</h6>
             </button>
         </div>
     </td>
@@ -35,9 +38,61 @@
     [Parameter, EditorRequired]
     public EventCallback<Shift> TakeShift { get; set; }
 
+    [Parameter, EditorRequired]
+    public EventCallback<Shift> RemoveShift { get; set; }
+
     public async Task TakeShiftClicked()
     {
-        shift!.backgroundColor = "red";
         await TakeShift.InvokeAsync(shift);
     }
+
+    public async Task RemoveShiftClicked()
+    {
+        await RemoveShift.InvokeAsync(shift);
+    }
+
+    public string ShiftButtonStatus(Shift shift, string button){
+        if (shift.IsLocked == true){
+            return "none";
+        }
+        if (button == "takeButton")
+        {
+            if (shift.backgroundColor == "red")
+            {
+                return "none";
+            }else
+            {
+                return "inline-block";
+            }
+        }
+
+        if (button == "removeButton")
+        {
+            if (shift.backgroundColor == "red")
+            {
+                return "inline-block";
+            }
+            else
+            {
+                return "none";
+            }
+        }
+
+
+
+
+        Console.WriteLine("islocked: "+shift.IsLocked);
+        if (shift.IsLocked != false) {
+            Console.WriteLine("none");
+            shift.backgroundColor = "grey";
+            return "none";
+        }
+        else
+        {
+            Console.WriteLine("inline-block");
+
+            return "inline-block";
+        }
+    }
+
 }

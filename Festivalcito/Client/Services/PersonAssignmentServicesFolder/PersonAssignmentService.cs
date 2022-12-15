@@ -14,16 +14,16 @@ namespace Festivalcito.Client.Services.PersonAssignmentServicesFolder
         }
 
 
-        public async Task<int> CreatePersonAssignment(PersonAssignment Assigned)
+        public async Task<int> CreatePersonAssignment(PersonAssignment ReadPersonAssignment)
         {
-            var response = await httpClient.PostAsJsonAsync<PersonAssignment>("api/assigned/", Assigned);
+            var response = await httpClient.PostAsJsonAsync<PersonAssignment>("api/assigned/", ReadPersonAssignment);
             var responseStatusCode = response.StatusCode;
             return (int)responseStatusCode;
         }
 
-        public async Task<PersonAssignment> ReadPersonAssignment(int AssignedListId)
+        public async Task<PersonAssignment> ReadPersonAssignment(int ReadPersonAssignmentId)
         {
-            return (await httpClient.GetFromJsonAsync<PersonAssignment>("api/assigned/" + AssignedListId))!;
+            return (await httpClient.GetFromJsonAsync<PersonAssignment>("api/assigned/" + ReadPersonAssignmentId))!;
         }
 
         public async Task<PersonAssignment[]?> ReadAllPersonAssignments()
@@ -32,9 +32,9 @@ namespace Festivalcito.Client.Services.PersonAssignmentServicesFolder
         }
 
 
-        public async Task<int> DeletePersonAssignment(int AssignedListId)
+        public async Task<int> DeletePersonAssignment(int ReadPersonAssignmentId)
         {
-            var response = await httpClient.DeleteAsync("api/assigned/" + AssignedListId);
+            var response = await httpClient.DeleteAsync("api/assigned/" + ReadPersonAssignmentId);
             var responseStatusCode = response.StatusCode;
             return (int)responseStatusCode;
         }
