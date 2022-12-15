@@ -76,12 +76,13 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
             Console.WriteLine("Repository - ReadPerson");
             var SQLJoinArea = $"SELECT person.personid, assigned, iscoordinator, emailaddress, firstname, lastname," +
                 $"dateofbirth, address, postalcode, city, country, nationality, danishlevel, gender, membershippaid," +
-                $"phonenumber, areaname " +
+                $"phonenumber, areaid " +
                 $"FROM public.person " +
                 $"INNER JOIN public.personassignment on personassignment.personid = person.personid " +
-                $"INNER JOIN public.area on area.areaid = personassignment.areaid where person.emailaddress = '{email}'";
+                $"where person.emailaddress ilike '{email}'";
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
+            Console.WriteLine(SQLJoinArea);
             Person returnPerson = new Person();
             try
             {
@@ -112,10 +113,10 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
             Console.WriteLine("ReadPersonJoinArea");
             var SQL = $"SELECT person.personid, assigned, iscoordinator, emailaddress, firstname, lastname," +
                 $"dateofbirth, address, postalcode, city, country, nationality, danishlevel, gender, membershippaid," +
-                $"phonenumber, areaname " +
+                $"phonenumber, areaid " +
                 $"FROM public.person " +
                 $"INNER JOIN public.personassignment on personassignment.personid = person.personid " +
-                $"INNER JOIN public.area on area.areaid = personassignment.areaid where person.personid = {personId}";
+                $"where person.personid = {personId}";
             Console.WriteLine(SQL);
 
             //Isolere "var connection" fra resten af scope ved brug af using
@@ -130,10 +131,10 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
                     return returnPerson;
                 }
             }
-            catch (Exception e)
+            catch
             {
                 Person returnPersonError = new Person();
-                returnPersonError.areaName = e.Message;
+                returnPersonError.areaId = -1;
                 return returnPersonError;
             }
             

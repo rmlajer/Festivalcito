@@ -66,7 +66,7 @@ namespace Festivalcito.Client.Pages{
             listOfAllShifts = (await ShiftService!.ReadAllShifts())!.ToList();
             listOfShiftAssignments = (await ShiftAssignmentService!.ReadAllShiftAssignments())!.ToList();
             Console.WriteLine("listOfAllShifts count: " + listOfAllShifts.Count());
-            Console.WriteLine("PersonValidation areaName: " + PersonValidation.areaName);
+            Console.WriteLine("PersonValidation areaName: " + PersonValidation.areaId);
 
             personAssignmentId = (await PersonAssignmentService!.ReadPersonAssignment(PersonValidation.PersonID)).PersonAssignmentId;
             Console.WriteLine("personAssignmentId " + personAssignmentId);
@@ -101,9 +101,10 @@ namespace Festivalcito.Client.Pages{
             Console.WriteLine("updateShiftsTable");
             
             ListOfPersonAreaShifts.Clear();
+            Console.WriteLine("PersonValidation.areaId: " + PersonValidation.areaId);
             foreach (Shift shift in listOfAllShifts){
-
-                if (shift.areaName == PersonValidation.areaName){
+                Console.WriteLine("shift.areaId: " + shift.areaId);
+                if (shift.areaId == PersonValidation.areaId){
                     foreach (ShiftAssignment shiftAssignment in listOfShiftAssignments){
                         if (shiftAssignment.ShiftId == shift.ShiftID){
                             shift.backgroundColor = "red";

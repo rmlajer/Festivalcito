@@ -30,14 +30,6 @@ namespace Festivalcito.Client.Pages{
             await localStore.SetItemAsync("loggedInUserId", LoginValidation.UserEmail);
         }
 
-
-        private void HandleValidSubmit(){
-            
-        }
-
-        private void HandleInvalidSubmit(){
-            Console.WriteLine("HandleInvalidSubmit Called...");
-        }
         protected override void OnInitialized(){
             base.OnInitialized();
             EditContextLogin = new EditContext(LoginValidation);

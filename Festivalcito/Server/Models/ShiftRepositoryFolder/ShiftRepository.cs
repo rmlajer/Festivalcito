@@ -16,7 +16,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
             //Formatere time og float for at det passer med postgreSQL
             Console.WriteLine("CreateShift - Repository");
             var sql = $"INSERT INTO public.shift(" +
-                $"starttime, endtime, requiredvolunteers, agemin, hourmultiplier, islocked, shiftname)" +
+                $"starttime, endtime, requiredvolunteers, agemin, hourmultiplier, islocked, shiftname, areaid)" +
                 $"VALUES (" +
                 $"'{shift.StartTime.ToString("yyyy-MM-dd HH:mm:ss").Replace("\"", "").Replace(".",":")}'," +
                 $"'{shift.EndTime.ToString("yyyy-MM-dd HH:mm:ss").Replace("\"", "").Replace(".", ":")}'," +
@@ -24,7 +24,8 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
                 $"{shift.AgeMin}," +
                 $"'{shift.HourMultiplier.ToString().Replace(",",".")}'," +
                 $"{shift.IsLocked}," +
-                $"'{shift.ShiftName}')";
+                $"'{shift.ShiftName}'," +
+                $"{shift.areaId})";
             Console.WriteLine("sql: " + sql);
 
             //Isolere "var connection" fra resten af scope ved brug af using
@@ -47,7 +48,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
         public Shift ReadShift(int shiftId){
             Console.WriteLine("ReadShift");
             var SQL = $"SELECT shiftid, starttime,endtime,requiredvolunteers, " +
-                $"agemin,hourmultiplier,islocked,shiftname,areaname " +
+                $"agemin,hourmultiplier,islocked,shiftname,areaId " +
                 $"from Shift INNER JOIN area on area.areaid = Shift.areaid WHERE shiftid = {shiftId}";
 
             //Isolere "var connection" fra resten af scope ved brug af using
@@ -64,10 +65,10 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
         public List<Shift> ReadAllShifts() { 
             Console.WriteLine("ReadAllShifts");
             var SQL = $"SELECT shiftid, starttime,endtime,requiredvolunteers, " +
-                $"agemin,hourmultiplier,islocked,shiftname,areaname " +
-                $"from Shift INNER JOIN area on area.areaid = Shift.areaid";
+                $"agemin,hourmultiplier,islocked,shiftname,areaId " +
+                $"from Shift";
             List<Shift> returnList = new List<Shift>();
-
+            Console.WriteLine(SQL);
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
             using (var connection = new NpgsqlConnection(PGadminConnection))
@@ -90,7 +91,8 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
                 $"agemin={shift.AgeMin}," +
                 $"hourmultiplier='{shift.HourMultiplier.ToString().Replace(",", ".")}'," +
                 $"islocked={shift.IsLocked}," +
-                $"shiftname='{shift.ShiftName}' " +
+                $"shiftname='{shift.ShiftName}'" +
+                $"areaId={shift.areaId}, " +
                 $"WHERE shiftid = {shift.ShiftID}";
 
             Console.WriteLine("sql: " + sql);

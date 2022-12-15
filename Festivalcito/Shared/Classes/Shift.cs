@@ -1,9 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Festivalcito.Shared.Classes {
 
     public class Shift{
         public int ShiftID { get; set; }
+
+        [Required]
         public string? ShiftName { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
@@ -12,7 +15,7 @@ namespace Festivalcito.Shared.Classes {
         public float HourMultiplier { get; set; }
         public bool IsLocked { get; set; }
 
-        public string? areaName { get; set; }
+        public int? areaId { get; set; }
         public float? shiftPoints { get; set; }
 
         public string backgroundColor = "Green";
@@ -32,7 +35,7 @@ namespace Festivalcito.Shared.Classes {
 
         public override string ToString()
         {
-            return $"ShiftID: {ShiftID}, Name: {ShiftName}, areaName: {areaName}";
+            return $"ShiftID: {ShiftID}, Name: {ShiftName}, areaName: {areaId}";
         }
     }
 }

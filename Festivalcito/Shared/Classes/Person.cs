@@ -19,7 +19,7 @@ namespace Festivalcito.Shared.Classes{
         public string? Gender { get; set; }
         public bool MembershipPaid { get; set; }
 
-        public string? areaName { get; set; }
+        public int? areaId { get; set; }
 
         public Person()
 		{
@@ -30,7 +30,7 @@ namespace Festivalcito.Shared.Classes{
 
         public override string ToString()
         {
-            return $"{FirstName}, {LastName}, {Assigned}, {IsCoordinator}, {EmailAddress}, {DateOfBirth}, {Address}, {PostalCode}, {City}, {Country}, {Nationality}, {DanishLevel}, {Gender}, {MembershipPaid}, {areaName}";
+            return $"{FirstName}, {LastName}, {Assigned}, {IsCoordinator}, {EmailAddress}, {DateOfBirth}, {Address}, {PostalCode}, {City}, {Country}, {Nationality}, {DanishLevel}, {Gender}, {MembershipPaid}, {areaId}";
         }
     }
 }
