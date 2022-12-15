@@ -2,63 +2,88 @@
 @using Festivalcito.Shared.Classes;
 
 <h1>Coordinator_ShiftPage</h1>
+<div class="row">
+    <div class="col-sm">
+        <EditForm EditContext="@EditContextShift"
+                  OnValidSubmit="@HandleValidSubmit"
+                  OnInvalidSubmit="@HandleInvalidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-<div>
-    
-    
+            <div style="width:20%">
+                <div>
+                    <label>Shift name</label>
+                    <InputText @bind-Value="ShiftValidation.ShiftName"></InputText>
+                    <ValidationMessage For="@(() => ShiftValidation.ShiftName)" />
+                </div>
+                <div>
+                    <label>Age min</label>
+                    <InputNumber @bind-Value="ShiftValidation.AgeMin"></InputNumber>
+                </div>
+                <div>
+                    <label>RequiredVolunteers</label>
+                    <InputNumber @bind-Value="ShiftValidation.RequiredVolunteers"></InputNumber>
+                </div>
+                <div>
+                    <label>HourMultiplier</label>
+                    <InputNumber @bind-Value="ShiftValidation.HourMultiplier"></InputNumber>
+                </div>
+                <div>
+                    <label>StartTime</label>
+                    <input type="datetime" @bind="ShiftValidation.StartTime">
+                </div>
+                <div>
+                    <label>EndTime</label>
+                    <input type="datetime" @bind="ShiftValidation.EndTime">
+                </div>
 
-    <EditForm EditContext="@EditContextShift" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
-        <DataAnnotationsValidator></DataAnnotationsValidator>
+                <div>
+                    <label for="exampleFormControlInput1" class="form-label">Area</label>
+                    <select @bind="@ShiftValidation.areaId">
+                        @foreach (Area area in AllAreas)
+                        {
+                            <option value="@area.AreaID">@area.AreaName</option>
+                        }
+                    </select>
 
-        <div style="width:20%">
-            <div>
-                <label>Shift name</label>
-                <InputText @bind-Value="@ShiftValidation.ShiftName"></InputText>
+                </div>
+                <div>
+                    <label>is locked</label>
+                    <InputCheckbox @bind-Value="ShiftValidation.IsLocked">
+
+                    </InputCheckbox>
+                </div>
+
+                <button type="submit">@submitButtonText</button>
             </div>
-            <div>
-                <label>Age min</label>
-                <InputNumber @bind-Value="@ShiftValidation.AgeMin"></InputNumber>
-            </div>
-            <div>
-                <label>RequiredVolunteers</label>
-                <InputNumber @bind-Value="@ShiftValidation.RequiredVolunteers"></InputNumber>
-            </div>
-            <div>
-                <label>HourMultiplier</label>
-                <InputNumber @bind-Value="@ShiftValidation.HourMultiplier"></InputNumber>
-            </div>
-            <div>
-                <label>StartTime</label>
-                <InputDate @bind-Value="@ShiftValidation.StartTime"></InputDate>
-            </div>
-            <div>
-                <label>EndTime</label>
-                <InputDate @bind-Value="@ShiftValidation.EndTime"></InputDate>
-            </div>
-
-            <div>
-                <label for="exampleFormControlInput1" class="form-label">Area</label>
-                <select @bind="@ShiftValidation.areaId">
-                    @foreach (Area area in AllAreas)
-                    {
-                        <option value="@area.AreaID">@area.AreaName</option>
-                    }
-                </select>
-
-            </div>
-            <div>
-                <label>is locked</label>
-                <InputCheckbox @bind-Value="@ShiftValidation.IsLocked">
-
-                </InputCheckbox>
-            </div>
-
-            <button type="submit">@submitButtonText</button>
-        </div>
-    </EditForm>
+        </EditForm>
 
 
+    </div>
+    <div class="col-sm">
+        <table>
+            <tr>
+                <th style="width:30%">Name</th>
+                <th style="width:30%">RequiredVolunteers</th>
+                <th style="width:10%">Update</th>
+                <th style="width:15%">Update</th>
+                <th style="width:15%">Delete</th>
+            </tr>
+            @foreach (Shift shift in listOfAllShifts)
+                {
+                <tr>
+                    <td><span>@shift.ShiftName</span></td>
+                    <td><span>@shift.RequiredVolunteers</span></td>
+                    <td><span>@shift.HourMultiplier</span></td>
+                    <td><button @onclick="@(()=>selectShift(shift))">Select</button></td>
+                    <td><button @onclick="@(()=>deleteShift(shift.ShiftID))">Delete</button></td>
+                </tr>
+                }
+            </table>
+        
+    </div>
 </div>
+
 
 
 

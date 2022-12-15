@@ -91,8 +91,8 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
                 $"agemin={shift.AgeMin}," +
                 $"hourmultiplier='{shift.HourMultiplier.ToString().Replace(",", ".")}'," +
                 $"islocked={shift.IsLocked}," +
-                $"shiftname='{shift.ShiftName}'" +
-                $"areaId={shift.areaId}, " +
+                $"shiftname='{shift.ShiftName}'," +
+                $"areaId={shift.areaId} " +
                 $"WHERE shiftid = {shift.ShiftID}";
 
             Console.WriteLine("sql: " + sql);
@@ -119,7 +119,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
             Console.WriteLine("DeleteShift");
             var sql = $"DELETE FROM public.shift WHERE shiftid = {ShiftId}";
 
-
+            Console.WriteLine(sql);
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
             using (var connection = new NpgsqlConnection(PGadminConnection)){
@@ -128,7 +128,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
                     return true;
                 }
                 catch{
-                    Console.WriteLine("Couldn't update the shift in the list");
+                    Console.WriteLine("Couldn't delete the shift in the list");
                     return false;
                 }
             }

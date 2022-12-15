@@ -20,6 +20,9 @@
             <span><strong>ShifID:</strong></span>
             @shift!.ShiftID
             <br />
+            <span><strong>HourMultiplier:</strong></span>
+            @shift!.HourMultiplier
+            <br />
             <button style="display:@ShiftButtonStatus(shift, "takeButton")" @onclick="TakeShiftClicked">
                 <h6>Take shift</h6>
             </button>
