@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Festivalcito.Client.Services.AreaServicesFolder;
 using Festivalcito.Client.Services.ShiftServicesFolder;
 using Festivalcito.Shared.Classes;
@@ -80,8 +81,9 @@ namespace Festivalcito.Client.Pages
                     PresentedShiftsList.Add(shift);
                 }
             }
-            await Task.Delay(1);
-            StateHasChanged();
+          
+    
+           
 
         }
 
