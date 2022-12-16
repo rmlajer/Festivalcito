@@ -39,9 +39,8 @@
 
                 <div>
                     <label for="exampleFormControlInput1" class="form-label">Area</label>
-                    <select @bind="@ShiftValidation.areaId">
-                        @foreach (Area area in AllAreas)
-                        {
+                    <select onclick="@updatePresentedShiftsList()" @bind="@ShiftValidation.areaId">
+                        @foreach (Area area in AllAreas){
                             <option value="@area.AreaID">@area.AreaName</option>
                         }
                     </select>
@@ -49,9 +48,7 @@
                 </div>
                 <div>
                     <label>is locked</label>
-                    <InputCheckbox @bind-Value="ShiftValidation.IsLocked">
-
-                    </InputCheckbox>
+                    <InputCheckbox @bind-Value="ShiftValidation.IsLocked"></InputCheckbox>
                 </div>
 
                 <button type="submit">@submitButtonText</button>
@@ -69,7 +66,7 @@
                 <th style="width:15%">Update</th>
                 <th style="width:15%">Delete</th>
             </tr>
-            @foreach (Shift shift in listOfAllShifts)
+            @foreach (Shift shift in PresentedShiftsList)
                 {
                 <tr>
                     <td><span>@shift.ShiftName</span></td>
