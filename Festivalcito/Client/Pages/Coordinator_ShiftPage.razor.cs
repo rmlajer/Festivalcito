@@ -45,7 +45,7 @@ namespace Festivalcito.Client.Pages
         {
             AllAreas = (await AreaService!.ReadAllAreas())!.ToList();
             listOfAllShifts = (await ShiftService!.ReadAllShifts())!.ToList();
-            updatePresentedShiftsList();
+            await updatePresentedShiftsList();
         }
 
         private async void HandleValidSubmit()
@@ -71,23 +71,23 @@ namespace Festivalcito.Client.Pages
             Console.WriteLine(ShiftValidation.ToString());
         }
 
-        public int updatePresentedShiftsList(){
+        public async Task updatePresentedShiftsList(){
             Console.WriteLine("updatePresentedShiftsList");
             PresentedShiftsList.Clear();
-            foreach (Shift shift in listOfAllShifts)
-            {
+            foreach (Shift shift in listOfAllShifts){
                 if (ShiftValidation.areaId == shift.areaId)
                 {
                     PresentedShiftsList.Add(shift);
                 }
             }
-            Console.WriteLine("PresentedShiftsList elements: " + PresentedShiftsList.Count());
-            return 1;
+            await Task.Delay(1);
+            StateHasChanged();
+
         }
 
         private async Task updateListsFromDatabase(){
             listOfAllShifts = (await ShiftService!.ReadAllShifts())!.ToList();
-            updatePresentedShiftsList();
+            await updatePresentedShiftsList();
         }
 
         public void selectShift(Shift shift)
