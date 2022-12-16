@@ -12,11 +12,22 @@
             <th style="width:33%">Saturday</th>
             <th style="width:33%">Sunday</th>
         </tr>
-        @foreach (Shift shift in ListOfPersonAreaShifts){
-                shift.calculateShiftPoints();
-            <ShiftCalenderCell shift="@shift" TakeShift="TakeShiftClicked" RemoveShift="@(()=>removeShiftClicked(shift.ShiftID))"/>
+        @foreach (Shift shift in ListOfPersonAreaShifts)
+        {
+            shift.calculateShiftPoints();
+            <ShiftCalenderCell shift="@shift" TakeShift="TakeShiftClicked" RemoveShift="@(()=>removeShiftClicked(shift.ShiftID))" />
         }
     </table>
+    <div class="ShiftAvailableSymbols">
+        <span id="dot1"></span>
+        <span>Locked shift by coordinator </span>
+        <span id="dot2"></span>
+        <span> Taken shift  </span>
+        <br />
+        <span id="dot3"></span>
+        <span> Available shift  </span>
+
+    </div>
 </div>
 
 <div style="width: 100%;background-color:lightcoral">

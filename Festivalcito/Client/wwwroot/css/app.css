@@ -62,3 +62,29 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+
+#dot1 {
+    height: 15px;
+    width: 15px;
+    background-color: grey;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+#dot2 {
+    height: 15px;
+    width: 15px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+#dot3 {
+    height: 15px;
+    width: 15px;
+    background-color: green;
+    border-radius: 50%;
+    display: inline-block;
+}
+
