@@ -39,7 +39,7 @@
 
                 <div>
                     <label for="exampleFormControlInput1" class="form-label">Area</label>
-                    <select @onclick="(()=>updatePresentedShiftsList())" @bind="@ShiftValidation.areaId">
+                    <select onclick="@(()=>updatePresentedShiftsList())" @bind="@ShiftValidation.areaId">
                         @foreach (Area area in AllAreas){
                             <option value="@area.AreaID">@area.AreaName</option>
                         }
