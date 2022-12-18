@@ -1,6 +1,7 @@
 using Festivalcito.Server.Models.ShiftRepositoryFolder;
 using Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder;
 using Festivalcito.Server.Models.AreaRepositoryFolder;
+using Festivalcito.Server.Models.LoginCredentialRepositoryFolder;
 using Festivalcito.Server.Models.PersonRepositoryFolder;
 using Microsoft.AspNetCore.ResponseCompression;
 using Festivalcito.Server.Models.PersonAssignmentRepositoryFolder;
@@ -19,6 +20,7 @@ builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IAreaRepository, AreaRepository>();
 builder.Services.AddScoped<IShiftAssignmentRepository, ShiftAssignmentRepository>();
 builder.Services.AddScoped<IPersonAssignmentRepository, PersonAssignmentRepository>();
+builder.Services.AddScoped<ILoginCredentialRepository, LoginCredentialRepository>();
 
 var app = builder.Build();
 

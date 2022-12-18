@@ -77,7 +77,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
                 $"dateofbirth, address, postalcode, city, country, nationality, danishlevel, gender, membershippaid," +
                 $"phonenumber, areaid " +
                 $"FROM public.person " +
-                $"INNER JOIN public.personassignment on personassignment.personid = person.personid " +
+                $"LEFT JOIN public.personassignment on personassignment.personid = person.personid " +
                 $"where person.emailaddress ilike '{email}'";
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
@@ -95,6 +95,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
             }
             catch
             {
+
                 var SQL = $"SELECT * from public.person WHERE emailaddress ilike '{email}'";
                 using (var connection = new NpgsqlConnection(PGadminConnection))
                 {

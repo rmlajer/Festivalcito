@@ -1,12 +1,12 @@
 ﻿using System;
 namespace Festivalcito.Shared.Classes{
-	public class LoginCredentials{
+	public class LoginCredential{
 		public int LoginCredentialID { get; set; }
         public string? UserEmail { get; set; }
 		public string? HashedPassword { get; set; }
 
 
-        public LoginCredentials()
+        public LoginCredential()
 		{
 		}
 	}

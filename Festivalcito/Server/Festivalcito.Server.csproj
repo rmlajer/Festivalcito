@@ -26,5 +26,9 @@
     <None Remove="System.Net.Http.Json" />
     <None Remove="Microsoft.Extensions.Http" />
     <None Remove="Npgsql" />
+    <None Remove="Models\LoginCredentialRepositoryFolder\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\LoginCredentialRepositoryFolder\" />
   </ItemGroup>
 </Project>

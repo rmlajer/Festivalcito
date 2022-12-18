@@ -35,10 +35,12 @@
     <None Remove="System.Net.Http.Json" />
     <None Remove="Microsoft.Extensions.Http" />
     <None Remove="Blazored.LocalStorage" />
+    <None Remove="Services\LoginCredentialService\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\AreaServicesFolder\" />
     <Folder Include="Services\PersonServicesFolder\" />
     <Folder Include="Services\ShiftServicesFolder\" />
+    <Folder Include="Services\LoginCredentialService\" />
   </ItemGroup>
 </Project>
