@@ -57,6 +57,11 @@ namespace Festivalcito.Client.Pages{
             StateHasChanged();
         }
 
+        public async void removeUserFromCoordinatorList()
+        {
+
+        }
+
         public async void updateListOfAllPeopleOnArea(List<Person> dbList){
             List<Person> dbListWithArea = new List<Person>();
             List<PersonAssignment> personAssignmentsDB = (await PersonAssignmentService!.ReadAllPersonAssignments())!.ToList();
