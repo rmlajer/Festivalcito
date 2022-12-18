@@ -16,10 +16,9 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
             //Formatere DateOfBirth for at det passer med postgreSQL 
             Console.WriteLine("CreatePerson - Repository");
             var sql = $"INSERT INTO public.person" +
-                $"(assigned, iscoordinator, emailaddress, firstname, lastname, dateofbirth," +
+                $"(iscoordinator, emailaddress, firstname, lastname, dateofbirth," +
                 $"address, postalcode, city, country, nationality, danishlevel, gender, membershippaid, phonenumber)" +
                 $"VALUES (" +
-                $"  false," +
                 $"  false," +
                 $" '{person.EmailAddress}', " +
                 $" '{person.FirstName}'," +
@@ -74,7 +73,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
         public Person ReadPersonEmail(string email)
         {
             Console.WriteLine("Repository - ReadPerson");
-            var SQLJoinArea = $"SELECT person.personid, assigned, iscoordinator, emailaddress, firstname, lastname," +
+            var SQLJoinArea = $"SELECT person.personid, iscoordinator, emailaddress, firstname, lastname," +
                 $"dateofbirth, address, postalcode, city, country, nationality, danishlevel, gender, membershippaid," +
                 $"phonenumber, areaid " +
                 $"FROM public.person " +
@@ -109,7 +108,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
         }
 
         public Person ReadPersonJoinArea(int personId){
-            var SQL = $"SELECT person.personid, assigned, iscoordinator, emailaddress, firstname, lastname," +
+            var SQL = $"SELECT person.personid, iscoordinator, emailaddress, firstname, lastname," +
                 $"dateofbirth, address, postalcode, city, country, nationality, danishlevel, gender, membershippaid," +
                 $"phonenumber, areaid " +
                 $"FROM public.person " +
@@ -182,7 +181,6 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
 
             Console.WriteLine("UpdatePerson");
             var sql = $"UPDATE public.person SET " +
-                $"assigned= {person.Assigned}, " +
                 $"iscoordinator = {person.IsCoordinator}, " +
                 $"emailaddress = '{person.EmailAddress}', " +
                 $"firstname = '{person.FirstName}', " +

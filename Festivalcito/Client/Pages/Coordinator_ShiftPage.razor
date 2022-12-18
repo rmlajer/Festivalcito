@@ -39,12 +39,10 @@
 
                 <div>
                     <label for="exampleFormControlInput1" class="form-label">Area</label>
-                    <select onclick="@(updatePresentedShiftsList())" @bind="@ShiftValidation.areaId">
-                        @foreach (Area area in AllAreas){
-                            <option value="@area.AreaID">@area.AreaName</option>
+                    @foreach (Area area in AllAreas)
+                        {
+                            <button @onclick="@(() => updatePresentedShiftsList(area.AreaID))">@area.AreaName</button>
                         }
-                    </select>
-
                 </div>
                 <div>
                     <label>is locked</label>
@@ -58,26 +56,30 @@
 
     </div>
     <div class="col-sm">
+        <button @onclick="@(()=>sortList("shiftPoints"))">Sort by points</button>
+        <button @onclick="@(()=>sortList("RequiredVolunteers"))">Sort by RequiredVolunteers</button>
         <table>
             <tr>
                 <th style="width:30%">Name</th>
                 <th style="width:30%">RequiredVolunteers</th>
-                <th style="width:10%">Update</th>
+                <th style="width:10%">HourMultiplier</th>
+                <th style="width:10%">Points</th>
                 <th style="width:15%">Update</th>
                 <th style="width:15%">Delete</th>
             </tr>
             @foreach (Shift shift in PresentedShiftsList)
-                {
+            {
                 <tr>
                     <td><span>@shift.ShiftName</span></td>
-                    <td><span>@shift.RequiredVolunteers</span></td>
+                    <td><span>@shift.RequiredVolunteers / @shift.PeopleAssignedToShift</span></td>
                     <td><span>@shift.HourMultiplier</span></td>
+                    <td><span>@shift.shiftPoints</span></td>
                     <td><button @onclick="@(()=>selectShift(shift))">Select</button></td>
                     <td><button @onclick="@(()=>deleteShift(shift.ShiftID))">Delete</button></td>
                 </tr>
-                }
-            </table>
-        
+            }
+        </table>
+
     </div>
 </div>
 

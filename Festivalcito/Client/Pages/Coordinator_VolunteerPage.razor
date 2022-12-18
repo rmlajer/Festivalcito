@@ -10,16 +10,14 @@
         <table>
             <tr>
                 <th style="width:25%">Name</th>
-                <th style="width:25%">is free</th>
                 <th style="width:25%">Birthday</th>
                 <th style="width:25%">Grab to my list</th>
             </tr>
             @foreach (Person person in listOfAllPeopleOnArea){
                 <tr>
                     <td><span>@person.FirstName @person.LastName</span></td>
-                    <td><span>@(!person.Assigned)</span></td>
                     <td><span>@person.DateOfBirth.ToString("yyyy-MM-dd")</span></td>
-                    <td><button onclick="@(()=>addUserToCoordinatorList(person))">Select</button></td>
+                    <td><button @onclick="@(()=>removeUserFromCoordinatorList(person))">Remove</button></td>
                 </tr>
             }
 
@@ -34,16 +32,15 @@
         <table>
             <tr>
                 <th style="width:25%">Name</th>
-                <th style="width:25%">is free</th>
                 <th style="width:25%">Birthday</th>
                 <th style="width:25%">Grab to my list</th>
             </tr>
             @foreach (Person person in GlobalList){
                 <tr>
                     <td><span>@person.FirstName @person.LastName</span></td>
-                    <td><span>@(!person.Assigned)</span></td>
                     <td><span>@person.DateOfBirth.ToString("yyyy-MM-dd")</span></td>
-                    <td><button onclick="@(()=>addUserToCoordinatorList(person))">Select</button></td>
+                    
+                    <td><button @onclick="@(()=>addUserToCoordinatorList(person))">Select</button></td>
                 </tr>
             }
 

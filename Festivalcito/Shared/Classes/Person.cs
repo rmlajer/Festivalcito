@@ -3,7 +3,6 @@
 namespace Festivalcito.Shared.Classes{
 	public class Person{
 		public int PersonID { get; set; }
-        public bool Assigned { get; set; }
         public bool IsCoordinator { get; set; }
         public string? EmailAddress { get; set; }
         public string? FirstName { get; set; }
@@ -30,7 +29,7 @@ namespace Festivalcito.Shared.Classes{
 
         public override string ToString()
         {
-            return $"{FirstName}, {LastName}, {Assigned}, {IsCoordinator}, {EmailAddress}, {DateOfBirth}, {Address}, {PostalCode}, {City}, {Country}, {Nationality}, {DanishLevel}, {Gender}, {MembershipPaid}, {areaId}";
+            return $"{FirstName}, {LastName}, {IsCoordinator}, {EmailAddress}, {DateOfBirth}, {Address}, {PostalCode}, {City}, {Country}, {Nationality}, {DanishLevel}, {Gender}, {MembershipPaid}, {areaId}";
         }
     }
 }

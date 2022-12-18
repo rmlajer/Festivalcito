@@ -2,12 +2,12 @@
 using System.Reflection;
 using Festivalcito.Client.Services.AreaServicesFolder;
 using Festivalcito.Client.Services.ShiftServicesFolder;
+using Festivalcito.Client.Services.ShiftAssignmentServicesFolder;
 using Festivalcito.Shared.Classes;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace Festivalcito.Client.Pages
-{
+namespace Festivalcito.Client.Pages{
 	partial class Coordinator_ShiftPage
 	{
 		public Coordinator_ShiftPage()
@@ -18,6 +18,8 @@ namespace Festivalcito.Client.Pages
         public IAreaService? AreaService { get; set; }
         [Inject]
         public IShiftService? ShiftService { get; set; }
+        [Inject]
+        public IShiftAssignmentService? ShiftAssignmentService { get; set; }
 
         private EditContext? EditContextShift;
         private Shift ShiftValidation = new Shift();
@@ -26,6 +28,7 @@ namespace Festivalcito.Client.Pages
         private List<Area> AllAreas = new List<Area>();
         //Alle tilgængelige vagter i systemet
         List<Shift> listOfAllShifts = new List<Shift>();
+        List<ShiftAssignment> listOfAllShiftAssignment = new List<ShiftAssignment>();
         //Vagter som skal indeholde vagter på det valgte area
         List<Shift> PresentedShiftsList = new List<Shift>();
 
@@ -36,9 +39,7 @@ namespace Festivalcito.Client.Pages
 
         protected override void OnInitialized()
         {
-            base.OnInitialized();
             EditContextShift = new EditContext(ShiftValidation);
-            ShiftValidation.areaId = 2;
             
         }
 
@@ -46,7 +47,12 @@ namespace Festivalcito.Client.Pages
         {
             AllAreas = (await AreaService!.ReadAllAreas())!.ToList();
             listOfAllShifts = (await ShiftService!.ReadAllShifts())!.ToList();
-            await updatePresentedShiftsList();
+            updatePresentedShiftsList(2);
+            listOfAllShiftAssignment = (await ShiftAssignmentService!.ReadAllShiftAssignments())!.ToList();
+            foreach (Shift shift in listOfAllShifts)
+            {
+                shift.calculateMissingPeople(listOfAllShiftAssignment);
+            }
         }
 
         private async void HandleValidSubmit()
@@ -72,8 +78,9 @@ namespace Festivalcito.Client.Pages
             Console.WriteLine(ShiftValidation.ToString());
         }
 
-        public async Task updatePresentedShiftsList(){
+        public void updatePresentedShiftsList(int areaId){
             Console.WriteLine("updatePresentedShiftsList");
+            ShiftValidation.areaId = areaId;
             PresentedShiftsList.Clear();
             foreach (Shift shift in listOfAllShifts){
                 if (ShiftValidation.areaId == shift.areaId)
@@ -81,15 +88,27 @@ namespace Festivalcito.Client.Pages
                     PresentedShiftsList.Add(shift);
                 }
             }
-          
-    
-           
-
+            PresentedShiftsList = sortList("native");
         }
+
+        public List<Shift> sortList(string sortType){
+            foreach (Shift shift in PresentedShiftsList){ shift.calculateShiftPoints(); };
+
+            if (sortType == "shiftPoints")
+            {
+                PresentedShiftsList = PresentedShiftsList.OrderByDescending(o => o.shiftPoints).ToList();
+            }else if (sortType == "RequiredVolunteers")
+            {
+                Console.WriteLine("RequiredVolunteers");
+                PresentedShiftsList = PresentedShiftsList.OrderBy(o => (o.calculateMissingPeople(listOfAllShiftAssignment))).ToList();
+            }
+            return PresentedShiftsList;
+        }
+
 
         private async Task updateListsFromDatabase(){
             listOfAllShifts = (await ShiftService!.ReadAllShifts())!.ToList();
-            await updatePresentedShiftsList();
+            updatePresentedShiftsList(ShiftValidation.areaId);
         }
 
         public void selectShift(Shift shift)
@@ -105,6 +124,8 @@ namespace Festivalcito.Client.Pages
             await ShiftService!.DeleteShift(shiftId);
             await updateListsFromDatabase();
         }
+
+        
 
 
     }
