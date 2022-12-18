@@ -1,15 +1,20 @@
 ﻿@page "/Registration_LoginPage"
 @inject Blazored.LocalStorage.ILocalStorageService localStore
 
+<a href="/" class="btn btn-primary">
+    <i class="fas fa-arrow-left"></i> Back
+</a>
+
+
 <h1>Welcome to the registration / loginPage</h1>
 
 
 
 
 <div style="display: flex">
-    <div style="flex: 70%;background-color:lightskyblue;height:600px">
+    <div style="flex: 70%; background-color: white; height: 500px; margin-right: 28em;">
         <h1 style="height:50px">Registration</h1>
-        <div style="display: flex; height: 650px">
+        <div style="display: flex; height: 600px">
             <div style="flex: 50%;">
                 <EditForm EditContext="EditContextRegistration">
                     <div class="@divClassInputField">
@@ -26,15 +31,15 @@
                     </div>
                     <div class="@divClassInputField">
                         <label for="exampleFormControlInput1" class="form-label">Date of birth</label>
-                        <input @bind="@PersonValidation.DateOfBirth" type="date" class="form-control" id="exampleFormControlInput1">
+                        <input @bind="@PersonValidation.DateOfBirth" type="date" max="1920-01-01" class="form-control" id="exampleFormControlInput1">
                     </div>
                     <div class="@divClassInputField">
                         <label for="exampleFormControlInput1" class="form-label">Country</label>
                         <input @bind="@PersonValidation.Country" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Denmark">
                     </div>
                     <div class="@divClassInputField">
-                        <label for="exampleFormControlInput1" class="form-label">Danish level</label>
-                        <input @bind="@PersonValidation.DanishLevel" type="email" class="form-control" id="exampleFormControlInput1" placeholder="3">
+                        <label for="exampleFormControlInput1" class="form-label">Danish level (1-3)</label>
+                        <input @bind="@PersonValidation.DanishLevel" type="number"min="1" max="3" class="form-control" id="exampleFormControlInput1" placeholder="3">
                     </div>
                 </EditForm>
             </div>
@@ -50,27 +55,28 @@
                     </div>
                     <div class="@divClassInputField">
                         <label for="exampleFormControlInput1" class="form-label">City</label>
-                        <input @bind="@PersonValidation.City" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Los Angeles">
+                        <input @bind="@PersonValidation.City" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Los Angeles">
                     </div>
                     <div class="@divClassInputField">
                         <label for="exampleFormControlInput1" class="form-label">Gender</label>
-                        <input @bind="@PersonValidation.Gender" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Male">
-                    </div>
+                             
+                         <input @bind="@PersonValidation.Gender" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Male"></div>
                     <div class="@divClassInputField">
                         <label for="exampleFormControlInput1" class="form-label">Nationality</label>
                         <input @bind="@PersonValidation.Nationality" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Danish">
                     </div>
                     <div class="@divClassInputField">
                         <label for="exampleFormControlInput1" class="form-label">Phone number</label>
-                        <input @bind="@PersonValidation.PhoneNumber" type="email" class="form-control" id="exampleFormControlInput1" placeholder="8888 8888">
+                        <input @bind="@PersonValidation.PhoneNumber" type="number" class="form-control" id="exampleFormControlInput1" placeholder="8888 8888">
                     </div>
                 </EditForm>
-                <button @onclick="@submitClicked">Submit application</button>
+                <button class="btn btn-primary" @onclick="@submitClicked">Submit application</button>
             </div>
 
         </div>
     </div>
-    <div style="flex: 30%; background-color: lightsalmon; height: 500px">
+    <br />
+    <div style="flex: 30%; background-color: white; height: 500px">
         <h1>Login</h1>
         <EditForm EditContext="EditContextLogin">
             <div class="form-group" style="width: 100%; ">
