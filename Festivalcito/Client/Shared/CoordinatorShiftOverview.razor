@@ -1,0 +1,22 @@
+﻿@using Festivalcito.Shared.Classes;
+
+
+<table>
+    <tr>
+        <th style="width:30%">Name</th>
+        <th style="width:30%">RequiredVolunteers</th>
+        <th style="width:10%">Update</th>
+        <th style="width:15%">Update</th>
+        <th style="width:15%">Delete</th>
+    </tr>
+    @foreach (Shift shift in PresentedShiftsListFromParent)
+    {
+        <tr>
+            <td><span>@shift.ShiftName</span></td>
+            <td><span>@shift.RequiredVolunteers</span></td>
+            <td><span>@shift.HourMultiplier</span></td>
+            <td><button @onclick="@(()=>SelectShiftClicked(shift))">Select</button></td>
+            <td><button @onclick="@(()=>DeleteShiftClicked(shift.ShiftID))">Delete</button></td>
+        </tr>
+    }
+</table>

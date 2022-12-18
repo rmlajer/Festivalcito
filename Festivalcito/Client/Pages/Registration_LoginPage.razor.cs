@@ -61,12 +61,13 @@ namespace Festivalcito.Client.Pages{
         }
 
         public void LoginSubmitClicked(){
+            Console.WriteLine("LoginSubmitClicked");
             if (LoginValidation.UserEmail != ""){
                 Person loggedInPerson = new Person();
-                foreach (Person personInList in listOfAllPeople)
-                {
-                    if (personInList.EmailAddress!.ToLower() == LoginValidation.UserEmail!.ToLower())
-                    {
+                foreach (Person personInList in listOfAllPeople){
+                    Console.WriteLine(personInList.EmailAddress);
+                    if (personInList.EmailAddress!.ToLower() == LoginValidation.UserEmail!.ToLower()){
+                        Console.WriteLine("Login succes");
                         loggedInPerson = personInList;
                         //local storage save
                         localStore.SetItemAsync("userLoggedInEmail", loggedInPerson.EmailAddress);

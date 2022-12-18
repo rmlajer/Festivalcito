@@ -19,7 +19,7 @@ namespace Festivalcito.Shared.Classes{
         public string? Gender { get; set; }
         public bool MembershipPaid { get; set; }
 
-        public int? areaId { get; set; }
+        public int areaId { get; set; }
 
         public Person()
 		{

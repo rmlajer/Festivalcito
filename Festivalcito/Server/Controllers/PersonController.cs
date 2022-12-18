@@ -47,7 +47,7 @@ namespace Festivalcito.Server.Controllers{
             Console.WriteLine("email : " + email);
             return Repository.ReadPersonEmail(email);
         }
-
+        
         [HttpGet("joinarea/{id:int}")]
         public Person ReadPersonJoinArea(int id)
         {

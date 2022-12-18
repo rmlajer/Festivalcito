@@ -21,9 +21,9 @@ namespace Festivalcito.Client.Services.AreaServicesFolder
             return (int)responseStatusCode;
         }
 
-        public async Task<Area> ReadArea(int areaId)
+        public async Task<Area> ReadArea(int? areaId)
         {
-            return (await httpClient.GetFromJsonAsync<Area>("api/area/" + areaId))!;
+            return (await httpClient.GetFromJsonAsync<Area>("api/area/" + areaId!))!;
         }
 
         public async Task<Area[]?> ReadAllAreas()

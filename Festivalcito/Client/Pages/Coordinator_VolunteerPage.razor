@@ -1,89 +1,63 @@
 ﻿@page "/Coordinator_VolunteerPage"
+@using Festivalcito.Shared.Classes;
+@inject Blazored.LocalStorage.ILocalStorageService localStore
 
 
 <h1>Coordinator_VolunteerPage info</h1>
 
-<span>Email</span>
-<input @bind="@emailInput" />
-<button onclick="@(() => getUserInfo(emailInput))">Get info</button>
+<div class="row">
+    <div class="col-sm">
+        <table>
+            <tr>
+                <th style="width:25%">Name</th>
+                <th style="width:25%">is free</th>
+                <th style="width:25%">Birthday</th>
+                <th style="width:25%">Grab to my list</th>
+            </tr>
+            @foreach (Person person in listOfAllPeopleOnArea){
+                <tr>
+                    <td><span>@person.FirstName @person.LastName</span></td>
+                    <td><span>@(!person.Assigned)</span></td>
+                    <td><span>@person.DateOfBirth.ToString("yyyy-MM-dd")</span></td>
+                    <td><button onclick="@(()=>addUserToCoordinatorList(person))">Select</button></td>
+                </tr>
+            }
 
-<div style="width: 100%;">
-    <div style="width: 50%; height: 100px; float: left;">
-        <EditForm EditContext="@EditContext" class="row p-1"
-                  OnValidSubmit="@HandleValidSubmit"
-                  OnInvalidSubmit="@HandleInvalidSubmit">
-            <DataAnnotationsValidator />
-            <div class="w-50 p-3">
-                <h5><strong>First name</strong></h5>
-                <InputText @bind-Value="@PersonValidation.FirstName" class="form-control" />
-                <ValidationMessage For="@(() => PersonValidation.FirstName)" />
-            </div>
-            <div class="w-50 p-3">
-                <h5><strong>Last name</strong></h5>
-                <InputText @bind-Value="@PersonValidation.LastName" class="form-control" />
-                <ValidationMessage For="@(() => PersonValidation.LastName)" />
-            </div>
-            <div class="w-50 p-3">
-                <h5><strong>DateOfBirth</strong></h5>
-                <InputDate @bind-Value="@PersonValidation.DateOfBirth" class="form-control" />
-                <ValidationMessage For="@(() => PersonValidation.DateOfBirth)" />
-            </div>
-            <div class="w-50 p-3">
-                <h5><strong>Gender</strong></h5>
-                <InputText @bind-Value="@PersonValidation.Gender" class="form-control" />
-                <ValidationMessage For="@(() => PersonValidation.Gender)" />
-            </div>
-            <div class="w-50 p-3">
-                <h5><strong>Email</strong></h5>
-                <InputText @bind-Value="@PersonValidation.EmailAddress" class="form-control" />
-                <ValidationMessage For="@(() => PersonValidation.EmailAddress)" />
-            </div>
-            <div class="w-50 p-3">
-                <h5><strong>Phone number</strong></h5>
-                <InputText @bind-Value="@PersonValidation.PhoneNumber" class="form-control" />
-                <ValidationMessage For="@(() => PersonValidation.PhoneNumber)" />
-            </div>
-            <div class="w-50 p-3">
-                <h5><strong>Address</strong></h5>
-                <InputText @bind-Value="@PersonValidation.Address" class="form-control" />
-                <ValidationMessage For="@(() => PersonValidation.Address)" />
-            </div>
-            <div class="w-50 p-3">
-                <h5><strong>Country</strong></h5>
-                <InputText @bind-Value="@PersonValidation.Country" class="form-control" />
-                <ValidationMessage For="@(() => PersonValidation.Country)" />
-            </div>
-            <div class="w-50 p-3">
-                <h5><strong>PostalCode</strong></h5>
-                <InputText @bind-Value="@PersonValidation.PostalCode" class="form-control" />
-                <ValidationMessage For="@(() => PersonValidation.PostalCode)" />
-            </div>
-            <div class="w-50 p-3">
-                <h5><strong>City</strong></h5>
-                <InputText @bind-Value="@PersonValidation.City" class="form-control" />
-                <ValidationMessage For="@(() => PersonValidation.City)" />
-            </div>
-            <div class="w-50 p-3">
-                <h5><strong>DanishLevel</strong></h5>
-                <InputNumber @bind-Value="@PersonValidation.DanishLevel" class="form-control" />
-                <ValidationMessage For="@(() => PersonValidation.DanishLevel)" />
-            </div>
-            <div class="w-50 p-3">
-                <h5><strong>Nationality</strong></h5>
-                <InputText @bind-Value="@PersonValidation.Nationality" class="form-control" />
-                <ValidationMessage For="@(() => PersonValidation.Nationality)" />
-            </div>
-            <div class="w-50 p-3">
-                <h5><strong>Assigned</strong></h5>
-                <InputCheckbox @bind-Value="@PersonValidation.Assigned" class="form-control" />
-                <ValidationMessage For="@(() => PersonValidation.Assigned)" />
-            </div>
-            <div class="w-50 p-3">
-                <h5><strong>Area</strong></h5>
-                <InputNumber @bind-Value="@PersonValidation.areaId" class="form-control" />
-                <ValidationMessage For="@(() => PersonValidation.areaId)" />
-            </div>
-            <button type="submit" style="color:green">Update</button>
-        </EditForm>
+
+        </table>
     </div>
+
+
+    <div class="col-sm" style="background-color:lightslategray">
+
+
+        <table>
+            <tr>
+                <th style="width:25%">Name</th>
+                <th style="width:25%">is free</th>
+                <th style="width:25%">Birthday</th>
+                <th style="width:25%">Grab to my list</th>
+            </tr>
+            @foreach (Person person in GlobalList){
+                <tr>
+                    <td><span>@person.FirstName @person.LastName</span></td>
+                    <td><span>@(!person.Assigned)</span></td>
+                    <td><span>@person.DateOfBirth.ToString("yyyy-MM-dd")</span></td>
+                    <td><button onclick="@(()=>addUserToCoordinatorList(person))">Select</button></td>
+                </tr>
+            }
+
+
+        </table>
+
+
+
+    </div>
+
+
+
+
 </div>
+
+
+

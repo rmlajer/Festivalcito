@@ -18,10 +18,10 @@ public bool CreatePersonAssignment(PersonAssignment personAssignment)
     //Tager et assigned Assigned object og indsætter via SQL statement i vores database
     Console.WriteLine("CreateAssigned - Repository");
     var sql = $"INSERT INTO public.personassignment(" +
-        $"AssignedPerson, AreaId)" +
+        $"areaid, personid)" +
         $"VALUES (" +
-       $" {personAssignment.personid}," +
-        $"'{personAssignment.AreaId}')";
+       $"{personAssignment.AreaId}," +
+        $"{personAssignment.personid})";
     Console.WriteLine("sql: " + sql);
 
     //Isolere "var connection" fra resten af scope ved brug af using
@@ -55,8 +55,7 @@ public PersonAssignment ReadPersonAssignment(int personId)
         return returnAssigned;
     }
 }
-public List<PersonAssignment> ReadAllPersonAssignments()
-{
+public List<PersonAssignment> ReadAllPersonAssignments(){
     Console.WriteLine("ReadAllAssigned");
     var SQL = "SELECT  * FROM public.personassignment;";
     List<PersonAssignment> returnList = new List<PersonAssignment>();
@@ -72,8 +71,7 @@ public List<PersonAssignment> ReadAllPersonAssignments()
     return returnList;
 }
 
-public bool DeletePersonAssignment(int AssignedListId)
-{
+public bool DeletePersonAssignment(int AssignedListId){
     Console.WriteLine("DeleteAssigned");
     var sql = $"DELETE FROM public.personassignment WHERE personassignmentid = {AssignedListId}";
 

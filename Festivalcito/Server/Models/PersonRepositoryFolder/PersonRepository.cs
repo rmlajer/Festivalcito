@@ -109,14 +109,13 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
         }
 
         public Person ReadPersonJoinArea(int personId){
-
-            Console.WriteLine("ReadPersonJoinArea");
             var SQL = $"SELECT person.personid, assigned, iscoordinator, emailaddress, firstname, lastname," +
                 $"dateofbirth, address, postalcode, city, country, nationality, danishlevel, gender, membershippaid," +
                 $"phonenumber, areaid " +
                 $"FROM public.person " +
                 $"INNER JOIN public.personassignment on personassignment.personid = person.personid " +
                 $"where person.personid = {personId}";
+            
             Console.WriteLine(SQL);
 
             //Isolere "var connection" fra resten af scope ved brug af using

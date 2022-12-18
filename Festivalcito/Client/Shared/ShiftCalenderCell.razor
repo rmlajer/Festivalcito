@@ -4,7 +4,7 @@
 
 <tr>
     <td>
-        <div style="background-color:@shift!.backgroundColor">
+        <div style="background-color:@shift!.backgroundColor" class="card">
             <span><strong>ShiftName:</strong></span>
             @shift!.ShiftName
             <br />
@@ -26,7 +26,7 @@
             <button style="display:@ShiftButtonStatus(shift, "takeButton")" @onclick="TakeShiftClicked">
                 <h6>Take shift</h6>
             </button>
-            <button style="display:@ShiftButtonStatus(shift, "removeButton")" @onclick="RemoveShiftClicked">
+            <button class="button" style="display:@ShiftButtonStatus(shift, "removeButton")" @onclick="RemoveShiftClicked">
                 <h6>Remove shift</h6>
             </button>
         </div>
