@@ -39,8 +39,7 @@
 
                 <div>
                     <label for="exampleFormControlInput1" class="form-label">Area</label>
-                    @foreach (Area area in AllAreas)
-                        {
+                    @foreach (Area area in AllAreas){
                             <button @onclick="@(() => updatePresentedShiftsList(area.AreaID))">@area.AreaName</button>
                         }
                 </div>

@@ -9,76 +9,80 @@
 
 <h1>Welcome to the registration / loginPage</h1>
 
-
-
-
 <div style="display: flex">
     <div style="flex: 70%; background-color: white; height: 500px; margin-right: 28em;">
         <h1 style="height:50px">Registration</h1>
         <div style="display: flex; height: 600px">
             <div style="flex: 50%;">
-                <EditForm EditContext="EditContextRegistration">
+                <EditForm EditContext="EditContextRegistration" OnValidSubmit="@submitClicked">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
                     <div class="@divClassInputField">
                         <label for="exampleFormControlInput1" class="form-label">First name</label>
                         <input @bind="@PersonValidation.FirstName" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Bob">
+                        <ValidationMessage For="@(() => PersonValidation.FirstName)" />
+                    </div>
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">Last name</label>
+                        <input @bind="@PersonValidation.LastName" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Marly">
+                        <ValidationMessage For="@(() => PersonValidation.LastName)" />
+                    </div>
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                        <input @bind="@PersonValidation.EmailAddress" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                        <ValidationMessage For="@(() => PersonValidation.EmailAddress)" />
                     </div>
                     <div class="@divClassInputField">
                         <label for="exampleFormControlInput1" class="form-label">Address</label>
                         <input @bind="@PersonValidation.Address" type="text" class="form-control" id="exampleFormControlInput1" placeholder="street 1">
+                        <ValidationMessage For="@(() => PersonValidation.Address)" />
                     </div>
                     <div class="@divClassInputField">
                         <label for="exampleFormControlInput1" class="form-label">Postal code</label>
-                        <input @bind="@PersonValidation.PostalCode" type="email" class="form-control" id="exampleFormControlInput1" placeholder="8000">
+                        <input @bind="@PersonValidation.PostalCode" type="number" class="form-control" id="exampleFormControlInput1" placeholder="8000">
+                        <ValidationMessage For="@(() => PersonValidation.PostalCode)" />
+                    </div>
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">City</label>
+                        <input @bind="@PersonValidation.City" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Los Angeles">
+                        <ValidationMessage For="@(() => PersonValidation.City)" />
+                    </div>
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">Country</label>
+                        <input @bind="@PersonValidation.Country" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Denmark">
+                        <ValidationMessage For="@(() => PersonValidation.Country)" />
+                    </div>
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">Nationality</label>
+                        <input @bind="@PersonValidation.Nationality" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Danish">
+                        <ValidationMessage For="@(() => PersonValidation.Nationality)" />
+                    </div>
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">Phone number</label>
+                        <input @bind="@PersonValidation.PhoneNumber" type="number" class="form-control" id="exampleFormControlInput1" placeholder="8888 8888">
+                        <ValidationMessage For="@(() => PersonValidation.PhoneNumber)" />
+                    </div>
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">Date of birth</label>
+                        <input @bind="@PersonValidation.DateOfBirth" type="date" min="1920-01-01" max="2010-01-01" class="form-control" id="exampleFormControlInput1">
+                        <ValidationMessage For="@(() => PersonValidation.DateOfBirth)" />
                     </div>
                     <div class="@divClassInputField">
                         <label for="exampleFormControlInput1" class="form-label">Gender</label>
-
                         <input @bind="@PersonValidation.Gender" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Male">
+                        <ValidationMessage For="@(() => PersonValidation.Gender)" />
                     </div>
-
-                  
                     <div class="@divClassInputField">
                         <label for="exampleFormControlInput1" class="form-label">Danish level (1-3)</label>
                         <input @bind="@PersonValidation.DanishLevel" type="number" min="1" max="3" class="form-control" id="exampleFormControlInput1" placeholder="3">
                     </div>
                     <div class="@divClassInputField">
-                        <label for="exampleFormControlInput1" class="form-label">Date of birth</label>
-                        <input @bind="@PersonValidation.DateOfBirth" type="date" max="1920-01-01" class="form-control" id="exampleFormControlInput1">
-                    </div>
-                </EditForm>
-            </div>
-            <div style="flex: 50%;height:650px">
-                <EditForm EditContext="EditContextRegistration">
-                    <div class="@divClassInputField">
-                        <label for="exampleFormControlInput1" class="form-label">Last name</label>
-                        <input @bind="@PersonValidation.LastName" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Marly">
-                    </div>
-                    <div class="@divClassInputField">
-                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                        <input @bind="@PersonValidation.EmailAddress" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-                    </div>
-                    <div class="@divClassInputField">
-                        <label for="exampleFormControlInput1" class="form-label">City</label>
-                        <input @bind="@PersonValidation.City" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Los Angeles">
-                    </div>
-                    <div class="@divClassInputField">
-                        <label for="exampleFormControlInput1" class="form-label">Country</label>
-                        <input @bind="@PersonValidation.Country" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Denmark">
-                    </div>
-                    <div class="@divClassInputField">
-                        <label for="exampleFormControlInput1" class="form-label">Nationality</label>
-                        <input @bind="@PersonValidation.Nationality" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Danish">
-                    </div>
-                    <div class="@divClassInputField">
-                        <label for="exampleFormControlInput1" class="form-label">Phone number</label>
-                        <input @bind="@PersonValidation.PhoneNumber" type="number" class="form-control" id="exampleFormControlInput1" placeholder="8888 8888">
-                    </div>
-                    <div class="@divClassInputField">
                         <label for="exampleFormControlInput1" class="form-label">Password</label>
-                        <input @bind="@LoginValidation.HashedPassword"  type="number" class="form-control" id="exampleFormControlInput1" placeholder="123456">
+                        <input @bind="@LoginValidation.HashedPassword" type="number" class="form-control" id="exampleFormControlInput1" placeholder="123456">
                     </div>
+                    <button type="submit" class="btn btn-primary">Submit application</button>
                 </EditForm>
-                <button class="btn btn-primary" @onclick="@submitClicked">Submit application</button>
+                
             </div>
 
         </div>
