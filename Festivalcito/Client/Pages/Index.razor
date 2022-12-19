@@ -7,88 +7,94 @@
 @using Festivalcito.Shared.Classes;
 @inject Blazored.LocalStorage.ILocalStorageService localStore
 
-<nav class="navbar navbar-expand-lg navbar-light py-3" id="mainNav">
-    <div class="container px-4 px-lg-5">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ms-auto my-2 my-lg-0">
-                <li class="nav-item"><a class="nav-link" href="Registration_LoginPage">Registration Login</a></li>
-                <li class="nav-item"><a class="nav-link" href="volunteerPage">Volunteer Page</a></li>
-                <li class="nav-item"><a class="nav-link" href="Coordinator_VolunteerPage">Coordinator  volunteer </a></li>
-                <li class="nav-item"><a class="nav-link" href="Coordinator_ShiftPage">Coordinator Shift </a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+
+  
+    <body style="background-color: #eee;">
+            <nav class="navbar navbar-expand-lg navbar-light py-3" id="mainNav">
+                <div class="container px-4 px-lg-5">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav ms-auto my-2 my-lg-0">
+                            <li class="nav-item"><a class="nav-link" href="Registration_LoginPage">Registration Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="volunteerPage">Volunteer Page</a></li>
+                            <li class="nav-item"><a class="nav-link" href="Coordinator_VolunteerPage">Coordinator  volunteer </a></li>
+                            <li class="nav-item"><a class="nav-link" href="Coordinator_ShiftPage">Coordinator Shift </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
 
 
 
 
-<h1 style="margin-left:42%;">FestivalCito</h1>
-<section class="page-section ">
-    <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-lg-8 text-center">
-                <h2 class="text-white mt-0">Til Festivalcito's koordinering</h2>
-                <hr class="divider divider-light" />
-                <p class="text-white-75 mb-4">Become a part of Festivalcito's team  </p>
-                <a class="btn btn-primary" href="Registration_LoginPage">Login or registration</a>
+            <h1 style="margin-left:42%;">FestivalCito</h1>
+            <section class="page-section ">
+                <div class="container px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-lg-8 text-center">
+                            <h2 class="text-black mt-0">Festivalcito's coordination</h2>
+                            <hr class="divider divider-light" />
+                            <p class="text-black-75 mb-4">Become a part of Festivalcito's team  </p>
+                            <a class="btn btn-primary" href="Registration_LoginPage">Login or registration</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <br />
+            <br />
+            <hr class="divider" />
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <h3 class="h4 mb-2" style="margin-left: 35%;">Sustainability</h3>
+                        <p class="text-muted mb-0" style="margin-left: 35%;">
+                            We are a sustainable festival that
+                            focuses on environmental friendliness and sets green standards. We think about our purchases and waste management
+                            and seeks to reduce our CO2 emissions as much as possible.
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <h3 class="h4 mb-2" style="margin-left: 35%;">Organizations</h3>
+                        <p class="text-muted mb-0" style="margin-left: 35%;">
+                            The festival is supported by green organisations,
+                            who contribute theirs
+                            expertise and resources to make it as sustainable as possible.
+                            We also collaborate with green organizations to
+                            make a positive difference to the environment.
+                        </p>
+
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</section>
-<br />
-<br />
-<hr class="divider" />
-<div class="container">
-    <div class="row">
-        <div class="col-6">
-            <h3 class="h4 mb-2" style="margin-left: 35%;">Bæredygtighed</h3>
-            <p class="text-muted mb-0" style="margin-left: 35%;">Vi er en bæredygtig festival, der
-            fokuserer på miljøvenlighed og sætter grønne standarder. Vi tænker over vores indkøb og affaldshåndtering
-            og søger at reducere vores CO2-udledning så meget som muligt. </p>
-        </div>
-        <div class="col-6">
-            <h3 class="h4 mb-2" style="margin-left: 35%;">Organisationer</h3>
-            <p class="text-muted mb-0" style="margin-left: 35%;">Festivalen støttes af grønne organisationer,
-            der bidrager med deres
-            ekspertise og ressourcer for at gøre den så bæredygtig som muligt.
-            Vi samarbejder også med grønne organisationer for at
-            gøre en positiv forskel for miljøet.</p>
 
-        </div>
-    </div>
-</div>
+
+    </body>
 
 
 
+
+    @code{
+        [Inject]
+        public IShiftService? ShiftService { get; set; }
+
+        [Inject]
+        public IShiftAssignmentService? ShiftAssignmentService { get; set; }
+
+        [Inject]
+        public IPersonService? PersonService { get; set; }
+
+        [Inject]
+        public IPersonAssignmentService? PersonAssignmentService { get; set; }
+
+
+        private List<Shift> ShiftsList = new List<Shift>();
+        private List<ShiftAssignment> ShiftAssignedList = new List<ShiftAssignment>();
+        private List<Person> PersonList = new List<Person>();
+        private List<Area> AreaList = new List<Area>();
+        private List<PersonAssignment> assignedList = new List<PersonAssignment>();
 
 
 
 
 
-@code{
-    [Inject]
-    public IShiftService? ShiftService { get; set; }
-
-    [Inject]
-    public IShiftAssignmentService? ShiftAssignmentService { get; set; }
-
-    [Inject]
-    public IPersonService? PersonService { get; set; }
-
-    [Inject]
-    public IPersonAssignmentService? PersonAssignmentService { get; set; }
-
-
-    private List<Shift> ShiftsList = new List<Shift>();
-    private List<ShiftAssignment> ShiftAssignedList = new List<ShiftAssignment>();
-    private List<Person> PersonList = new List<Person>();
-    private List<Area> AreaList = new List<Area>();
-    private List<PersonAssignment> assignedList = new List<PersonAssignment>();
-
-
-
-
-
-}
+    }
