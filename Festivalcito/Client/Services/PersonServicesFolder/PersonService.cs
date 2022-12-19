@@ -25,6 +25,7 @@ namespace Festivalcito.Client.Services.PersonServicesFolder{
 
         public async Task<Person> ReadPersonEmail(string email)
         {
+            Console.WriteLine("Service - ReadPersonEmail");
             return (await httpClient.GetFromJsonAsync<Person>("api/person/email/" + email))!;
         }
 
@@ -50,9 +51,9 @@ namespace Festivalcito.Client.Services.PersonServicesFolder{
             return (int)responseStatusCode;
         }
 
-        public async Task<int> SendEmailToPerson(string email)
+        public async Task<int> SendEmailToPerson(Person person)
         {
-            var response = await httpClient.PostAsJsonAsync<string>("api/person/email/", email);
+            var response = await httpClient.PostAsJsonAsync<Person>("api/person/email/", person);
             var responseStatusCode = response.StatusCode;
             return (int)responseStatusCode;
         }

@@ -31,14 +31,19 @@ namespace Festivalcito.Server.Controllers{
             Repository.CreatePerson(person);
         }
 
-        [HttpPost("email/{email}")]
-        public Person ReadPersonEmail(string email)
+        [HttpPost("email/")]
+        public bool SendEmail(Person person)
         {
-            Console.WriteLine("Controller - ReadPersonJoinArea");
-            Console.WriteLine("email : " + email);
-            return Repository.ReadPersonEmail(email);
+            Console.WriteLine("Controller - SendEmail");
+            return Repository.sendEmailToPerson(person);
         }
 
+        [HttpGet("email/{email}")]
+        public Person ReadPersonEmail(string email)
+        {
+            Console.WriteLine("Controller - ReadPersonEmail");
+            return Repository.ReadPersonEmail(email);
+        }
         // Kalder ReadPerson i PersonRepository
         //Den kaldte metode henter specifik Person fra DB baseret på PersonID
         [HttpGet("{id:int}")]

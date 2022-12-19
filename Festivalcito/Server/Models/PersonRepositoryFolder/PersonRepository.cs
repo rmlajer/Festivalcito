@@ -240,7 +240,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
         }
 
         public bool sendEmailToPerson(Person person){
-            Console.WriteLine("Repository - sendEmail");
+            Console.WriteLine("Repository - sendEmailToPerson");
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
@@ -251,9 +251,10 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
                     sendMail(person);
                     return true;
                 }
-                catch
+                catch (Exception e)
                 {
                     Console.WriteLine($"Couldn't send an email to the {person.FirstName} {person.LastName}");
+                    Console.WriteLine(e.Message);
                     return false;
                 }
             }

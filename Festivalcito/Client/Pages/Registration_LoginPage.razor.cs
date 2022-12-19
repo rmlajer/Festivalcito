@@ -8,6 +8,7 @@ using Blazored.LocalStorage;
 using System.Text;
 using System.Security.Cryptography;
 
+
 namespace Festivalcito.Client.Pages{
 
 	partial class Registration_LoginPage{
@@ -19,7 +20,6 @@ namespace Festivalcito.Client.Pages{
         public ILoginCredentialService? LoginCredentialService { get; set; }
 
         public string divClassInputField = "mb-2";
-        public string responseMessage = "";
 
         private Person PersonValidation = new Person();
         private LoginCredential LoginValidation = new LoginCredential();
@@ -60,16 +60,16 @@ namespace Festivalcito.Client.Pages{
         public async void submitClicked(){
             await PersonService!.CreatePerson(PersonValidation);
             LoginValidation.HashedPassword = Sha1(LoginValidation.HashedPassword!);
-            LoginValidation.UserEmail = PersonValidation.EmailAddress;
+            LoginValidation.UserEmail = PersonValidation.EmailAddress!;
             int statusCode = await LoginCredentialService!.CreateLoginCredentials(LoginValidation);
             Console.WriteLine("statusCode: " + statusCode);
             if (statusCode != 200)
             {
-                responseMessage = "Create failed";
+                LoginValidation.loginResponse = "Create failed";
             }
             else
             {
-                responseMessage = "Create succesfull";
+                LoginValidation.loginResponse = "Create failed";
             }
 
         }
@@ -78,26 +78,36 @@ namespace Festivalcito.Client.Pages{
             Console.WriteLine("LoginSubmitClicked");
             Console.WriteLine("LoginValidation.UserEmail: " + "\"" + LoginValidation.UserEmail + "\"");
             if (LoginValidation.UserEmail != "" && LoginValidation.HashedPassword != ""){
-                Console.WriteLine("Why you here");
-                Console.WriteLine("LoginValidation.HashedPassword: " + LoginValidation.HashedPassword!);
                 LoginCredential loginCredential = (await LoginCredentialService!.ReadLoginCredential(LoginValidation.UserEmail!));
+                LoginValidation.loginResponse = loginCredential.loginResponse;
+                Console.WriteLine("Response from SQL: " + loginCredential.loginResponse);
                 if (LoginValidation.UserEmail == loginCredential.UserEmail &&
                     Sha1(LoginValidation.HashedPassword!) == loginCredential.HashedPassword){
                     Console.WriteLine("Login succes");
                     //local storage save
-                    responseMessage = "Login successful";
+                    LoginValidation.loginResponse = "Login successful";
                     await localStore.SetItemAsync("userLoggedInEmail", LoginValidation.UserEmail!);
+
+                    Person signedInPerson = (await PersonService!.ReadPersonEmail(loginCredential.UserEmail));
+                    Console.WriteLine("Test:" + signedInPerson.FirstName);
+                    if (signedInPerson.IsCoordinator == true)
+                    {
+                        navigationManager.NavigateTo("/Coordinator_ShiftPage");
+                    }else
+                    {
+                        navigationManager.NavigateTo("/volunteerPage");
+                    }
+
                     return true;
-                }
-                else 
+                }else
                 {
-                    responseMessage = "Login failed";
+                    LoginValidation.loginResponse = "Login failed";
                     return false;
                 }
                 
             }else
             {
-                responseMessage = "Login failed";
+                LoginValidation.loginResponse = "Type in both username and password";
             }
             return false;
             

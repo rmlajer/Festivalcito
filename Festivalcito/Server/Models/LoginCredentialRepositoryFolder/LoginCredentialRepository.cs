@@ -40,16 +40,15 @@ namespace Festivalcito.Server.Models.LoginCredentialRepositoryFolder{
             //forsøger at eksikvere sql statement mod database
             Console.WriteLine(SQL);
             LoginCredential returnLoginCredential = new LoginCredential();
-            try
-            {
-                using (var connection = new NpgsqlConnection(PGadminConnection))
-                {
-                    return connection.Query<LoginCredential>(SQL).First();   
-                }
-            }catch (Exception e)
-            {
-                Console.WriteLine("No match on email: " + e.Message);
+            try{
+                using (var connection = new NpgsqlConnection(PGadminConnection)){
+                    var tmpLogin = connection.Query<LoginCredential>(SQL).First();
+                    tmpLogin.loginResponse = "Login sucessfull";
 
+                    return tmpLogin;
+                }
+            }catch (Exception e){
+                Console.WriteLine("No match on email: " + e.Message);
                 return new LoginCredential(message:e.Message);
             }
             
