@@ -9,13 +9,17 @@ namespace Festivalcito.Server.Models{
 	public class GlobalConnections{
 
 
-        public string PGadminConnection =
-			"UserID=arvppmkz;Password=PRfiDeTpnyfXNpAqQ221u9tQsx2_RUrV;Host=mouse.db.elephantsql.com;Port=5432;Database=arvppmkz";
+        //public string PGadminConnection =
+        //"UserID=arvppmkz;Password=PRfiDeTpnyfXNpAqQ221u9tQsx2_RUrV;Host=mouse.db.elephantsql.com;Port=5432;Database=arvppmkz";
 
-        public string mongoConnection = "";
+        public string PGadminConnection = "Server=festivalcito.postgres.database.azure.com;" +
+            "Database=postgres;" +
+            "Port=5432;" +
+            "User Id=admincito;" +
+            "Password=Bezos123!;";
 
 		public void sendMail(Person person){
-            Console.WriteLine("Send mail");
+            Console.WriteLine("GlobalConnections - Send mail");
             var smtpClient = new SmtpClient("smtp.gmail.com"){
                 Port = 587,
                 Credentials = new NetworkCredential("mortenlund2608@gmail.com", "nozhog-tatmu5-Kydrip"),

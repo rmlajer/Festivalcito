@@ -3,8 +3,8 @@ using Festivalcito.Shared.Classes;
 
 namespace Festivalcito.Server.Models.PersonRepositoryFolder
 {
-	public interface IPersonRepository
-	{
+    public interface IPersonRepository
+    {
         bool CreatePerson(Person person);
         Person ReadPerson(int personId);
         Person ReadPersonEmail(string email);
@@ -12,6 +12,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder
         List<Person> ReadAllPersons();
         bool UpdatePerson(Person person);
         bool DeletePerson(int personId);
+        bool sendEmailToPerson(Person person);
+
     }
 }
-

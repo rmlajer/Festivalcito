@@ -118,8 +118,8 @@ namespace Festivalcito.Client.Pages
             StateHasChanged();
         }
 
-        public void sendEmailToUser(string personEmail){
-            PersonService!.SendEmailToPerson(personEmail);
+        public void sendEmailToUser(Person person){
+            PersonService!.SendEmailToPerson(person);
         }
 
 

@@ -1,5 +1,6 @@
 ﻿@page "/Registration_LoginPage"
 @inject Blazored.LocalStorage.ILocalStorageService localStore
+@inject NavigationManager navigationManager
 
 <a href="/" class="btn btn-primary">
     <i class="fas fa-arrow-left"></i> Back
@@ -108,7 +109,7 @@
             <button @onclick="@(()=>LoginSubmitClicked())" class="btn btn-primary">Login</button>
         </EditForm>
         <div>
-            <span>Http: @responseMessage</span>
+            <span>@LoginValidation.loginResponse</span>
         </div>
     </div>
 </div>
