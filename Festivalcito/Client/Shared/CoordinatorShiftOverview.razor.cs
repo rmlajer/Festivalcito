@@ -7,12 +7,8 @@ namespace Festivalcito.Client.Shared{
 
 	partial class CoordinatorShiftOverview{
 
-		public CoordinatorShiftOverview()
-		{
-		}
-
         [Parameter, EditorRequired]
-        public List<Shift> PresentedShiftsListFromParent { get; set; }
+        public List<Shift>? PresentedShiftsListFromParent { get; set; }
 
         [Parameter, EditorRequired]
         public EventCallback<Shift> SelectShift { get; set; }

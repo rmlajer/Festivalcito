@@ -235,29 +235,31 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
                     Console.WriteLine("Couldn't Delete the Person from the list");
                     return false;
                 }
-
             }
         }
+
+
 
         public bool sendEmailToPerson(Person person){
             Console.WriteLine("Repository - sendEmailToPerson");
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection))
-            {
-                try
-                {
+            using (var connection = new NpgsqlConnection(PGadminConnection)){
+                try{
                     sendMail(person);
                     return true;
                 }
-                catch (Exception e)
-                {
+                catch (Exception e){
+
                     Console.WriteLine($"Couldn't send an email to the {person.FirstName} {person.LastName}");
                     Console.WriteLine(e.Message);
                     return false;
+
                 }
             }
+
+
 
 
 

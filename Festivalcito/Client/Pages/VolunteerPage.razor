@@ -4,35 +4,43 @@
 
 <h1>Volunteer info</h1>
 
+<div class="ShiftAvailableSymbols">
+    <span id="dot1"></span>
+    <span>Locked shift by coordinator </span>
+    <span id="dot2"></span>
+    <span> Taken shift  </span>
+    <br />
+    <span id="dot3"></span>
+    <span> Available shift  </span>
 
-<div style="height:600px;background-color:lightgoldenrodyellow">
-    <table style="width:100%;text-align:center" class="table">
-        <thead>
-            <tr>
-                <th style="width:33%">Friday</th>
-                <th style="width:33%">Saturday</th>
-                <th style="width:33%">Sunday</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (Shift shift in ListOfPersonAreaShifts){
-                shift.calculateShiftPoints();
-                <ShiftCalenderCell shift="@shift" TakeShift="TakeShiftClicked" RemoveShift="@(()=>removeShiftClicked(shift.ShiftID))" />
-            }
-        </tbody>
-    </table>
+</div>
+<div style="height: 600px; background-color: lightgoldenrodyellow; display: flex; overflow: auto">
 
+    @for (int i = 19; i < 22; i++)
+        {
+        <table style="flex: 33.3%; text-align: center" class="table">
+            <thead>
+                <tr>
+                    <th>@convertDay(i)</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                @foreach (Shift shift in ListOfPersonAreaShifts)
+                {
 
-    <div class="ShiftAvailableSymbols">
-        <span id="dot1"></span>
-        <span>Locked shift by coordinator </span>
-        <span id="dot2"></span>
-        <span> Taken shift  </span>
-        <br />
-        <span id="dot3"></span>
-        <span> Available shift  </span>
+                    if (shift.StartTime.Month == 12 && shift.StartTime.Day == i)
+                    {
+                        shift.calculateShiftPoints();
+                        <ShiftCalenderCell shift="@shift"
+                                           TakeShift="TakeShiftClicked"
+                                           RemoveShift="@(()=>removeShiftClicked(shift.ShiftID))" />
+                    }
+                }
+            </tbody>
+        </table>
+    }
 
-    </div>
 </div>
 
 <div style="width: 100%;background-color:lightcoral">

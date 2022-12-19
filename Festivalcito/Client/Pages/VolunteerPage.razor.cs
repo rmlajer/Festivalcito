@@ -120,7 +120,10 @@ namespace Festivalcito.Client.Pages{
 
                 }
             }
-            
+
+            ListOfPersonAreaShifts = ListOfPersonAreaShifts.OrderBy((x) => x.StartTime).ToList();
+
+
             Console.WriteLine("ListOfPersonAreaShifts count: " + ListOfPersonAreaShifts.Count());
             StateHasChanged();
         }
@@ -140,6 +143,21 @@ namespace Festivalcito.Client.Pages{
                 }
             }
             return -1;
+        }
+
+        public string convertDay(int i)
+        {
+            switch (i)
+            {
+                case 19:
+                    return "Friday";
+                case 20:
+                    return "Saturday";
+                case 21:
+                    return "Sunday";
+                default:
+                    return "";
+            }
         }
 
     }

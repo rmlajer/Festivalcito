@@ -68,7 +68,6 @@ namespace Festivalcito.Client.Pages{
                 await ShiftService!.UpdateShift(ShiftValidation);
                 
             }
-
             await updateListsFromDatabase();
             
         }
