@@ -2,11 +2,12 @@
 @using Festivalcito.Shared.Classes;
 @inject Blazored.LocalStorage.ILocalStorageService localStore
 
-<div style="display:flex">
-    <h1>Coordinator_VolunteerPage</h1>
     <a href="/Coordinator_ShiftPage" class="btn btn-primary">
-        <i class="fas fa-arrow-left"></i> Coordinator_ShiftPage
+        <i class="fas fa-arrow-left"></i> Go to Coordinator Create Shift Page
     </a>
+<div style="display:flex">
+    <h1>Coordinator Select Volunteer Page</h1>
+
 </div>
 
 
@@ -18,7 +19,8 @@
                 <th style="width:33%">Birthday</th>
                 <th style="width:33%">Remove from my list</th>
             </tr>
-            @foreach (Person person in listOfAllPeopleOnArea){
+            @foreach (Person person in listOfAllPeopleOnArea)
+            {
                 <tr>
                     <td><span>@person.FirstName @person.LastName</span></td>
                     <td><span>@person.DateOfBirth.ToString("yyyy-MM-dd")</span></td>
@@ -30,7 +32,7 @@
         </table>
     </div>
 
-    
+
     <div class="col-sm" style="background-color:lightslategray">
 
 
@@ -41,7 +43,8 @@
                 <th style="width:15%">Grab to my list</th>
                 <th style="width:15%">Send email</th>
             </tr>
-            @foreach (Person person in GlobalList){
+            @foreach (Person person in GlobalList)
+            {
                 <tr>
                     <td><span>@person.FirstName @person.LastName</span></td>
                     <td><span>@person.DateOfBirth.ToString("yyyy-MM-dd")</span></td>

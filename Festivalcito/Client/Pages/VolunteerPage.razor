@@ -2,7 +2,12 @@
 @inject Blazored.LocalStorage.ILocalStorageService localStore
 @using Festivalcito.Shared.Classes;
 
-<h1>Volunteer info</h1>
+
+<a href="/" class="btn btn-primary">
+    <i class="fas fa-arrow-left"></i> Go to home
+</a>
+
+<h1>Volunteer info page </h1>
 
 <div class="ShiftAvailableSymbols">
     <span id="dot1"></span>
@@ -17,7 +22,7 @@
 <div style="height: 600px; background-color: lightgoldenrodyellow; display: flex; overflow: auto">
 
     @for (int i = 19; i < 22; i++)
-        {
+    {
         <table style="flex: 33.3%; text-align: center" class="table">
             <thead>
                 <tr>
@@ -25,7 +30,7 @@
                 </tr>
             </thead>
             <tbody>
-                
+
                 @foreach (Shift shift in ListOfPersonAreaShifts)
                 {
 
