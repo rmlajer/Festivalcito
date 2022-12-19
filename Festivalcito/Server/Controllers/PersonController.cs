@@ -27,7 +27,7 @@ namespace Festivalcito.Server.Controllers{
         [HttpPost]
         public void CreatePerson(Person person)
         {
-            Console.WriteLine("Controller - " + person.FirstName);
+            Console.WriteLine("Controller - CreatePerson: " + person.FirstName);
             Repository.CreatePerson(person);
         }
 

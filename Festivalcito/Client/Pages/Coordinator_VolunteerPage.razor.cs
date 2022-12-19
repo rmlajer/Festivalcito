@@ -8,11 +8,9 @@ using Microsoft.AspNetCore.Components.Forms;
 using Blazored.LocalStorage;
 using System.Reflection.Metadata;
 
-namespace Festivalcito.Client.Pages
-{
+namespace Festivalcito.Client.Pages{
 
-    partial class Coordinator_VolunteerPage
-    {
+    partial class Coordinator_VolunteerPage{
 
         [Inject]
         public IPersonService? PersonService { get; set; }

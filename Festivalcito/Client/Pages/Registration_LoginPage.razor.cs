@@ -19,7 +19,7 @@ namespace Festivalcito.Client.Pages{
         [Inject]
         public ILoginCredentialService? LoginCredentialService { get; set; }
 
-        public string divClassInputField = "mb-2";
+        public string divClassInputField = "mb-1";
 
         private Person PersonValidation = new Person();
         private LoginCredential LoginValidation = new LoginCredential();
@@ -58,18 +58,22 @@ namespace Festivalcito.Client.Pages{
         }
 
         public async void submitClicked(){
-            await PersonService!.CreatePerson(PersonValidation);
-            LoginValidation.HashedPassword = Sha1(LoginValidation.HashedPassword!);
-            LoginValidation.UserEmail = PersonValidation.EmailAddress!;
-            int statusCode = await LoginCredentialService!.CreateLoginCredentials(LoginValidation);
+            Console.WriteLine("submitClicked");
+            int statusCode =  await PersonService!.CreatePerson(PersonValidation);
             Console.WriteLine("statusCode: " + statusCode);
-            if (statusCode != 200)
+
+            if (statusCode == 200)
             {
-                LoginValidation.loginResponse = "Create failed";
+                LoginValidation.HashedPassword = Sha1(LoginValidation.HashedPassword!);
+                LoginValidation.UserEmail = PersonValidation.EmailAddress!;
+                LoginValidation.loginResponse = "Create successful";
+                await LoginCredentialService!.CreateLoginCredentials(LoginValidation);
+                //return true;
             }
             else
             {
                 LoginValidation.loginResponse = "Create failed";
+                //return false;
             }
 
         }
@@ -90,11 +94,9 @@ namespace Festivalcito.Client.Pages{
 
                     Person signedInPerson = (await PersonService!.ReadPersonEmail(loginCredential.UserEmail));
                     Console.WriteLine("Test:" + signedInPerson.FirstName);
-                    if (signedInPerson.IsCoordinator == true)
-                    {
+                    if (signedInPerson.IsCoordinator == true){
                         navigationManager.NavigateTo("/Coordinator_ShiftPage");
-                    }else
-                    {
+                    }else{
                         navigationManager.NavigateTo("/volunteerPage");
                     }
 

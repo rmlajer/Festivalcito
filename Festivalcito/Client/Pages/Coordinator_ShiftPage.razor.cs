@@ -62,14 +62,12 @@ namespace Festivalcito.Client.Pages{
             Console.WriteLine("ShiftValidation.ShiftID: " + ShiftValidation.ShiftID);
             if (ShiftValidation.ShiftID == 0){
                 await ShiftService!.CreateShift(ShiftValidation);
-                
             }
             else
             {
                 await ShiftService!.UpdateShift(ShiftValidation);
                 
             }
-
             await updateListsFromDatabase();
             
         }
