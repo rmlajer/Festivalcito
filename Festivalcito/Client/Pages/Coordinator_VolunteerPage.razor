@@ -41,7 +41,7 @@
                     <td><span>@person.FirstName @person.LastName</span></td>
                     <td><span>@person.DateOfBirth.ToString("yyyy-MM-dd")</span></td>
                     <td><button @onclick="@(()=>addUserToCoordinatorList(person))">Select</button></td>
-                    <td><button @onclick="@(()=>addUserToCoordinatorList(person))">Send</button></td>
+                    <td><button @onclick="@(()=>sendEmailToUser(person.EmailAddress!))">Send</button></td>
                 </tr>
             }
 

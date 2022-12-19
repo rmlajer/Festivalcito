@@ -31,6 +31,14 @@ namespace Festivalcito.Server.Controllers{
             Repository.CreatePerson(person);
         }
 
+        [HttpPost("email/{email}")]
+        public Person ReadPersonEmail(string email)
+        {
+            Console.WriteLine("Controller - ReadPersonJoinArea");
+            Console.WriteLine("email : " + email);
+            return Repository.ReadPersonEmail(email);
+        }
+
         // Kalder ReadPerson i PersonRepository
         //Den kaldte metode henter specifik Person fra DB baseret på PersonID
         [HttpGet("{id:int}")]
@@ -40,13 +48,7 @@ namespace Festivalcito.Server.Controllers{
             return Repository.ReadPerson(id);
         }
 
-        [HttpGet("email/{email}")]
-        public Person ReadPersonEmail(string email)
-        {
-            Console.WriteLine("Controller - ReadPersonJoinArea");
-            Console.WriteLine("email : " + email);
-            return Repository.ReadPersonEmail(email);
-        }
+        
         
         [HttpGet("joinarea/{id:int}")]
         public Person ReadPersonJoinArea(int id)

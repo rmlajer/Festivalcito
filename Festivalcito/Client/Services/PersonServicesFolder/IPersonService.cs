@@ -12,6 +12,7 @@ namespace Festivalcito.Client.Services.PersonServicesFolder
         Task<Person[]?> ReadAllPersons();
         Task<int> UpdatePerson(Person person);
         Task<int> DeletePerson(int personID);
+        Task<int> SendEmailToPerson(string email);
     }
 }
 

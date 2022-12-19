@@ -38,18 +38,19 @@ namespace Festivalcito.Server.Models.LoginCredentialRepositoryFolder{
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            LoginCredential returnAssigned = new LoginCredential();
+            Console.WriteLine(SQL);
+            LoginCredential returnLoginCredential = new LoginCredential();
             try
             {
                 using (var connection = new NpgsqlConnection(PGadminConnection))
                 {
-                    returnAssigned = connection.Query<LoginCredential>(SQL).First();
-                    return returnAssigned;
+                    return connection.Query<LoginCredential>(SQL).First();   
                 }
-            }catch
+            }catch (Exception e)
             {
-                Console.WriteLine("No match on email");
-                return new LoginCredential();
+                Console.WriteLine("No match on email: " + e.Message);
+
+                return new LoginCredential(message:e.Message);
             }
             
         }
