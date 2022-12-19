@@ -40,7 +40,8 @@ namespace Festivalcito.Client.Pages{
         protected override void OnInitialized()
         {
             EditContextShift = new EditContext(ShiftValidation);
-            
+            ShiftValidation.StartTime = DateTime.Today;
+            ShiftValidation.EndTime = DateTime.Today;
         }
 
         protected override async Task OnInitializedAsync()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Mail;
+using Festivalcito.Shared.Classes;
 
 namespace Festivalcito.Server.Models{
 
@@ -13,11 +14,11 @@ namespace Festivalcito.Server.Models{
 
         public string mongoConnection = "";
 
-		public void sendMail(){
+		public void sendMail(Person person){
             Console.WriteLine("Send mail");
-            var smtpClient = new SmtpClient("smtp.office365.com"){
+            var smtpClient = new SmtpClient("smtp.gmail.com"){
                 Port = 587,
-                Credentials = new NetworkCredential("email", "password"),
+                Credentials = new NetworkCredential("mortenlund2608@gmail.com", "nozhog-tatmu5-Kydrip"),
                 EnableSsl = true
             };
 

@@ -3,19 +3,17 @@ using Festivalcito.Shared.Classes;
 using Npgsql;
 using Dapper;
 
-namespace Festivalcito.Server.Models.LoginCredentialRepositoryFolder
-{
-	public class LoginCredentialRepository : GlobalConnections, ILoginCredentialRepository
-	{
+namespace Festivalcito.Server.Models.LoginCredentialRepositoryFolder{
+
+	public class LoginCredentialRepository : GlobalConnections, ILoginCredentialRepository{
 		public LoginCredentialRepository()
 		{
 		}
 
-        public bool CreateLoginCredential(LoginCredential loginCredential)
-        {
+        public bool CreateLoginCredential(LoginCredential loginCredential){
             //Tager et assigned Assigned object og indsætter via SQL statement i vores database
-            Console.WriteLine("CreateLoginCredential - Repository");
-            var sql = $"INSERT INTO logincredential (useremail, hashedpassword) VALUES ('{loginCredential.UserEmail}', '{loginCredential.HashedPassword}')";
+            Console.WriteLine("Repository - CreateLoginCredential");
+            var sql = $"INSERT INTO logincredential (useremail, hashedpassword) VALUES ('{loginCredential.UserEmail!.ToLower()}', '{loginCredential.HashedPassword}')";
             Console.WriteLine("sql: " + sql);
 
             //Isolere "var connection" fra resten af scope ved brug af using
@@ -29,14 +27,13 @@ namespace Festivalcito.Server.Models.LoginCredentialRepositoryFolder
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Couldn't add the assigned to the list: " + e.Message);
+                    Console.WriteLine("Couldn't add the login to the list: " + e.Message);
                     return false;
                 }
             }
         }
-        public LoginCredential ReadLoginCredential(string email)
-        {
-            Console.WriteLine("ReadLoginCredential - Repository");
+        public LoginCredential ReadLoginCredential(string email){
+            Console.WriteLine("Repository - ReadLoginCredential");
             var SQL = $"SELECT * FROM logincredential WHERE useremail ilike '{email}'";
 
             //Isolere "var connection" fra resten af scope ved brug af using
@@ -56,9 +53,8 @@ namespace Festivalcito.Server.Models.LoginCredentialRepositoryFolder
             }
             
         }
-        public List<LoginCredential> ReadAllLoginCredentials()
-        {
-            Console.WriteLine("ReadAllLoginCredentials - Repository");
+        public List<LoginCredential> ReadAllLoginCredentials(){
+            Console.WriteLine("Repository - ReadAllLoginCredentials");
             var SQL = $"SELECT * FROM logincredential";
             List<LoginCredential> returnList = new List<LoginCredential>();
 
@@ -72,10 +68,9 @@ namespace Festivalcito.Server.Models.LoginCredentialRepositoryFolder
 
             return returnList;
         }
-        public bool DeleteLoginCredential(string email)
-        {
-            Console.WriteLine("DeleteLoginCredential - Repository");
-            var sql = $"DELETE FROM public.logincredential WHERE useremail ilike {email}";
+        public bool DeleteLoginCredential(string email){
+            Console.WriteLine("Repository - ReadAllLoginCredentials");
+            var sql = $"DELETE FROM public.DeleteLoginCredential WHERE useremail ilike {email}";
 
             Console.WriteLine(sql);
             //Isolere "var connection" fra resten af scope ved brug af using

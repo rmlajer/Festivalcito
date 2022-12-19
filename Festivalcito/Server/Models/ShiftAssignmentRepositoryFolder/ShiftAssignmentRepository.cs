@@ -16,7 +16,7 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
         {
             //Tager et ShiftAssigned object og indsætter via SQL statement i vores database
             //Formatere time og float for at det passer med postgreSQL
-            Console.WriteLine("CreateShiftAssigned - Repository");
+            Console.WriteLine("Repository - CreateShiftAssignment");
             Console.WriteLine($"" +
                 $"ShiftAssignmentid:{shiftAssigned.ShiftAssignmentid}," +
                 $"personassignmentid:{shiftAssigned.personassignmentid} " +
@@ -44,11 +44,11 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
                 }
             }
         }
-        public ShiftAssignment ReadShiftAssignment(int shiftAssignedListId)
+        public ShiftAssignment ReadShiftAssignment(int ShiftAssignmentId)
         {
             //Skal måske rettes med where
-            Console.WriteLine("ReadShiftAssigned");
-            var SQL = $"SELECT * from public.ShiftAssignment WHERE ShiftAssignmentid = {shiftAssignedListId}";
+            Console.WriteLine("Repository - ReadShiftAssignment");
+            var SQL = $"SELECT * from public.ShiftAssignment WHERE ShiftAssignmentid = {ShiftAssignmentId}";
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
@@ -59,9 +59,8 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
                 return returnShiftAssigned;
             }
         }
-        public List<ShiftAssignment> ReadAllShiftAssignments()
-        {
-            Console.WriteLine("ReadAllShiftAssigned");
+        public List<ShiftAssignment> ReadAllShiftAssignments(){
+            Console.WriteLine("Repository - ReadAllShiftAssignments");
             var SQL = "SELECT  * FROM public.ShiftAssignment;";
             List<ShiftAssignment> returnList = new List<ShiftAssignment>();
 
@@ -76,9 +75,8 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
             return returnList;
         }
 
-        public bool DeleteShiftAssignment(int shiftAssignedListId)
-        {
-            Console.WriteLine("DeleteShiftAssigned");
+        public bool DeleteShiftAssignment(int shiftAssignedListId){
+            Console.WriteLine("Repository - DeleteShiftAssignment");
             var sql = $"DELETE FROM public.ShiftAssignment WHERE ShiftAssignmentid = {shiftAssignedListId}";
 
 

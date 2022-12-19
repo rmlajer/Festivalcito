@@ -117,6 +117,12 @@ namespace Festivalcito.Client.Pages
 
             StateHasChanged();
         }
+
+        public void sendEmailToUser(Person person){
+            
+        }
+
+
     }
 
 }

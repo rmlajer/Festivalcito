@@ -11,8 +11,6 @@ using System.Security.Cryptography;
 namespace Festivalcito.Client.Pages{
 
 	partial class Registration_LoginPage{
-        
-        List<Person> listOfAllPeople = new List<Person>();
 
         [Inject]
         public IPersonService? PersonService { get; set; }
@@ -21,6 +19,7 @@ namespace Festivalcito.Client.Pages{
         public ILoginCredentialService? LoginCredentialService { get; set; }
 
         public string divClassInputField = "mb-2";
+        public string responseMessage = "";
 
         private Person PersonValidation = new Person();
         private LoginCredential LoginValidation = new LoginCredential();
@@ -42,6 +41,7 @@ namespace Festivalcito.Client.Pages{
             EditContextRegistration = new EditContext(PersonValidation);
             PersonValidation.DateOfBirth = DateTime.Today;
 
+            /*
             PersonValidation.FirstName = "Dan";
             PersonValidation.LastName = "Brown";
             PersonValidation.Address = "Something avenue";
@@ -54,31 +54,54 @@ namespace Festivalcito.Client.Pages{
             PersonValidation.FirstName = "Dan";
             PersonValidation.Gender = "Male";
             PersonValidation.EmailAddress = "Dan@mail.com";
+            */
+        }
+
+        public async void submitClicked(){
+            await PersonService!.CreatePerson(PersonValidation);
+            LoginValidation.HashedPassword = Sha1(LoginValidation.HashedPassword!);
+            LoginValidation.UserEmail = PersonValidation.EmailAddress;
+            int statusCode = await LoginCredentialService!.CreateLoginCredentials(LoginValidation);
+            Console.WriteLine("statusCode: " + statusCode);
+            if (statusCode != 200)
+            {
+                responseMessage = "Create failed";
+            }
+            else
+            {
+                responseMessage = "Create succesfull";
+            }
 
         }
 
-        protected override async Task OnInitializedAsync()
-        {
-            listOfAllPeople = (await PersonService!.ReadAllPersons())!.ToList();
-        }
-
-        public void submitClicked(){
-            PersonService!.CreatePerson(PersonValidation);
-        }
-
-        public async void LoginSubmitClicked(){
+        public async Task<bool> LoginSubmitClicked(){
             Console.WriteLine("LoginSubmitClicked");
+            Console.WriteLine("LoginValidation.UserEmail: " + "\"" + LoginValidation.UserEmail + "\"");
             if (LoginValidation.UserEmail != "" && LoginValidation.HashedPassword != ""){
+                Console.WriteLine("Why you here");
+                Console.WriteLine("LoginValidation.HashedPassword: " + LoginValidation.HashedPassword!);
                 LoginCredential loginCredential = (await LoginCredentialService!.ReadLoginCredential(LoginValidation.UserEmail!));
-
                 if (LoginValidation.UserEmail == loginCredential.UserEmail &&
                     Sha1(LoginValidation.HashedPassword!) == loginCredential.HashedPassword){
                     Console.WriteLine("Login succes");
                     //local storage save
+                    responseMessage = "Login successful";
                     await localStore.SetItemAsync("userLoggedInEmail", LoginValidation.UserEmail!);
+                    return true;
                 }
-
+                else 
+                {
+                    responseMessage = "Login failed";
+                    return false;
+                }
+                
+            }else
+            {
+                responseMessage = "Login failed";
             }
+            return false;
+            
+
         }
 
         public static string Sha1(string input){

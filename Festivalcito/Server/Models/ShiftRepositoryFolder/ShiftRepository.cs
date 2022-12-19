@@ -46,7 +46,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
 
         //Læser et shift objekt fra databasen ved brug af shiftID
         public Shift ReadShift(int shiftId){
-            Console.WriteLine("ReadShift");
+            Console.WriteLine("Repository - ReadShift");
             var SQL = $"SELECT shiftid, starttime,endtime,requiredvolunteers, " +
                 $"agemin,hourmultiplier,islocked,shiftname,areaId " +
                 $"from Shift INNER JOIN area on area.areaid = Shift.areaid WHERE shiftid = {shiftId}";
@@ -63,7 +63,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
 
         //Læser alle shifts objekter fra databasen
         public List<Shift> ReadAllShifts() { 
-            Console.WriteLine("ReadAllShifts");
+            Console.WriteLine("Repository - ReadAllShifts");
             var SQL = $"SELECT shiftid, starttime,endtime,requiredvolunteers, " +
                 $"agemin,hourmultiplier,islocked,shiftname,areaId " +
                 $"from Shift";
@@ -81,9 +81,8 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
 
         }
         //Overskriver et entry i tablen shift med det nye objeckt shift af klassen Shift
-        public bool UpdateShift(Shift shift)
-        {
-            Console.WriteLine("UpdateShift");
+        public bool UpdateShift(Shift shift){
+            Console.WriteLine("Repository - UpdateShift");
             var sql = $"UPDATE public.shift " +
                 $"SET starttime='{shift.StartTime.ToString("yyyy-MM-dd HH:mm:ss").Replace("\"", "").Replace(".", ":")}'," +
                 $"endtime='{shift.EndTime.ToString("yyyy-MM-dd HH:mm:ss").Replace("\"", "").Replace(".", ":")}'," +
@@ -115,8 +114,8 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
         }
 
         //Sletter et entry ved brug af ShiftId
-        public bool DeleteShift(int ShiftId){
-            Console.WriteLine("DeleteShift");
+        public bool DeleteShift(int ShiftId) {
+            Console.WriteLine("Repository - DeleteShift");
             var sql = $"DELETE FROM public.shift WHERE shiftid = {ShiftId}";
 
             Console.WriteLine(sql);

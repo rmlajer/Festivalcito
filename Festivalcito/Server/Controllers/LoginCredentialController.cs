@@ -31,10 +31,10 @@ namespace Festivalcito.Server.Controllers{
         // Kalder CreateAssigned i AssignedRepository
         // Opretter Assigned i DB
         [HttpPost]
-        public void CreateLoginCredential(LoginCredential loginCredential)
+        public bool CreateLoginCredential(LoginCredential loginCredential)
         {
-
-            Repository.CreateLoginCredential(loginCredential);
+            Console.WriteLine("Controller - CreateLoginCredential");
+            return Repository.CreateLoginCredential(loginCredential);
         }
 
         // Kalder ReadAssigned i tAssignedRepository
@@ -42,6 +42,7 @@ namespace Festivalcito.Server.Controllers{
         [HttpGet("{email}")]
         public LoginCredential ReadLoginCredential(string email)
         {
+            Console.WriteLine("Controller - ReadLoginCredential");
             return Repository.ReadLoginCredential(email);
         }
 
@@ -51,6 +52,7 @@ namespace Festivalcito.Server.Controllers{
         [HttpGet]
         public IEnumerable<LoginCredential> ReadAllLoginCredentials()
         {
+            Console.WriteLine("Controller - ReadAllLoginCredentials");
             return Repository.ReadAllLoginCredentials();
         }
 
@@ -60,6 +62,7 @@ namespace Festivalcito.Server.Controllers{
         [HttpDelete("{id:int}")]
         public StatusCodeResult DeleteLoginCredential(string email)
         {
+            Console.WriteLine("Controller - DeleteLoginCredential");
             Console.WriteLine("Server: Delete item called: usermail = " + email);
 
             bool deleted = Repository.DeleteLoginCredential(email);

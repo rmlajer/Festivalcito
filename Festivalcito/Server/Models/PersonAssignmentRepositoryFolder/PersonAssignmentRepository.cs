@@ -13,10 +13,9 @@ namespace Festivalcito.Server.Models.PersonAssignmentRepositoryFolder
 
 
 
-        public bool CreatePersonAssignment(PersonAssignment personAssignment)
-        {
+        public bool CreatePersonAssignment(PersonAssignment personAssignment){
             //Tager et assigned Assigned object og indsætter via SQL statement i vores database
-            Console.WriteLine("CreateAssigned - Repository");
+            Console.WriteLine("Repository - CreatePersonAssignment");
             var sql = $"INSERT INTO public.personassignment(" +
                 $"areaid, personid)" +
                 $"VALUES (" +
@@ -40,24 +39,29 @@ namespace Festivalcito.Server.Models.PersonAssignmentRepositoryFolder
                 }
             }
         }
-        public PersonAssignment ReadPersonAssignment(int personId)
-        {
-            Console.WriteLine("ReadPersonAssignment");
+        public PersonAssignment ReadPersonAssignment(int personId){
+            Console.WriteLine("Repository - ReadPersonAssignment");
             Console.WriteLine("ReadPersonAssignmentId: " + personId);
             var SQL = $"SELECT * from public.personassignment WHERE personid = {personId}";
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
             PersonAssignment returnAssigned = new PersonAssignment();
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            try
             {
-                returnAssigned = connection.Query<PersonAssignment>(SQL).First();
-                return returnAssigned;
+                using (var connection = new NpgsqlConnection(PGadminConnection))
+                {
+                    returnAssigned = connection.Query<PersonAssignment>(SQL).First();
+                    return returnAssigned;
+                }
+            }catch
+            {
+                return new PersonAssignment();
             }
+            
         }
-        public List<PersonAssignment> ReadAllPersonAssignments()
-        {
-            Console.WriteLine("ReadAllAssigned");
+        public List<PersonAssignment> ReadAllPersonAssignments(){
+            Console.WriteLine("Repository - ReadAllPersonAssignments");
             var SQL = "SELECT  * FROM public.personassignment;";
             List<PersonAssignment> returnList = new List<PersonAssignment>();
 
@@ -72,9 +76,8 @@ namespace Festivalcito.Server.Models.PersonAssignmentRepositoryFolder
             return returnList;
         }
 
-        public bool DeletePersonAssignment(int AssignedListId)
-        {
-            Console.WriteLine("DeleteAssigned");
+        public bool DeletePersonAssignment(int AssignedListId){
+            Console.WriteLine("Repository - DeletePersonAssignment");
             var sql = $"DELETE FROM public.personassignment WHERE personassignmentid = {AssignedListId}";
 
             Console.WriteLine(sql);

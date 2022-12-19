@@ -72,6 +72,10 @@
                         <label for="exampleFormControlInput1" class="form-label">Phone number</label>
                         <input @bind="@PersonValidation.PhoneNumber" type="number" class="form-control" id="exampleFormControlInput1" placeholder="8888 8888">
                     </div>
+                    <div class="@divClassInputField">
+                        <label for="exampleFormControlInput1" class="form-label">Password</label>
+                        <input @bind="@LoginValidation.HashedPassword"  type="number" class="form-control" id="exampleFormControlInput1" placeholder="123456">
+                    </div>
                 </EditForm>
                 <button class="btn btn-primary" @onclick="@submitClicked">Submit application</button>
             </div>
@@ -101,7 +105,10 @@
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
             </div>
-            <button @onclick="@LoginSubmitClicked" class="btn btn-primary">Login</button>
+            <button @onclick="@(()=>LoginSubmitClicked())" class="btn btn-primary">Login</button>
         </EditForm>
+        <div>
+            <span>Http: @responseMessage</span>
+        </div>
     </div>
 </div>

@@ -45,18 +45,12 @@ namespace Festivalcito.Shared.Classes {
             }
             try
             {
-                Console.WriteLine("this.PeopleAssignedToShift: " + this.PeopleAssignedToShift);
-                Console.WriteLine("RequiredVolunteers: " + RequiredVolunteers);
                 returnFloat = (float)this.PeopleAssignedToShift / (float)RequiredVolunteers;
-                Console.WriteLine("returnFloat: " + returnFloat);
-                Console.WriteLine("");
             }
             catch
             {
                 returnFloat = 0.0f;
             }
-
-            Console.WriteLine("ShiftName: " + ShiftName +" returnFloat: " + returnFloat);
             
             return returnFloat;
         }
