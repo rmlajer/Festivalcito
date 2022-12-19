@@ -2,65 +2,73 @@
 @using Festivalcito.Shared.Classes;
 @inject Blazored.LocalStorage.ILocalStorageService localStore
 
-<div style="display:flex">
-    <h1>Coordinator_VolunteerPage</h1>
-    <a href="/Coordinator_ShiftPage" class="btn btn-primary">
-        <i class="fas fa-arrow-left"></i> Coordinator_ShiftPage
+
+    <a href="/" class="btn btn-primary">
+        <i class="fas fa-arrow-left"></i> Go to home
     </a>
-</div>
 
-
-<div class="row">
-    <div class="col-sm">
-        <table>
-            <tr>
-                <th style="width:33%">Name</th>
-                <th style="width:33%">Birthday</th>
-                <th style="width:33%">Remove from my list</th>
-            </tr>
-            @foreach (Person person in listOfAllPeopleOnArea){
-                <tr>
-                    <td><span>@person.FirstName @person.LastName</span></td>
-                    <td><span>@person.DateOfBirth.ToString("yyyy-MM-dd")</span></td>
-                    <td><button @onclick="@(()=>removeUserFromCoordinatorList(person))">Remove</button></td>
-                </tr>
-            }
-
-
-        </table>
-    </div>
-
-    
-    <div class="col-sm" style="background-color:lightslategray">
-
-
-        <table>
-            <tr>
-                <th style="width:30%">Name</th>
-                <th style="width:30%">Birthday</th>
-                <th style="width:15%">Grab to my list</th>
-                <th style="width:15%">Send email</th>
-            </tr>
-            @foreach (Person person in GlobalList){
-                <tr>
-                    <td><span>@person.FirstName @person.LastName</span></td>
-                    <td><span>@person.DateOfBirth.ToString("yyyy-MM-dd")</span></td>
-                    <td><button @onclick="@(()=>addUserToCoordinatorList(person))">Select</button></td>
-                    <td><button @onclick="@(()=>sendEmailToUser(person))">Send</button></td>
-                </tr>
-            }
-
-
-        </table>
-
-
+    <a href="/Coordinator_ShiftPage" class="btn btn-primary">
+        <i class="fas fa-arrow-left"></i> Go to Coordinator Create Shift Page
+    </a>
+    <div style="display:flex">
+        <h1>Coordinator Select Volunteer Page</h1>
 
     </div>
 
 
+    <div class="row">
+        <div class="col-sm">
+            <table>
+                <tr>
+                    <th style="width:33%">Name</th>
+                    <th style="width:33%">Birthday</th>
+                    <th style="width:33%">Remove from my list</th>
+                </tr>
+                @foreach (Person person in listOfAllPeopleOnArea)
+                {
+                    <tr>
+                        <td><span>@person.FirstName @person.LastName</span></td>
+                        <td><span>@person.DateOfBirth.ToString("yyyy-MM-dd")</span></td>
+                        <td><button @onclick="@(()=>removeUserFromCoordinatorList(person))">Remove</button></td>
+                    </tr>
+                }
 
 
-</div>
+            </table>
+        </div>
+
+
+        <div class="col-sm" style="background-color:lightslategray">
+
+
+            <table>
+                <tr>
+                    <th style="width:30%">Name</th>
+                    <th style="width:30%">Birthday</th>
+                    <th style="width:15%">Grab to my list</th>
+                    <th style="width:15%">Send email</th>
+                </tr>
+                @foreach (Person person in GlobalList)
+                {
+                    <tr>
+                        <td><span>@person.FirstName @person.LastName</span></td>
+                        <td><span>@person.DateOfBirth.ToString("yyyy-MM-dd")</span></td>
+                        <td><button @onclick="@(()=>addUserToCoordinatorList(person))">Select</button></td>
+                        <td><button @onclick="@(()=>sendEmailToUser(person))">Send</button></td>
+                    </tr>
+                }
+
+
+            </table>
+
+
+
+        </div>
+
+
+
+
+    </div>
 
 
 
