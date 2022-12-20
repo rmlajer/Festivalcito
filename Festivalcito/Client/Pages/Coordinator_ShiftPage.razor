@@ -30,38 +30,42 @@
         <br />
         <div class="col-sm">
             <EditForm EditContext="@EditContextShift"
-                      OnValidSubmit="@(()=>HandleValidSubmit())">
+                      OnValidSubmit="@(()=>HandleValidSubmit())"
+                      OnInvalidSubmit="HandleInvalidSubmit">
                 <DataAnnotationsValidator />
-                <ValidationSummary />
+                
 
-                <div style="width:20%">
+                <div>
                     <div>
                         <label>Shift name</label>
                         <InputText @bind-Value="ShiftValidation.ShiftName"></InputText>
                         <ValidationMessage For="@(() => ShiftValidation.ShiftName)" />
-                    </div>
+                    </div><br />
                     <div>
                         <label>Age min</label>
                         <InputNumber @bind-Value="ShiftValidation.AgeMin"></InputNumber>
-                    </div>
+                        <ValidationMessage For="@(() => ShiftValidation.AgeMin)" />
+                    </div><br />
                     <div>
                         <label>RequiredVolunteers</label>
                         <InputNumber @bind-Value="ShiftValidation.RequiredVolunteers"></InputNumber>
-                    </div>
+                        <ValidationMessage For="@(() => ShiftValidation.RequiredVolunteers)" />
+                    </div><br />
                     <div>
                         <label>HourMultiplier</label>
                         <InputNumber @bind-Value="ShiftValidation.HourMultiplier"></InputNumber>
-                    </div>
+                        <ValidationMessage For="@(() => ShiftValidation.HourMultiplier)" />
+                    </div><br />
                     <div>
                         <label>StartTime</label>
-                        <input type="datetime" @bind="ShiftValidation.StartTime">
-                    </div>
+                        <input type="datetime" min="01-05-2023" max="03-05-2023" @bind="ShiftValidation.StartTime">
+                        <ValidationMessage For="@(() => ShiftValidation.StartTime)" />
+                    </div><br />
                     <div>
                         <label>EndTime</label>
                         <input type="datetime" @bind="ShiftValidation.EndTime">
-                    </div>
-
-
+                        <ValidationMessage For="@(() => ShiftValidation.EndTime)" />
+                    </div><br />
                     <div>
                         <label>is locked</label>
                         <InputCheckbox @bind-Value="ShiftValidation.IsLocked"></InputCheckbox>

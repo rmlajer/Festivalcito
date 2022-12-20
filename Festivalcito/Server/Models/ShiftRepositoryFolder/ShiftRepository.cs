@@ -48,7 +48,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
         public Shift ReadShift(int shiftId){
             Console.WriteLine("Repository - ReadShift");
             var SQL = $"SELECT shiftid, starttime,endtime,requiredvolunteers, " +
-                $"agemin,hourmultiplier,islocked,shiftname,areaId " +
+                $"agemin,hourmultiplier,islocked,shiftname,area.areaId " +
                 $"from Shift INNER JOIN area on area.areaid = Shift.areaid WHERE shiftid = {shiftId}";
 
             //Isolere "var connection" fra resten af scope ved brug af using
