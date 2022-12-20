@@ -25,7 +25,6 @@ namespace Festivalcito.Client.Pages{
         List<Person> listOfAllPeople = new List<Person>();
         List<Shift> listOfAllShifts = new List<Shift>();
         List<ShiftAssignment> listOfShiftAssignments = new List<ShiftAssignment>();
-
         List<Shift> ListOfPersonAreaShifts = new List<Shift>();
 
         public string? loggedInUserEmail { get; set; }

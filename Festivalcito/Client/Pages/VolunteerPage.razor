@@ -8,12 +8,17 @@
     <i class="fas fa-arrow-left"></i> Go to home
 </a>
 <div style="display:flex">
-    <div style="flex:33.3%">
+    <div style="flex:50%">
         <h1>Volunteer info page </h1>
+        @if (PersonValidation.areaId == 0)
+        {
+            <span>Your account needs to be assigned to an area by a coordinator, before you can see shifts</span>
+        }
+
     </div>
 
 
-    <div class="ShiftAvailableSymbols" style="flex:33.3%">
+    <div class="ShiftAvailableSymbols" style="flex:30%">
         <span id="dot3"></span>
         <span> Available shift  </span>
         <span id="dot2"></span>
@@ -23,14 +28,14 @@
     </div>
 
 
-    <div style="flex:33.3%">
+    <div style="flex:20%">
         <h6>Your festival points: @personTotalPoints</h6>
         <button @onclick="@(()=>UserLogOut())">Log out</button>
     </div>
 
 
 </div>
-
+@if (PersonValidation.areaId != 0){
 <div style="height: 600px; background-color: lightgoldenrodyellow; display: flex; overflow: auto">
     @for (int i = 01; i < 04; i++)
     {
@@ -57,6 +62,8 @@
         </table>
     }
 </div>
+}
+    
 
 <div style="width: 100%;background-color:lightcoral">
     <h3>Here you can update your info</h3>
