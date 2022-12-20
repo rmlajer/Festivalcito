@@ -20,15 +20,17 @@ namespace Festivalcito.Server.Models{
 
 		public void sendMail(Person person){
             Console.WriteLine("GlobalConnections - Send mail");
-            var smtpClient = new SmtpClient("smtp.gmail.com"){
+            var smtpClient = new SmtpClient("smtp.simply.com")
+            {
                 Port = 587,
                 Credentials = new NetworkCredential("mortenlund2608@gmail.com", "nozhog-tatmu5-Kydrip"),
+                //Credentials = new NetworkCredential("mortenlund2608@gmail.com", "nozhog-tatmu5-Kydrip"),
                 EnableSsl = true
             };
 
             var mailMessage = new MailMessage
             {
-                From = new MailAddress("email"),
+                From = new MailAddress("mortenlund2608@gmail.com"),
                 Subject = "Test 123",
                 Body = "<h1>Hello</h1>",
                 IsBodyHtml = true
