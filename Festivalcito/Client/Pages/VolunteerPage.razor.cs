@@ -10,7 +10,7 @@ using Blazored.LocalStorage;
 
 namespace Festivalcito.Client.Pages{
 
-	partial class VolunteerPage{
+    partial class VolunteerPage {
 
         [Inject]
         public IPersonService? PersonService { get; set; }
@@ -28,15 +28,16 @@ namespace Festivalcito.Client.Pages{
 
         List<Shift> ListOfPersonAreaShifts = new List<Shift>();
 
-        public string loggedInUserEmail = "";
+        public string loggedInUserEmail { get; set; }
         int personAssignmentId = 0;
-        
+        float personTotalPoints = 0;
+
 
         private Person PersonValidation = new Person();
         private EditContext? EditContext;
 
-        public VolunteerPage(){
-		}
+        public VolunteerPage() {
+        }
 
 
 
@@ -51,36 +52,49 @@ namespace Festivalcito.Client.Pages{
             Console.WriteLine("HandleInvalidSubmit Called...");
         }
 
-        protected override void OnInitialized(){
+        protected override void OnInitialized() {
             base.OnInitialized();
             EditContext = new EditContext(PersonValidation);
         }
 
 
 
-        protected override async Task OnInitializedAsync(){
+        protected override async Task OnInitializedAsync() {
+            try
+            {
+                loggedInUserEmail = await localStore.GetItemAsync<string>("userLoggedInEmail");
+                Console.WriteLine("\""+ loggedInUserEmail+"\"");
+                if (loggedInUserEmail != null){
+                    Console.WriteLine("Useremail not empty");
+                    PersonValidation = await PersonService!.ReadPersonEmail(loggedInUserEmail);
 
-            loggedInUserEmail = await localStore.GetItemAsync<string>("userLoggedInEmail");
-            PersonValidation = await PersonService!.ReadPersonEmail(loggedInUserEmail);
+                    await updateLists();
 
-            listOfAllShifts = (await ShiftService!.ReadAllShifts())!.ToList();
-            listOfShiftAssignments = (await ShiftAssignmentService!.ReadAllShiftAssignments())!.ToList();
-            Console.WriteLine("listOfAllShifts count: " + listOfAllShifts.Count());
-            Console.WriteLine("PersonValidation areaName: " + PersonValidation.areaId);
 
-            personAssignmentId = (await PersonAssignmentService!.ReadPersonAssignment(PersonValidation.PersonID)).PersonAssignmentId;
-            Console.WriteLine("personAssignmentId " + personAssignmentId);
-            updateShiftsTable();
+                    personAssignmentId = (await PersonAssignmentService!.ReadPersonAssignment(PersonValidation.PersonID)).PersonAssignmentId;
+                    Console.WriteLine("personAssignmentId " + personAssignmentId);
+                    updateShiftsTable();
+                }
+                
+
+            }
+            catch
+            {
+                Console.WriteLine("No user logged in");
+            }
+            
+
+           
 
         }
 
 
-        public async void TakeShiftClicked(Shift shift){
+        public async void TakeShiftClicked(Shift shift) {
             Console.WriteLine("TakeShiftClicked");
             ShiftAssignment newShiftAssigned = new ShiftAssignment();
             int personid = PersonValidation.PersonID;
 
-            
+
             newShiftAssigned.personassignmentid = personAssignmentId;
             newShiftAssigned.ShiftId = shift.ShiftID;
 
@@ -90,40 +104,36 @@ namespace Festivalcito.Client.Pages{
             updateShiftsTable();
         }
 
-        public async void removeShiftClicked(int shiftId){
+        public async void removeShiftClicked(int shiftId) {
             int ShiftAssignmentidTmp = findShiftAssignmentID(shiftId);
             await ShiftAssignmentService!.DeleteShiftAssignment(ShiftAssignmentidTmp);
             await updateLists();
             updateShiftsTable();
         }
 
-        public void updateShiftsTable(){
+        public void updateShiftsTable() {
             Console.WriteLine("updateShiftsTable");
-            
+
             ListOfPersonAreaShifts.Clear();
-            Console.WriteLine("PersonValidation.areaId: " + PersonValidation.areaId);
-            foreach (Shift shift in listOfAllShifts){
-                Console.WriteLine("shift.areaId: " + shift.areaId);
-                if (shift.areaId == PersonValidation.areaId){
-                    foreach (ShiftAssignment shiftAssignment in listOfShiftAssignments){
-                        if (shiftAssignment.ShiftId == shift.ShiftID){
+            foreach (Shift shift in listOfAllShifts) {
+                if (shift.areaId == PersonValidation.areaId) {
+                    foreach (ShiftAssignment shiftAssignment in listOfShiftAssignments) {
+                        if (shiftAssignment.ShiftId == shift.ShiftID && personAssignmentId == shiftAssignment.personassignmentid) {
                             shift.backgroundColor = "red";
-                            
+
                         }
                     }
-                    Console.WriteLine("color: "+shift.backgroundColor);
                     if (shift.IsLocked == true)
                     {
                         shift.backgroundColor = "grey";
                     }
                     ListOfPersonAreaShifts.Add(shift);
-
                 }
             }
 
             ListOfPersonAreaShifts = ListOfPersonAreaShifts.OrderBy((x) => x.StartTime).ToList();
 
-
+            calculatePersonPoints();
             Console.WriteLine("ListOfPersonAreaShifts count: " + ListOfPersonAreaShifts.Count());
             StateHasChanged();
         }
@@ -131,6 +141,12 @@ namespace Festivalcito.Client.Pages{
         {
             listOfAllShifts = (await ShiftService!.ReadAllShifts())!.ToList();
             listOfShiftAssignments = (await ShiftAssignmentService!.ReadAllShiftAssignments())!.ToList();
+
+            foreach (Shift shift in listOfAllShifts)
+            {
+                shift.calculateShiftPoints();
+            }
+
         }
 
         public int findShiftAssignmentID(int shiftId)
@@ -160,13 +176,39 @@ namespace Festivalcito.Client.Pages{
             }
         }
 
+
+        public void calculatePersonPoints() {
+            Console.WriteLine("calculatePersonPoints");
+            personTotalPoints = 0.0f;
+            foreach (ShiftAssignment shiftAssignment in listOfShiftAssignments) {
+
+                if (shiftAssignment.personassignmentid == personAssignmentId) {
+
+                    foreach (Shift shift in listOfAllShifts) {
+
+                        if (shift.ShiftID == shiftAssignment.ShiftId)
+                        {
+                            Console.WriteLine("Match: " + shift.shiftPoints);
+                            personTotalPoints += shift.shiftPoints;
+                        }
+                    }
+
+                }
+
+
+            }
+            Console.WriteLine("personTotalPoints: " + personTotalPoints);
+
+        }
+
+
+        public async void UserLogOut()
+        {
+            await localStore.ClearAsync();
+            navigationManager.NavigateTo("/");
+        }
+
     }
-
-    
-
-
-
-
 
 
 

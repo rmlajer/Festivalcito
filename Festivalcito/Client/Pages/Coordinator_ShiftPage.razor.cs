@@ -6,10 +6,10 @@ using Festivalcito.Client.Services.ShiftAssignmentServicesFolder;
 using Festivalcito.Shared.Classes;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using System.Reflection.Metadata;
 
 namespace Festivalcito.Client.Pages{
-	partial class Coordinator_ShiftPage
-	{
+	partial class Coordinator_ShiftPage{
 		public Coordinator_ShiftPage()
 		{
 		}
@@ -62,32 +62,31 @@ namespace Festivalcito.Client.Pages{
             Console.WriteLine("ShiftValidation.ShiftID: " + ShiftValidation.ShiftID);
             if (ShiftValidation.ShiftID == 0){
                 await ShiftService!.CreateShift(ShiftValidation);
+                await updateListsFromDatabase();
             }
             else
             {
                 await ShiftService!.UpdateShift(ShiftValidation);
-                
+                await updateListsFromDatabase();
             }
-            await updateListsFromDatabase();
             
-        }
-
-        private void HandleInvalidSubmit()
-        {
-            Console.WriteLine(ShiftValidation.ToString());
+            
         }
 
         public void updatePresentedShiftsList(int areaId){
             Console.WriteLine("updatePresentedShiftsList");
+            ShiftValidation = new Shift();
             ShiftValidation.areaId = areaId;
             PresentedShiftsList.Clear();
             foreach (Shift shift in listOfAllShifts){
+                Console.WriteLine(shift.ShiftName);
                 if (ShiftValidation.areaId == shift.areaId)
                 {
                     PresentedShiftsList.Add(shift);
                 }
             }
             PresentedShiftsList = sortList("native");
+            StateHasChanged();
         }
 
         public List<Shift> sortList(string sortType){
@@ -110,21 +109,23 @@ namespace Festivalcito.Client.Pages{
             updatePresentedShiftsList(ShiftValidation.areaId);
         }
 
-        public void selectShift(Shift shift)
-        {
-
+        public void selectShift(Shift shift){
             ShiftValidation = shift;
             EditContextShift = new EditContext(shift);
-            submitButtonText = "Update";
+            submitButtonText = "Update in datebase";
         }
 
-        public async void deleteShift(int shiftId)
-        {
+        public async void deleteShift(int shiftId){
             await ShiftService!.DeleteShift(shiftId);
             await updateListsFromDatabase();
         }
 
-        
+        public async void UserLogOut(){
+            await localStore.ClearAsync();
+            navigationManager.NavigateTo("/");
+        }
+
+
 
 
     }

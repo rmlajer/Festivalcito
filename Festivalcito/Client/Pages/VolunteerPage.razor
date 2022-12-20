@@ -1,24 +1,36 @@
 ﻿@page "/volunteerPage"
 @inject Blazored.LocalStorage.ILocalStorageService localStore
+@inject NavigationManager navigationManager
 @using Festivalcito.Shared.Classes;
 
 
 <a href="/" class="btn btn-primary">
     <i class="fas fa-arrow-left"></i> Go to home
 </a>
+<div style="display:flex">
+    <div style="flex:33.3%">
+        <h1>Volunteer info page </h1>
+    </div>
 
-<h1>Volunteer info page </h1>
 
-<div class="ShiftAvailableSymbols">
-    <span id="dot1"></span>
-    <span>Locked shift by coordinator </span>
-    <span id="dot2"></span>
-    <span> Taken shift  </span>
-    <br />
-    <span id="dot3"></span>
-    <span> Available shift  </span>
+    <div class="ShiftAvailableSymbols" style="flex:33.3%">
+        <span id="dot3"></span>
+        <span> Available shift  </span>
+        <span id="dot2"></span>
+        <span> Taken shift  </span>
+        <span id="dot1"></span>
+        <span>Locked shift by coordinator </span>
+    </div>
+
+
+    <div style="flex:33.3%">
+        <h6>Your festival points: @personTotalPoints</h6>
+        <button @onclick="@(()=>UserLogOut())">Log out</button>
+    </div>
+
 
 </div>
+
 <div style="height: 600px; background-color: lightgoldenrodyellow; display: flex; overflow: auto">
 
     @for (int i = 19; i < 22; i++)
@@ -49,6 +61,7 @@
 </div>
 
 <div style="width: 100%;background-color:lightcoral">
+    <h3>Here you can update your info</h3>
     <EditForm EditContext="@EditContext" class="row p-1"
               OnValidSubmit="@HandleValidSubmit"
               OnInvalidSubmit="@HandleInvalidSubmit">

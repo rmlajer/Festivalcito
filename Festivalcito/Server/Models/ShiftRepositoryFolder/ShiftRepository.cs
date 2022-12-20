@@ -30,7 +30,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection)){
+            using (var connection = new NpgsqlConnection(AzureConnection)){
                 try{
                     connection.Execute(sql);
                     return true;
@@ -54,7 +54,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
             Shift returnShift = new Shift();
-            using (var connection = new NpgsqlConnection(PGadminConnection)){
+            using (var connection = new NpgsqlConnection(AzureConnection)){
                 returnShift = connection.Query<Shift>(SQL).First();
                 return returnShift;
             }
@@ -71,7 +71,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
             Console.WriteLine(SQL);
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 returnList = connection.Query<Shift>(SQL).ToList();
                 
@@ -99,7 +99,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection)){
+            using (var connection = new NpgsqlConnection(AzureConnection)){
                 try
                 {
                     connection.Execute(sql);
@@ -121,7 +121,7 @@ namespace Festivalcito.Server.Models.ShiftRepositoryFolder{
             Console.WriteLine(sql);
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection)){
+            using (var connection = new NpgsqlConnection(AzureConnection)){
                 try{
                     connection.Execute(sql);
                     return true;

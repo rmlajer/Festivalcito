@@ -18,7 +18,7 @@ namespace Festivalcito.Server.Models.LoginCredentialRepositoryFolder{
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 try
                 {
@@ -41,7 +41,7 @@ namespace Festivalcito.Server.Models.LoginCredentialRepositoryFolder{
             Console.WriteLine(SQL);
             LoginCredential returnLoginCredential = new LoginCredential();
             try{
-                using (var connection = new NpgsqlConnection(PGadminConnection)){
+                using (var connection = new NpgsqlConnection(AzureConnection)){
                     var tmpLogin = connection.Query<LoginCredential>(SQL).First();
                     tmpLogin.loginResponse = "Login sucessfull";
 
@@ -60,7 +60,7 @@ namespace Festivalcito.Server.Models.LoginCredentialRepositoryFolder{
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 returnList = connection.Query<LoginCredential>(SQL).ToList();
 
@@ -75,7 +75,7 @@ namespace Festivalcito.Server.Models.LoginCredentialRepositoryFolder{
             Console.WriteLine(sql);
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 try
                 {

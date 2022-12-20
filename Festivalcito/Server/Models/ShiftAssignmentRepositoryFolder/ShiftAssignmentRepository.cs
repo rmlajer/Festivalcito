@@ -30,7 +30,7 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 try
                 {
@@ -53,7 +53,7 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
             ShiftAssignment returnShiftAssigned = new ShiftAssignment();
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 returnShiftAssigned = connection.Query<ShiftAssignment>(SQL).First();
                 return returnShiftAssigned;
@@ -66,7 +66,7 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 returnList = connection.Query<ShiftAssignment>(SQL).ToList();
 
@@ -82,7 +82,7 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection)){
+            using (var connection = new NpgsqlConnection(AzureConnection)){
                 try
                 {
                     connection.Execute(sql);

@@ -38,7 +38,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 try
                 {
@@ -63,7 +63,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
             Person returnPerson = new Person();
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 returnPerson = connection.Query<Person>(SQL).First();
                 return returnPerson;
@@ -84,7 +84,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
             Person returnPerson = new Person();
             try
             {
-                using (var connection = new NpgsqlConnection(PGadminConnection))
+                using (var connection = new NpgsqlConnection(AzureConnection))
                 {
                     returnPerson = connection.Query<Person>(SQLJoinArea).First();
                     Console.WriteLine(SQLJoinArea);
@@ -96,7 +96,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
             {
 
                 var SQL = $"SELECT * from public.person WHERE emailaddress ilike '{email}'";
-                using (var connection = new NpgsqlConnection(PGadminConnection))
+                using (var connection = new NpgsqlConnection(AzureConnection))
                 {
                     returnPerson = connection.Query<Person>(SQL).First();
                     Console.WriteLine(SQL);
@@ -124,7 +124,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
             try
             {
                 Person returnPerson = new Person();
-                using (var connection = new NpgsqlConnection(PGadminConnection))
+                using (var connection = new NpgsqlConnection(AzureConnection))
                 {
                     returnPerson = connection.Query<Person>(SQL).First();
                     return returnPerson;
@@ -148,7 +148,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 returnList = connection.Query<Person>(SQL).ToList();
 
@@ -164,7 +164,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 returnList = connection.Query<Person>(SQL).ToList();
 
@@ -202,7 +202,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 try
                 {
@@ -224,7 +224,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection)){
+            using (var connection = new NpgsqlConnection(AzureConnection)){
                 try
                 {
                     connection.Execute(sql);
@@ -245,7 +245,7 @@ namespace Festivalcito.Server.Models.PersonRepositoryFolder{
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection)){
+            using (var connection = new NpgsqlConnection(AzureConnection)){
                 try{
                     sendMail(person);
                     return true;

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Festivalcito.Shared.Classes{
 	public class Person{
+
 		public int PersonID { get; set; }
         public bool IsCoordinator { get; set; }
         [Required]
