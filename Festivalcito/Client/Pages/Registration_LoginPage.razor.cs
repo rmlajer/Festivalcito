@@ -68,7 +68,8 @@ namespace Festivalcito.Client.Pages{
                 LoginValidation.UserEmail = PersonValidation.EmailAddress!;
                 LoginValidation.loginResponse = "Create successful";
                 await LoginCredentialService!.CreateLoginCredentials(LoginValidation);
-                //return true;
+                await localStore.SetItemAsync("userLoggedInEmail", LoginValidation.UserEmail!);
+                navigationManager.NavigateTo("/volunteerPage");
             }
             else
             {

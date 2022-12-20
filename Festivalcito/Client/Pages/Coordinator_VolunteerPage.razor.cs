@@ -41,16 +41,6 @@ namespace Festivalcito.Client.Pages{
 
         }
 
-        private void HandleValidSubmit()
-        {
-
-        }
-
-        private void HandleInvalidSubmit()
-        {
-            Console.WriteLine("HandleInvalidSubmit Called...");
-        }
-
         public async void addUserToCoordinatorList(Person person)
         {
             PersonAssignment personAssignment = new PersonAssignment();
@@ -118,6 +108,11 @@ namespace Festivalcito.Client.Pages{
 
         public void sendEmailToUser(Person person){
             PersonService!.SendEmailToPerson(person);
+        }
+        public async void UserLogOut()
+        {
+            await localStore.ClearAsync();
+            navigationManager.NavigateTo("/");
         }
 
 

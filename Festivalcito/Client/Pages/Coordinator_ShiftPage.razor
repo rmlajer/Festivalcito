@@ -1,104 +1,107 @@
 ﻿@page "/Coordinator_ShiftPage"
 @using Festivalcito.Shared.Classes;
+@inject Blazored.LocalStorage.ILocalStorageService localStore
+@inject NavigationManager navigationManager
+
+<div>
+    <a href="/" class="btn btn-primary">
+        <i class="fas fa-arrow-left"></i> Go to home
+    </a>
+
+    <a href="/Coordinator_VolunteerPage" class="btn btn-primary">
+        <i class="fas fa-arrow-left"></i> Go to Coordinator Volunteer Page
+    </a>
+    <button class="btn btn-primary" @onclick="@(()=>UserLogOut())">Logout</button>
 
 
-<a href="/" class="btn btn-primary">
-    <i class="fas fa-arrow-left"></i> Go to home
-</a>
-
-<a href="/Coordinator_VolunteerPage" class="btn btn-primary">
-    <i class="fas fa-arrow-left"></i> Go to Coordinator Volunteer Page
-</a>
-
-
-<div style="display:flex">
     <h1>Coordinator Shift Page</h1>
-
 </div>
 
-
-
-<div class="row">
-    <div>
-        <label for="exampleFormControlInput1" class="form-label">Area </label>
-        @foreach (Area area in AllAreas)
-        {
-            <button type="button" @onclick="@(() => updatePresentedShiftsList(area.AreaID))">@area.AreaName</button>
-        }
-    </div>
-    <span>Select <strong>area</strong> before you create or update a shift</span>
-    <br />
-    <br />
-    <div class="col-sm">
-        <EditForm EditContext="@EditContextShift"
-                  OnValidSubmit="@(()=>HandleValidSubmit())"
-                  OnInvalidSubmit="@HandleInvalidSubmit">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
-
-            <div style="width:20%">
-                <div>
-                    <label>Shift name</label>
-                    <InputText @bind-Value="ShiftValidation.ShiftName"></InputText>
-                    <ValidationMessage For="@(() => ShiftValidation.ShiftName)" />
-                </div>
-                <div>
-                    <label>Age min</label>
-                    <InputNumber @bind-Value="ShiftValidation.AgeMin"></InputNumber>
-                </div>
-                <div>
-                    <label>RequiredVolunteers</label>
-                    <InputNumber @bind-Value="ShiftValidation.RequiredVolunteers"></InputNumber>
-                </div>
-                <div>
-                    <label>HourMultiplier</label>
-                    <InputNumber @bind-Value="ShiftValidation.HourMultiplier"></InputNumber>
-                </div>
-                <div>
-                    <label>StartTime</label>
-                    <input type="datetime" @bind="ShiftValidation.StartTime">
-                </div>
-                <div>
-                    <label>EndTime</label>
-                    <input type="datetime" @bind="ShiftValidation.EndTime">
-                </div>
-
-
-                <div>
-                    <label>is locked</label>
-                    <InputCheckbox @bind-Value="ShiftValidation.IsLocked"></InputCheckbox>
-                </div>
-
-                <button type="submit">@submitButtonText</button>
-            </div>
-        </EditForm>
-
-
-    </div>
-    <div class="col-sm">
-        <button @onclick="@(()=>sortList("shiftPoints"))">Sort by points</button>
-        <button @onclick="@(()=>sortList("RequiredVolunteers"))">Sort by RequiredVolunteers</button>
-        <table>
-            <tr>
-                <th style="width:30%">Name</th>
-                <th style="width:30%">RequiredVolunteers</th>
-                <th style="width:10%">HourMultiplier</th>
-                <th style="width:10%">Points</th>
-                <th style="width:15%">Update</th>
-                <th style="width:15%">Delete</th>
-            </tr>
-            @foreach (Shift shift in PresentedShiftsList)
-            {
-                <tr>
-                    <td><span>@shift.ShiftName</span></td>
-                    <td><span>@shift.RequiredVolunteers / @shift.PeopleAssignedToShift</span></td>
-                    <td><span>@shift.HourMultiplier</span></td>
-                    <td><span>@shift.shiftPoints</span></td>
-                    <td><button @onclick="@(()=>selectShift(shift))">Select</button></td>
-                    <td><button @onclick="@(()=>deleteShift(shift.ShiftID))">Delete</button></td>
-                </tr>
+<div>
+    <div class="row">
+        <div>
+            <label for="exampleFormControlInput1" class="form-label">Area </label>
+            @foreach (Area area in AllAreas){
+                    <button type="button" @onclick="@(() => updatePresentedShiftsList(area.AreaID))">@area.AreaName</button>
             }
-        </table>
+        </div>
+        <span>Select <strong>area</strong> before you create or update a shift</span>
+        <br />
+        <br />
+        <div class="col-sm">
+            <EditForm EditContext="@EditContextShift"
+                      OnValidSubmit="@(()=>HandleValidSubmit())"
+                      OnInvalidSubmit="HandleInvalidSubmit">
+                <DataAnnotationsValidator />
+                
 
+                <div>
+                    <div>
+                        <label>Shift name</label>
+                        <InputText @bind-Value="ShiftValidation.ShiftName"></InputText>
+                        <ValidationMessage For="@(() => ShiftValidation.ShiftName)" />
+                    </div><br />
+                    <div>
+                        <label>Age min</label>
+                        <InputNumber @bind-Value="ShiftValidation.AgeMin"></InputNumber>
+                        <ValidationMessage For="@(() => ShiftValidation.AgeMin)" />
+                    </div><br />
+                    <div>
+                        <label>RequiredVolunteers</label>
+                        <InputNumber @bind-Value="ShiftValidation.RequiredVolunteers"></InputNumber>
+                        <ValidationMessage For="@(() => ShiftValidation.RequiredVolunteers)" />
+                    </div><br />
+                    <div>
+                        <label>HourMultiplier</label>
+                        <InputNumber @bind-Value="ShiftValidation.HourMultiplier"></InputNumber>
+                        <ValidationMessage For="@(() => ShiftValidation.HourMultiplier)" />
+                    </div><br />
+                    <div>
+                        <label>StartTime</label>
+                        <input type="datetime" min="01-05-2023" max="03-05-2023" @bind="ShiftValidation.StartTime">
+                        <ValidationMessage For="@(() => ShiftValidation.StartTime)" />
+                    </div><br />
+                    <div>
+                        <label>EndTime</label>
+                        <input type="datetime" @bind="ShiftValidation.EndTime">
+                        <ValidationMessage For="@(() => ShiftValidation.EndTime)" />
+                    </div><br />
+                    <div>
+                        <label>is locked</label>
+                        <InputCheckbox @bind-Value="ShiftValidation.IsLocked"></InputCheckbox>
+                    </div>
+
+                    <button type="submit">@submitButtonText</button>
+                </div>
+            </EditForm>
+
+
+        </div>
+        <div class="col-sm">
+            <button @onclick="@(()=>sortList("shiftPoints"))">Sort by points</button>
+            <button @onclick="@(()=>sortList("RequiredVolunteers"))">Sort by RequiredVolunteers</button>
+            <table>
+                <tr>
+                    <th style="width:30%">Name</th>
+                    <th style="width:30%">RequiredVolunteers</th>
+                    <th style="width:10%">HourMultiplier</th>
+                    <th style="width:10%">Points</th>
+                    <th style="width:15%">Update</th>
+                    <th style="width:15%">Delete</th>
+                </tr>
+                @foreach (Shift shift in PresentedShiftsList)
+                {
+                    <tr>
+                        <td><span>@shift.ShiftName</span></td>
+                        <td><span>@shift.RequiredVolunteers / @shift.PeopleAssignedToShift</span></td>
+                        <td><span>@shift.HourMultiplier</span></td>
+                        <td><span>@shift.shiftPoints</span></td>
+                        <td><button @onclick="@(()=>selectShift(shift))">Select</button></td>
+                        <td><button @onclick="@(()=>deleteShift(shift.ShiftID))">Delete</button></td>
+                    </tr>
+                }
+            </table>
+
+        </div>
     </div>
 </div>

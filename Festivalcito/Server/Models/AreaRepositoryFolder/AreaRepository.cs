@@ -20,7 +20,7 @@ namespace Festivalcito.Server.Models.AreaRepositoryFolder{
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 try
                 {
@@ -42,7 +42,7 @@ namespace Festivalcito.Server.Models.AreaRepositoryFolder{
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
             Area returnShift = new Area();
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 returnShift = connection.Query<Area>(SQL).First();
                 return returnShift;
@@ -56,7 +56,7 @@ namespace Festivalcito.Server.Models.AreaRepositoryFolder{
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 returnList = connection.Query<Area>(SQL).ToList();
 
@@ -74,7 +74,7 @@ namespace Festivalcito.Server.Models.AreaRepositoryFolder{
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 try
                 {
@@ -96,7 +96,7 @@ namespace Festivalcito.Server.Models.AreaRepositoryFolder{
 
             //Isolere "var connection" fra resten af scope ved brug af using
             //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(PGadminConnection))
+            using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 try
                 {

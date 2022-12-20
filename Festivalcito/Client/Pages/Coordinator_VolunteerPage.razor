@@ -1,21 +1,25 @@
 ﻿@page "/Coordinator_VolunteerPage"
 @using Festivalcito.Shared.Classes;
 @inject Blazored.LocalStorage.ILocalStorageService localStore
+@inject NavigationManager navigationManager
 
-
+<div>
     <a href="/" class="btn btn-primary">
         <i class="fas fa-arrow-left"></i> Go to home
     </a>
 
     <a href="/Coordinator_ShiftPage" class="btn btn-primary">
-        <i class="fas fa-arrow-left"></i> Go to Coordinator Create Shift Page
+        <i class="fas fa-arrow-left"></i> Go to Coordinator Shift Page
     </a>
-    <div style="display:flex">
-        <h1>Coordinator Select Volunteer Page</h1>
 
-    </div>
+    <button class="btn btn-primary" @onclick="@(()=>UserLogOut())">Logout</button>
+</div>
 
+<div style="display:flex">
+    <h1>Coordinator Select Volunteer Page</h1>
 
+</div>
+<div>
     <div class="row">
         <div class="col-sm">
             <table>
@@ -69,6 +73,8 @@
 
 
     </div>
+</div>
+
 
 
 

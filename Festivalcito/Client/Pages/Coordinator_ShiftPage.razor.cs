@@ -6,10 +6,10 @@ using Festivalcito.Client.Services.ShiftAssignmentServicesFolder;
 using Festivalcito.Shared.Classes;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using System.Reflection.Metadata;
 
 namespace Festivalcito.Client.Pages{
-	partial class Coordinator_ShiftPage
-	{
+	partial class Coordinator_ShiftPage{
 		public Coordinator_ShiftPage()
 		{
 		}
@@ -23,6 +23,8 @@ namespace Festivalcito.Client.Pages{
 
         private EditContext? EditContextShift;
         private Shift ShiftValidation = new Shift();
+
+        public int userChossenArea = 3;
 
         //Alle tilgængelige area's i systemet
         private List<Area> AllAreas = new List<Area>();
@@ -40,36 +42,46 @@ namespace Festivalcito.Client.Pages{
         protected override void OnInitialized()
         {
             EditContextShift = new EditContext(ShiftValidation);
-            ShiftValidation.StartTime = DateTime.Today;
-            ShiftValidation.EndTime = DateTime.Today;
+            ShiftValidation.StartTime = DateTime.Parse("2023-05-01T08:00");
+            ShiftValidation.EndTime = DateTime.Parse("2023-05-01T16:00");
         }
 
         protected override async Task OnInitializedAsync()
         {
             AllAreas = (await AreaService!.ReadAllAreas())!.ToList();
             listOfAllShifts = (await ShiftService!.ReadAllShifts())!.ToList();
-            updatePresentedShiftsList(2);
+            updatePresentedShiftsList(userChossenArea);
             listOfAllShiftAssignment = (await ShiftAssignmentService!.ReadAllShiftAssignments())!.ToList();
             foreach (Shift shift in listOfAllShifts)
             {
                 shift.calculateMissingPeople(listOfAllShiftAssignment);
             }
+            
         }
 
-        private async void HandleValidSubmit()
+        private async Task HandleValidSubmit()
         {
             Console.WriteLine("HandleValidSubmit");
             Console.WriteLine("ShiftValidation.ShiftID: " + ShiftValidation.ShiftID);
             if (ShiftValidation.ShiftID == 0){
+                ShiftValidation.areaId = userChossenArea;
                 await ShiftService!.CreateShift(ShiftValidation);
+                await updateListsFromDatabase();
+                ShiftValidation = new Shift();
+                ShiftValidation.StartTime = DateTime.Parse("2023-05-01T08:00");
+                ShiftValidation.EndTime = DateTime.Parse("2023-05-01T16:00");
             }
             else
             {
-                await ShiftService!.UpdateShift(ShiftValidation);
                 
+                ShiftValidation.areaId = userChossenArea;
+                await ShiftService!.UpdateShift(ShiftValidation);
+                await updateListsFromDatabase();
+                ShiftValidation = new Shift();
+                ShiftValidation.StartTime = DateTime.Parse("2023-05-01T08:00");
+                ShiftValidation.EndTime = DateTime.Parse("2023-05-01T16:00");
+                submitButtonText = "Create";
             }
-            await updateListsFromDatabase();
-            
         }
 
         private void HandleInvalidSubmit()
@@ -79,15 +91,18 @@ namespace Festivalcito.Client.Pages{
 
         public void updatePresentedShiftsList(int areaId){
             Console.WriteLine("updatePresentedShiftsList");
-            ShiftValidation.areaId = areaId;
+            
+            userChossenArea = areaId;
             PresentedShiftsList.Clear();
             foreach (Shift shift in listOfAllShifts){
-                if (ShiftValidation.areaId == shift.areaId)
+                Console.WriteLine(shift.ShiftName);
+                if (userChossenArea == shift.areaId)
                 {
                     PresentedShiftsList.Add(shift);
                 }
             }
             PresentedShiftsList = sortList("native");
+            StateHasChanged();
         }
 
         public List<Shift> sortList(string sortType){
@@ -96,8 +111,7 @@ namespace Festivalcito.Client.Pages{
             if (sortType == "shiftPoints")
             {
                 PresentedShiftsList = PresentedShiftsList.OrderByDescending(o => o.shiftPoints).ToList();
-            }else if (sortType == "RequiredVolunteers")
-            {
+            }else if (sortType == "RequiredVolunteers"){
                 Console.WriteLine("RequiredVolunteers");
                 PresentedShiftsList = PresentedShiftsList.OrderBy(o => (o.calculateMissingPeople(listOfAllShiftAssignment))).ToList();
             }
@@ -107,24 +121,26 @@ namespace Festivalcito.Client.Pages{
 
         private async Task updateListsFromDatabase(){
             listOfAllShifts = (await ShiftService!.ReadAllShifts())!.ToList();
-            updatePresentedShiftsList(ShiftValidation.areaId);
+            updatePresentedShiftsList(userChossenArea);
         }
 
-        public void selectShift(Shift shift)
-        {
-
+        public void selectShift(Shift shift){
             ShiftValidation = shift;
-            EditContextShift = new EditContext(shift);
-            submitButtonText = "Update";
+            EditContextShift = new EditContext(ShiftValidation);
+            submitButtonText = "Update in datebase";
         }
 
-        public async void deleteShift(int shiftId)
-        {
+        public async void deleteShift(int shiftId){
             await ShiftService!.DeleteShift(shiftId);
             await updateListsFromDatabase();
         }
 
-        
+        public async void UserLogOut(){
+            await localStore.ClearAsync();
+            navigationManager.NavigateTo("/");
+        }
+
+
 
 
     }

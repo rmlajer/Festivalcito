@@ -3,9 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Festivalcito.Shared.Classes{
 	public class Person{
+
 		public int PersonID { get; set; }
         public bool IsCoordinator { get; set; }
         [Required]
+        [EmailAddress]
         public string? EmailAddress { get; set; }
         [Required]
         public string? FirstName { get; set; }
@@ -29,6 +31,7 @@ namespace Festivalcito.Shared.Classes{
         public int DanishLevel { get; set; }
         [Required]
         public string? Gender { get; set; }
+
         public bool MembershipPaid { get; set; }
 
         public int areaId { get; set; }
