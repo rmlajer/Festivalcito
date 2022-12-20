@@ -36,7 +36,6 @@ namespace Festivalcito.Client.Pages{
         }
 
         protected override void OnInitialized(){
-            base.OnInitialized();
             EditContextLogin = new EditContext(LoginValidation);
             EditContextRegistration = new EditContext(PersonValidation);
             PersonValidation.DateOfBirth = DateTime.Today;

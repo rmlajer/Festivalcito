@@ -35,35 +35,36 @@
 
 
 </div>
-@if (PersonValidation.areaId != 0){
-<div style="height: 600px; background-color: lightgoldenrodyellow; display: flex; overflow: auto">
-    @for (int i = 01; i < 04; i++)
-    {
-        <table style="flex: 33.3%; text-align: center" class="table">
-            <thead>
-                <tr>
-                    <th>@convertDay(i)</th>
-                </tr>
-            </thead>
-            <tbody>
+@if (PersonValidation.areaId != 0)
+{
+    <div style="height: 600px; background-color: lightgoldenrodyellow; display: flex; overflow: auto">
+        @for (int i = 01; i < 04; i++)
+        {
+            <table style="flex: 33.3%; text-align: center" class="table">
+                <thead>
+                    <tr>
+                        <th>@convertDay(i)</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                @foreach (Shift shift in ListOfPersonAreaShifts)
-                {
-
-                    if (shift.StartTime.Month == 05 && shift.StartTime.Day == i)
+                    @foreach (Shift shift in ListOfPersonAreaShifts)
                     {
-                        shift.calculateShiftPoints();
-                        <ShiftCalenderCell shift="@shift"
-                                           TakeShift="TakeShiftClicked"
-                                           RemoveShift="@(()=>removeShiftClicked(shift.ShiftID))" />
+
+                        if (shift.StartTime.Month == 05 && shift.StartTime.Day == i)
+                        {
+                            shift.calculateShiftPoints();
+                            <ShiftCalenderCell shift="@shift"
+                                               TakeShift="TakeShiftClicked"
+                                               RemoveShift="@(()=>removeShiftClicked(shift.ShiftID))" />
+                        }
                     }
-                }
-            </tbody>
-        </table>
-    }
-</div>
+                </tbody>
+            </table>
+        }
+    </div>
 }
-    
+
 
 <div style="width: 100%;background-color:lightcoral">
     <h3>Here you can update your info</h3>

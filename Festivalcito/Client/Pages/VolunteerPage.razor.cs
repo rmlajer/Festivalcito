@@ -72,6 +72,7 @@ namespace Festivalcito.Client.Pages{
                     personAssignmentId = (await PersonAssignmentService!.ReadPersonAssignment(PersonValidation.PersonID)).PersonAssignmentId;
                     Console.WriteLine("personAssignmentId " + personAssignmentId);
                     await updateShiftsTable();
+                    EditContext = new EditContext(PersonValidation);
                 }
                 
 
