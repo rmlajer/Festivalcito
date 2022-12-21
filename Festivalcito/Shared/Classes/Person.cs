@@ -1,10 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Festivalcito.Shared.Classes{
-	public class Person{
+namespace Festivalcito.Shared.Classes
+{
+    public class Person
+    {
 
-		public int PersonID { get; set; }
+        public int PersonID { get; set; }
         public bool IsCoordinator { get; set; }
         [Required]
         [EmailAddress]
@@ -39,10 +41,10 @@ namespace Festivalcito.Shared.Classes{
         public string personCreateResponse = "";
 
         public Person()
-		{
-		}
+        {
+        }
 
-        
+
 
 
         public override string ToString()

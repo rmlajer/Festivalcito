@@ -5,25 +5,28 @@ using Festivalcito.Server.Models.ShiftRepositoryFolder;
 using Festivalcito.Server.Models;
 using Festivalcito.Shared.Classes;
 
-namespace Festivalcito.Server.Controllers{
+namespace Festivalcito.Server.Controllers
+{
 
 
-    /// ShiftController håndterer kald af metoder som kommer fra services og kalder de respektive metoder i ShiftRepository
+    /// Shift håndterer kald af metoder som kommer fra services og kalder de respektive metoder i ShiftRepository
     /// Controlleren fungerer altså som bindeled og tillader os at skifte dele af programmet uden at ødelægge eksisterende struktur.
 
     [ApiController]
     [Route("api/shift")]
-    public class ShiftController : ControllerBase{
+    public class ShiftController : ControllerBase
+    {
 
         private readonly IShiftRepository Repository = new ShiftRepository();
 
 
-        //contructor tjekker om repository er tom og hvis den er, laves et nyt repository 
+        //Contructor tjekker om repository er tom og hvis den er, laves et nyt repository 
 
-        public ShiftController(IShiftRepository shelterRepository){
-            if (Repository == null && shelterRepository != null)
+        public ShiftController(IShiftRepository shift)
+        {
+            if (Repository == null && shift != null)
             {
-                Repository = shelterRepository;
+                Repository = shift;
                 Console.WriteLine("Repository initialized");
             }
         }
@@ -31,7 +34,8 @@ namespace Festivalcito.Server.Controllers{
         // Kalder CreateShift i ShiftRepository
         // Opretter Shift i DB
         [HttpPost]
-        public void CreateShift(Shift shift){
+        public void CreateShift(Shift shift)
+        {
             Console.WriteLine("Controller - " + shift.ShiftName);
             Repository.CreateShift(shift);
         }
@@ -39,7 +43,8 @@ namespace Festivalcito.Server.Controllers{
         // Kalder ReadShift i ShiftRepository
         //Den kaldte metode henter specifik Shift fra DB baseret på ShiftID
         [HttpGet("{id:int}")]
-        public Shift ReadShift(int id){
+        public Shift ReadShift(int id)
+        {
             return Repository.ReadShift(id);
         }
 
@@ -47,14 +52,16 @@ namespace Festivalcito.Server.Controllers{
         //Kalder ReadAllShift i ShiftRepository
         // Henter alle Shifts fra DB
         [HttpGet]
-        public IEnumerable<Shift> ReadAllShifts(){
+        public IEnumerable<Shift> ReadAllShifts()
+        {
             return Repository.ReadAllShifts();
         }
 
         // Kalder UpdateShift i ShiftRepository
         // Opdaterer Shift i DB - Alle kolonner i en række bliver opdateret
         [HttpPut]
-        public void UpdateShift(Shift shift){
+        public void UpdateShift(Shift shift)
+        {
             Repository.UpdateShift(shift);
         }
 
@@ -62,7 +69,8 @@ namespace Festivalcito.Server.Controllers{
         // Kalder DeleteShift i ShiftRepository
         // Sletter specifik Shift på ID i DB
         [HttpDelete("{id:int}")]
-        public StatusCodeResult DeleteShift(int id){
+        public StatusCodeResult DeleteShift(int id)
+        {
             Console.WriteLine("Server: Delete item called: id = " + id);
 
             bool deleted = Repository.DeleteShift(ShiftID: id);

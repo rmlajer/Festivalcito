@@ -22,16 +22,16 @@
         <div>
             <label for="exampleFormControlInput1" class="form-label">Area </label>
             @foreach (Area area in AllAreas){
-                    <button type="button" @onclick="@(() => updatePresentedShiftsList(area.AreaID))">@area.AreaName</button>
+                    <button type="button" @onclick="@(() => UpdatePresentedShiftsList(area.AreaID))">@area.AreaName</button>
             }
         </div>
         <span>Select <strong>area</strong> before you create or update a shift</span>
         <br />
         <br />
+        <!--Opretter editform til Shift Create data-->
         <div class="col-sm">
             <EditForm EditContext="@EditContextShift"
-                      OnValidSubmit="@(()=>HandleValidSubmit())"
-                      OnInvalidSubmit="HandleInvalidSubmit">
+                      OnValidSubmit="@(()=>HandleValidSubmit())">
                 <DataAnnotationsValidator />
                 
 
@@ -77,9 +77,10 @@
 
 
         </div>
+        <!--Opretter table med shifts inklusiv knapper til sort, select og delete-->
         <div class="col-sm">
-            <button @onclick="@(()=>sortList("shiftPoints"))">Sort by points</button>
-            <button @onclick="@(()=>sortList("RequiredVolunteers"))">Sort by RequiredVolunteers</button>
+            <button @onclick="@(()=>SortPresentedShiftsList("shiftPoints"))">Sort by points</button>
+            <button @onclick="@(()=>SortPresentedShiftsList("RequiredVolunteers"))">Sort by RequiredVolunteers</button>
             <table>
                 <tr>
                     <th style="width:30%">Name</th>
@@ -96,8 +97,8 @@
                         <td><span>@shift.RequiredVolunteers / @shift.PeopleAssignedToShift</span></td>
                         <td><span>@shift.HourMultiplier</span></td>
                         <td><span>@shift.shiftPoints</span></td>
-                        <td><button @onclick="@(()=>selectShift(shift))">Select</button></td>
-                        <td><button @onclick="@(()=>deleteShift(shift.ShiftID))">Delete</button></td>
+                        <td><button @onclick="@(()=>SelectShift(shift))">Select</button></td>
+                        <td><button @onclick="@(()=>DeleteShift(shift.ShiftID))">Delete</button></td>
                     </tr>
                 }
             </table>

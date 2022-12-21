@@ -9,9 +9,11 @@ using System.Text;
 using System.Security.Cryptography;
 
 
-namespace Festivalcito.Client.Pages{
+namespace Festivalcito.Client.Pages
+{
 
-	partial class Registration_LoginPage{
+    partial class Registration_LoginPage
+    {
 
         [Inject]
         public IPersonService? PersonService { get; set; }
@@ -19,47 +21,44 @@ namespace Festivalcito.Client.Pages{
         [Inject]
         public ILoginCredentialService? LoginCredentialService { get; set; }
 
+        //Bruges i HTML til at sætte Bootstrap klassen på InputField div
         public string divClassInputField = "mb-1";
-
+        //Opretter Person til validering i EditForm
         private Person PersonValidation = new Person();
+        //Opretter nyt LoginCredential til validering i EditForm
         private LoginCredential LoginValidation = new LoginCredential();
-
+        //Opretter EditContextLogin til anvendelse af EditForm
         private EditContext? EditContextLogin;
+        //Opretter EditContextRegistration til anvendelse af EditForm
         private EditContext? EditContextRegistration;
 
-        public Registration_LoginPage(){
-		}
+        public Registration_LoginPage()
+        {
+        }
 
+        //Opdaterer LocalStore baseret på email fra User Login
         public async void UpdateLocalStorage()
         {
             await localStore.SetItemAsync("loggedInUserId", LoginValidation.UserEmail);
         }
 
-        protected override void OnInitialized(){
-            base.OnInitialized();
+
+        //Køres når siden indlæses, sætter variabler til anvendelse i EditForms, samt fødselsdato til præsentation
+        protected override void OnInitialized()
+        {
             EditContextLogin = new EditContext(LoginValidation);
             EditContextRegistration = new EditContext(PersonValidation);
             PersonValidation.DateOfBirth = DateTime.Today;
-
-            /*
-            PersonValidation.FirstName = "Dan";
-            PersonValidation.LastName = "Brown";
-            PersonValidation.Address = "Something avenue";
-            PersonValidation.PhoneNumber = "52345235";
-            PersonValidation.City = "Chicago";
-            PersonValidation.Nationality = "Danish";
-            PersonValidation.Country = "Portugal";
-            PersonValidation.DanishLevel = 1;
-            PersonValidation.PostalCode = "3623";
-            PersonValidation.FirstName = "Dan";
-            PersonValidation.Gender = "Male";
-            PersonValidation.EmailAddress = "Dan@mail.com";
-            */
         }
 
-        public async void submitClicked(){
+
+        //Håndterer accepteret LoginValidation i registration EditForm.
+        //Sender Create HTTP til DB via Controller, sætter localStore med bruger email og navigerer til volunteerPage
+        //Hvis Create HTTP er succesfuldt sendes HTTP Create på LoginCredential til DB via Controller
+        public async void HandleValidRegistrationSubmit()
+        {
             Console.WriteLine("submitClicked");
-            int statusCode =  await PersonService!.CreatePerson(PersonValidation);
+            int statusCode = await PersonService!.CreatePerson(PersonValidation);
             Console.WriteLine("statusCode: " + statusCode);
 
             if (statusCode == 200)
@@ -74,50 +73,64 @@ namespace Festivalcito.Client.Pages{
             else
             {
                 LoginValidation.loginResponse = "Create failed";
-                //return false;
             }
 
         }
 
-        public async Task<bool> LoginSubmitClicked(){
-            Console.WriteLine("LoginSubmitClicked");
-            Console.WriteLine("LoginValidation.UserEmail: " + "\"" + LoginValidation.UserEmail + "\"");
-            if (LoginValidation.UserEmail != "" && LoginValidation.HashedPassword != ""){
+        //Håndterer accepteret LoginValidation og sender Create HTTP til DB via Controller
+        //Sætter localStore med bruger email
+        //Hvis isCoordinator == False navigerer til volunteerPage
+        //Hvis isCoordinator == True navigerer til Coordinator_ShiftPage
+        public async Task<bool> HandleValidLoginSubmit()
+        {
+
+            if (LoginValidation.UserEmail != "" && LoginValidation.HashedPassword != "")
+            {
                 LoginCredential loginCredential = (await LoginCredentialService!.ReadLoginCredential(LoginValidation.UserEmail!));
                 LoginValidation.loginResponse = loginCredential.loginResponse;
-                Console.WriteLine("Response from SQL: " + loginCredential.loginResponse);
+
                 if (LoginValidation.UserEmail == loginCredential.UserEmail &&
-                    Sha1(LoginValidation.HashedPassword!) == loginCredential.HashedPassword){
-                    Console.WriteLine("Login succes");
+                    Sha1(LoginValidation.HashedPassword!) == loginCredential.HashedPassword)
+                {
+
                     //local storage save
                     LoginValidation.loginResponse = "Login successful";
                     await localStore.SetItemAsync("userLoggedInEmail", LoginValidation.UserEmail!);
 
+                    //Henter Person fra DB
                     Person signedInPerson = (await PersonService!.ReadPersonEmail(loginCredential.UserEmail));
-                    Console.WriteLine("Test:" + signedInPerson.FirstName);
-                    if (signedInPerson.IsCoordinator == true){
+
+                    //Tjekker isCoordinator
+                    if (signedInPerson.IsCoordinator == true)
+                    {
                         navigationManager.NavigateTo("/Coordinator_ShiftPage");
-                    }else{
+                    }
+                    else
+                    {
                         navigationManager.NavigateTo("/volunteerPage");
                     }
 
                     return true;
-                }else
+                }
+                else
                 {
                     LoginValidation.loginResponse = "Login failed";
                     return false;
                 }
-                
-            }else
+
+            }
+            else
             {
                 LoginValidation.loginResponse = "Type in both username and password";
             }
             return false;
-            
+
 
         }
 
-        public static string Sha1(string input){
+        //Hasher password ved hjælp af Sha1 algoritme. 
+        public static string Sha1(string input)
+        {
             using var sha1 = SHA1.Create();
             var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(input));
             var sb = new StringBuilder(hash.Length * 2);

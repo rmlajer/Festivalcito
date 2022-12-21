@@ -14,7 +14,8 @@
         <h1 style="height:50px">Registration</h1>
         <div style="display: flex; height: 600px">
             <div style="flex: 50%;">
-                <EditForm EditContext="EditContextRegistration" OnValidSubmit="@submitClicked">
+                <!--Opretter EditForm til håndtering af User Registration-->
+                <EditForm EditContext="EditContextRegistration" OnValidSubmit="@HandleValidRegistrationSubmit">
                     <DataAnnotationsValidator />
                     <ValidationSummary />
                     <div class="@divClassInputField">
@@ -90,7 +91,8 @@
     <br />
     <div style="flex: 40%; background-color: white; height: 500px">
         <h1>Login</h1>
-        <EditForm EditContext="EditContextLogin">
+        <!--Opretter EditForm til User Login-->
+        <EditForm EditContext="EditContextLogin" OnValidSubmit="HandleValidLoginSubmit">
             <div class="form-group" style="width: 100%; ">
                 <div>
                     <label for="exampleInputEmail1">Email address</label>
@@ -105,11 +107,7 @@
                     <input type="password" @bind="@LoginValidation.HashedPassword" class="form-control" id="exampleInputPassword1" placeholder="Password">
                 </div>
             </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
-            <button @onclick="@(()=>LoginSubmitClicked())" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary">Login</button>
         </EditForm>
         <div>
             <span>@LoginValidation.loginResponse</span>

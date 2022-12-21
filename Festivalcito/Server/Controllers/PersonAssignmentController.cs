@@ -5,7 +5,7 @@ using System.Net;
 
 namespace Festivalcito.Server.Controllers
 {
-    /// AreaController håndterer kald af metoder som kommer fra services og kalder de respektive metoder i AreaRepository
+    /// PersonAssignmentController håndterer kald af metoder som kommer fra services og kalder de respektive metoder i PersonAssignmentRepository
     /// Controlleren fungerer altså som bindeled og tillader os at skifte dele af programmet uden at ødelægge eksisterende struktur.
 
     [ApiController]
@@ -17,36 +17,37 @@ namespace Festivalcito.Server.Controllers
         private readonly IPersonAssignmentRepository Repository = new PersonAssignmentRepository();
 
 
-        //contructor tjekker om repository er tom og hvis den er, laves et nyt repository 
+        //Contructor tjekker om repository er tom og hvis den er, laves et nyt repository 
 
-        public PersonAssignmentController(IPersonAssignmentRepository AssignedRepository){
-            if (Repository == null && AssignedRepository != null)
+        public PersonAssignmentController(IPersonAssignmentRepository personAssignmentRepository)
+        {
+            if (Repository == null && personAssignmentRepository != null)
             {
-                Repository = AssignedRepository;
+                Repository = personAssignmentRepository;
                 Console.WriteLine("Repository initialized");
             }
         }
 
-        // Kalder CreateAssigned i AssignedRepository
-        // Opretter Assigned i DB
+        // Kalder PersonAssignmentAssigned i PersonAssignmentRepository
+        // Opretter PersonAssignment i DB
         [HttpPost]
-        public void CreateArea(PersonAssignment Assigned)
+        public void CreatePersonAssignment(PersonAssignment personAssignment)
         {
 
-            Repository.CreatePersonAssignment(Assigned);
+            Repository.CreatePersonAssignment(personAssignment);
         }
 
-        // Kalder ReadAssigned i tAssignedRepository
-        //Den kaldte metode henter specifik Assigned fra DB baseret på SAssignedID
+        // Kalder ReadAssigned i PersonAssignmentRepository
+        //Den kaldte metode henter specifik PersonAssignment fra DB baseret på PersonAssignmentID
         [HttpGet("{id:int}")]
-        public PersonAssignment ReadAssigned(int id)
+        public PersonAssignment ReadPersonAssignment(int id)
         {
             return Repository.ReadPersonAssignment(id);
         }
 
 
-        //Kalder ReadAllAssigned i AssignedRepository
-        // Henter alle Assigned fra DB
+        //Kalder ReadAllPersonAssignment i PersonAssignmentRepository
+        // Henter alle PersonAssignment fra DB
         [HttpGet]
         public IEnumerable<PersonAssignment> ReadAllPersonAssignments()
         {
@@ -54,8 +55,8 @@ namespace Festivalcito.Server.Controllers
         }
 
 
-        // Kalder DeleteAssigned i AssignedRepository
-        // Sletter specifik Assigned på ID i DB
+        // Kalder DeletePersonAssignment i PersonAssignmentRepository
+        // Sletter specifik PersonAssignment på ID i DB
         [HttpDelete("{id:int}")]
         public StatusCodeResult DeletePersonAssignment(int id)
         {

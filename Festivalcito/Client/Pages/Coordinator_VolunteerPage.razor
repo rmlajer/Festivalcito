@@ -17,8 +17,9 @@
 
 <div style="display:flex">
     <h1>Coordinator Select Volunteer Page</h1>
-
 </div>
+<div><span>You cannot remove people with active shift assignments</span></div>
+
 <div>
     <div class="row">
         <div class="col-sm">
@@ -28,12 +29,13 @@
                     <th style="width:33%">Birthday</th>
                     <th style="width:33%">Remove from my list</th>
                 </tr>
-                @foreach (Person person in listOfAllPeopleOnArea)
+                <!--Præsenterer alle personer på koordinatorens Area-->
+                @foreach (Person person in ListOfAllPeopleOnArea)
                 {
                     <tr>
                         <td><span>@person.FirstName @person.LastName</span></td>
                         <td><span>@person.DateOfBirth.ToString("yyyy-MM-dd")</span></td>
-                        <td><button @onclick="@(()=>removeUserFromCoordinatorList(person))">Remove</button></td>
+                        <td><button @onclick="@(()=>RemoveUserFromCoordinatorList(person))">Remove</button></td>
                     </tr>
                 }
 
@@ -52,13 +54,14 @@
                     <th style="width:15%">Grab to my list</th>
                     <th style="width:15%">Send email</th>
                 </tr>
+                <!--Præsenterer alle personer som ikke har PersonAssignment-->
                 @foreach (Person person in GlobalList)
                 {
                     <tr>
                         <td><span>@person.FirstName @person.LastName</span></td>
                         <td><span>@person.DateOfBirth.ToString("yyyy-MM-dd")</span></td>
-                        <td><button @onclick="@(()=>addUserToCoordinatorList(person))">Select</button></td>
-                        <td><button @onclick="@(()=>sendEmailToUser(person))">Send</button></td>
+                        <td><button @onclick="@(()=>AddUserToCoordinatorList(person))">Select</button></td>
+                        <td><button @onclick="@(()=>SendEmailToUser(person))">Send</button></td>
                     </tr>
                 }
 

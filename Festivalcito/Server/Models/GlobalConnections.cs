@@ -3,12 +3,14 @@ using System.Net;
 using System.Net.Mail;
 using Festivalcito.Shared.Classes;
 
-namespace Festivalcito.Server.Models{
+namespace Festivalcito.Server.Models
+{
 
 
-	public class GlobalConnections{
+    public class GlobalConnections
+    {
 
-
+        //Backup DB
         //public string PGadminConnection =
         //"UserID=arvppmkz;Password=PRfiDeTpnyfXNpAqQ221u9tQsx2_RUrV;Host=mouse.db.elephantsql.com;Port=5432;Database=arvppmkz";
 
@@ -18,13 +20,13 @@ namespace Festivalcito.Server.Models{
             "User Id=admincito;" +
             "Password=Bezos123!;";
 
-		public void sendMail(Person person){
+        public void SendMail(Person person)
+        {
             Console.WriteLine("GlobalConnections - Send mail");
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
                 Credentials = new NetworkCredential("festivalcitodk@gmail.com", "snrpqscxioxvggqf"),
-                //Credentials = new NetworkCredential("mortenlund2608@gmail.com", "nozhog-tatmu5-Kydrip"),
                 EnableSsl = true
             };
 
@@ -42,6 +44,6 @@ namespace Festivalcito.Server.Models{
         }
 
 
-	}
+    }
 }
 
