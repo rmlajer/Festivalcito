@@ -3,7 +3,8 @@ using Festivalcito.Shared.Classes;
 
 namespace Festivalcito.Server.Models.AreaRepositoryFolder
 {
-	public interface IAreaRepository{
+    public interface IAreaRepository
+    {
         bool CreateArea(Area area);
         Area ReadArea(int areaId);
         List<Area> ReadAllAreas();

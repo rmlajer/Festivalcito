@@ -3,23 +3,25 @@ using Dapper;
 using Npgsql;
 using Festivalcito.Shared.Classes;
 
-namespace Festivalcito.Server.Models.AreaRepositoryFolder{
-	public class AreaRepository : GlobalConnections, IAreaRepository{
-		public AreaRepository()
-		{
-		}
+namespace Festivalcito.Server.Models.AreaRepositoryFolder
+{
+    public class AreaRepository : GlobalConnections, IAreaRepository
+    {
+        public AreaRepository()
+        {
+        }
 
 
         public bool CreateArea(Area area)
         {
-            //Tager et Shift object og indsætter via SQL statement i vores database
+            //Tager et Area object og indsætter via SQL statement i vores database
             //Formatere time og float for at det passer med postgreSQL
             Console.WriteLine("CreateShift - Repository");
             var sql = $"INSERT INTO public.area(areaname) VALUES ('{area.AreaName}');";
             Console.WriteLine("sql: " + sql);
 
             //Isolere "var connection" fra resten af scope ved brug af using
-            //forsøger at eksikvere sql statement mod database
+            //forsøger at eksekverer sql statement mod database
             using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 try
@@ -40,7 +42,7 @@ namespace Festivalcito.Server.Models.AreaRepositoryFolder{
             var SQL = $"SELECT * from public.area WHERE areaid = {areaId}";
 
             //Isolere "var connection" fra resten af scope ved brug af using
-            //forsøger at eksikvere sql statement mod database
+            //forsøger at eksekverer sql statement mod database
             Area returnShift = new Area();
             using (var connection = new NpgsqlConnection(AzureConnection))
             {
@@ -55,7 +57,7 @@ namespace Festivalcito.Server.Models.AreaRepositoryFolder{
             List<Area> returnList = new List<Area>();
 
             //Isolere "var connection" fra resten af scope ved brug af using
-            //forsøger at eksikvere sql statement mod database
+            //forsøger at eksekverer sql statement mod database
             using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 returnList = connection.Query<Area>(SQL).ToList();
@@ -95,7 +97,7 @@ namespace Festivalcito.Server.Models.AreaRepositoryFolder{
 
 
             //Isolere "var connection" fra resten af scope ved brug af using
-            //forsøger at eksikvere sql statement mod database
+            //forsøger at eksekverer sql statement mod database
             using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 try

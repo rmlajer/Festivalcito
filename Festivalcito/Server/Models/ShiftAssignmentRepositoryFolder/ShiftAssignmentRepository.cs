@@ -14,7 +14,7 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
 
         public bool CreateShiftAssignment(ShiftAssignment shiftAssigned)
         {
-            //Tager et ShiftAssigned object og indsætter via SQL statement i vores database
+            //Tager et ShiftAssignment object og indsætter via SQL statement i vores database
             //Formatere time og float for at det passer med postgreSQL
             Console.WriteLine("Repository - CreateShiftAssignment");
             Console.WriteLine($"" +
@@ -29,7 +29,7 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
             Console.WriteLine("sql: " + sql);
 
             //Isolere "var connection" fra resten af scope ved brug af using
-            //forsøger at eksikvere sql statement mod database
+            //forsøger at eksekverer sql statement mod database
             using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 try
@@ -46,12 +46,11 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
         }
         public ShiftAssignment ReadShiftAssignment(int ShiftAssignmentId)
         {
-            //Skal måske rettes med where
             Console.WriteLine("Repository - ReadShiftAssignment");
             var SQL = $"SELECT * from public.ShiftAssignment WHERE ShiftAssignmentid = {ShiftAssignmentId}";
 
             //Isolere "var connection" fra resten af scope ved brug af using
-            //forsøger at eksikvere sql statement mod database
+            //forsøger at eksekverer sql statement mod database
             ShiftAssignment returnShiftAssigned = new ShiftAssignment();
             using (var connection = new NpgsqlConnection(AzureConnection))
             {
@@ -59,13 +58,14 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
                 return returnShiftAssigned;
             }
         }
-        public List<ShiftAssignment> ReadAllShiftAssignments(){
+        public List<ShiftAssignment> ReadAllShiftAssignments()
+        {
             Console.WriteLine("Repository - ReadAllShiftAssignments");
             var SQL = "SELECT  * FROM public.ShiftAssignment;";
             List<ShiftAssignment> returnList = new List<ShiftAssignment>();
 
             //Isolere "var connection" fra resten af scope ved brug af using
-            //forsøger at eksikvere sql statement mod database
+            //forsøger at eksekverer sql statement mod database
             using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 returnList = connection.Query<ShiftAssignment>(SQL).ToList();
@@ -75,14 +75,16 @@ namespace Festivalcito.Server.Models.ShiftAssignmentRepositoryFolder
             return returnList;
         }
 
-        public bool DeleteShiftAssignment(int shiftAssignedListId){
+        public bool DeleteShiftAssignment(int shiftAssignedListId)
+        {
             Console.WriteLine("Repository - DeleteShiftAssignment");
             var sql = $"DELETE FROM public.ShiftAssignment WHERE ShiftAssignmentid = {shiftAssignedListId}";
 
 
             //Isolere "var connection" fra resten af scope ved brug af using
-            //forsøger at eksikvere sql statement mod database
-            using (var connection = new NpgsqlConnection(AzureConnection)){
+            //forsøger at eksekverer sql statement mod database
+            using (var connection = new NpgsqlConnection(AzureConnection))
+            {
                 try
                 {
                     connection.Execute(sql);

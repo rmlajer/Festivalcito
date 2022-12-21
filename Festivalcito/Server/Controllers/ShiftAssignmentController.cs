@@ -5,7 +5,7 @@ using System.Net;
 
 namespace Festivalcito.Server.Controllers
 {
-    /// AreaController håndterer kald af metoder som kommer fra services og kalder de respektive metoder i AreaRepository
+    /// ShiftAssignmentController håndterer kald af metoder som kommer fra services og kalder de respektive metoder i ShiftAssignmentRepository
     /// Controlleren fungerer altså som bindeled og tillader os at skifte dele af programmet uden at ødelægge eksisterende struktur.
 
     [ApiController]
@@ -17,7 +17,7 @@ namespace Festivalcito.Server.Controllers
         private readonly IShiftAssignmentRepository Repository = new ShiftAssignmentRepository();
 
 
-        //contructor tjekker om repository er tom og hvis den er, laves et nyt repository 
+        //Contructor tjekker om repository er tom og hvis den er, laves et nyt repository 
 
         public ShiftAssignmentController(IShiftAssignmentRepository shiftAssignedRepository)
         {
@@ -28,19 +28,19 @@ namespace Festivalcito.Server.Controllers
             }
         }
 
-        // Kalder CreateShiftAssigned i ShiftAssignedRepository
-        // Opretter ShiftAssigned i DB
+        // Kalder CreateShiftAssignment i ShiftAssignmentRepository
+        // Opretter ShiftAssignment i DB
         [HttpPost]
-        public void CreateArea(ShiftAssignment shiftAssigned)
+        public void CreateShiftAssignment(ShiftAssignment shiftAssignment)
         {
 
-            Repository.CreateShiftAssignment(shiftAssigned);
+            Repository.CreateShiftAssignment(shiftAssignment);
         }
 
-        // Kalder ReadShiftAssigned i ShiftAssignedRepository
-        //Den kaldte metode henter specifik ShiftAssigned fra DB baseret på ShiftAssignedID
+        // Kalder ReadShiftAssignment i ShiftAssignmentRepository
+        //Den kaldte metode henter specifik ShiftAssigned fra DB baseret på ShiftAssignmentId
         [HttpGet("{id:int}")]
-        public ShiftAssignment ReadShiftAssigned(int id)
+        public ShiftAssignment ReadShiftAssignment(int id)
         {
             return Repository.ReadShiftAssignment(id);
         }
@@ -49,16 +49,16 @@ namespace Festivalcito.Server.Controllers
         //Kalder ReadAllShiftAssigned i ShiftAssignedRepository
         // Henter alle ShiftAssigned fra DB
         [HttpGet]
-        public IEnumerable<ShiftAssignment> ReadAllShiftAssigned()
+        public IEnumerable<ShiftAssignment> ReadAllShiftAssignments()
         {
             return Repository.ReadAllShiftAssignments();
         }
 
 
-        // Kalder DeleteShiftAssigned i ShiftAssignedRepository
-        // Sletter specifik ShiftAssigned på ID i DB
+        // Kalder DeleteShiftAssignment i ShiftAssignmentRepository
+        // Sletter specifik ShiftAssignment på ID i DB
         [HttpDelete("{id:int}")]
-        public StatusCodeResult DeleteShiftAssigned(int id)
+        public StatusCodeResult DeleteShiftAssignment(int id)
         {
             Console.WriteLine("Server: Delete item called: id = " + id);
 

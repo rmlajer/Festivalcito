@@ -13,8 +13,9 @@ namespace Festivalcito.Server.Models.PersonAssignmentRepositoryFolder
 
 
 
-        public bool CreatePersonAssignment(PersonAssignment personAssignment){
-            //Tager et assigned Assigned object og indsætter via SQL statement i vores database
+        public bool CreatePersonAssignment(PersonAssignment personAssignment)
+        {
+            //Tager et PersonAssignment object og indsætter via SQL statement i vores database
             Console.WriteLine("Repository - CreatePersonAssignment");
             var sql = $"INSERT INTO public.personassignment(" +
                 $"areaid, personid)" +
@@ -24,7 +25,7 @@ namespace Festivalcito.Server.Models.PersonAssignmentRepositoryFolder
             Console.WriteLine("sql: " + sql);
 
             //Isolere "var connection" fra resten af scope ved brug af using
-            //forsøger at eksikvere sql statement mod database
+            //forsøger at eksekverer sql statement mod database
             using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 try
@@ -39,13 +40,14 @@ namespace Festivalcito.Server.Models.PersonAssignmentRepositoryFolder
                 }
             }
         }
-        public PersonAssignment ReadPersonAssignment(int personId){
+        public PersonAssignment ReadPersonAssignment(int personId)
+        {
             Console.WriteLine("Repository - ReadPersonAssignment");
             Console.WriteLine("ReadPersonAssignmentId: " + personId);
             var SQL = $"SELECT * from public.personassignment WHERE personid = {personId}";
 
             //Isolere "var connection" fra resten af scope ved brug af using
-            //forsøger at eksikvere sql statement mod database
+            //forsøger at eksekverer sql statement mod database
             PersonAssignment returnAssigned = new PersonAssignment();
             try
             {
@@ -54,19 +56,21 @@ namespace Festivalcito.Server.Models.PersonAssignmentRepositoryFolder
                     returnAssigned = connection.Query<PersonAssignment>(SQL).First();
                     return returnAssigned;
                 }
-            }catch
+            }
+            catch
             {
                 return new PersonAssignment();
             }
-            
+
         }
-        public List<PersonAssignment> ReadAllPersonAssignments(){
+        public List<PersonAssignment> ReadAllPersonAssignments()
+        {
             Console.WriteLine("Repository - ReadAllPersonAssignments");
             var SQL = "SELECT  * FROM public.personassignment;";
             List<PersonAssignment> returnList = new List<PersonAssignment>();
 
             //Isolere "var connection" fra resten af scope ved brug af using
-            //forsøger at eksikvere sql statement mod database
+            //forsøger at eksekverer sql statement mod database
             using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 returnList = connection.Query<PersonAssignment>(SQL).ToList();
@@ -76,13 +80,14 @@ namespace Festivalcito.Server.Models.PersonAssignmentRepositoryFolder
             return returnList;
         }
 
-        public bool DeletePersonAssignment(int AssignedListId){
+        public bool DeletePersonAssignment(int AssignedListId)
+        {
             Console.WriteLine("Repository - DeletePersonAssignment");
             var sql = $"DELETE FROM public.personassignment WHERE personassignmentid = {AssignedListId}";
 
             Console.WriteLine(sql);
             //Isolere "var connection" fra resten af scope ved brug af using
-            //forsøger at eksikvere sql statement mod database
+            //forsøger at eksekverer sql statement mod database
             using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 try

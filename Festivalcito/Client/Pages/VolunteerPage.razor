@@ -35,6 +35,7 @@
 
 
 </div>
+<!--Opretter tabel for Shifts hvis person har PersonAssignment samt viser ShiftPoints-->
 @if (PersonValidation.areaId != 0)
 {
     <div style="height: 600px; background-color: lightgoldenrodyellow; display: flex; overflow: auto">
@@ -43,20 +44,20 @@
             <table style="flex: 33.3%; text-align: center" class="table">
                 <thead>
                     <tr>
-                        <th>@convertDay(i)</th>
+                        <th>@ConvertDay(i)</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    @foreach (Shift shift in ListOfPersonAreaShifts)
+                    @foreach (Shift shift in ListOfShiftsOnPersonArea)
                     {
 
                         if (shift.StartTime.Month == 05 && shift.StartTime.Day == i)
                         {
-                            shift.calculateShiftPoints();
+                            shift.CalculateShiftPoints();
                             <ShiftCalenderCell shift="@shift"
                                                TakeShift="TakeShiftClicked"
-                                               RemoveShift="@(()=>removeShiftClicked(shift.ShiftID))" />
+                                               RemoveShift="@(()=>RemoveShiftClicked(shift.ShiftID))" />
                         }
                     }
                 </tbody>
@@ -68,6 +69,7 @@
 
 <div style="width: 100%;background-color:lightcoral">
     <h3>Here you can update your info</h3>
+    <!--Opretter EditForm til opdatering af persondata-->
     <EditForm EditContext="@EditContext" class="row p-1"
               OnValidSubmit="@HandleValidSubmit"
               OnInvalidSubmit="@HandleInvalidSubmit">

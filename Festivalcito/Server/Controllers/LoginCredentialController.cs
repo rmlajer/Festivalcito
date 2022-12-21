@@ -4,7 +4,8 @@ using Festivalcito.Shared.Classes;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace Festivalcito.Server.Controllers{
+namespace Festivalcito.Server.Controllers
+{
     /// LoginCredentialController håndterer kald af metoder som kommer fra services og kalder de respektive metoder i AreaRepository
     /// Controlleren fungerer altså som bindeled og tillader os at skifte dele af programmet uden at ødelægge eksisterende struktur.
 
@@ -17,18 +18,18 @@ namespace Festivalcito.Server.Controllers{
         private readonly ILoginCredentialRepository Repository = new LoginCredentialRepository();
 
 
-        //contructor tjekker om repository er tom og hvis den er, laves et nyt repository 
+        //Contructor tjekker om repository er tom og hvis den er, laves et nyt repository 
 
-        public LoginCredentialController(ILoginCredentialRepository AssignedRepository)
+        public LoginCredentialController(ILoginCredentialRepository credentialRepository)
         {
-            if (Repository == null && AssignedRepository != null)
+            if (Repository == null && credentialRepository != null)
             {
-                Repository = AssignedRepository;
-                Console.WriteLine("Repository initialized");
+                Repository = credentialRepository;
+
             }
         }
 
-        // Kalder CreateAssigned i AssignedRepository
+        // Kalder CreateLoginCredential i LoginCredentialRepository
         // Opretter Assigned i DB
         [HttpPost]
         public bool CreateLoginCredential(LoginCredential loginCredential)
@@ -37,8 +38,8 @@ namespace Festivalcito.Server.Controllers{
             return Repository.CreateLoginCredential(loginCredential);
         }
 
-        // Kalder ReadAssigned i tAssignedRepository
-        //Den kaldte metode henter specifik Assigned fra DB baseret på SAssignedID
+        // Kalder ReadLoginCredential i LoginCredentialRepository
+        //Den kaldte metode henter specifik LoginCredential fra DB baseret på Email
         [HttpGet("{email}")]
         public LoginCredential ReadLoginCredential(string email)
         {
@@ -47,8 +48,8 @@ namespace Festivalcito.Server.Controllers{
         }
 
 
-        //Kalder ReadAllAssigned i AssignedRepository
-        // Henter alle Assigned fra DB
+        //Kalder ReadAllLoginCredential i LoginCredentialRepository
+        // Henter alle LoginCredential fra DB
         [HttpGet]
         public IEnumerable<LoginCredential> ReadAllLoginCredentials()
         {
@@ -57,8 +58,8 @@ namespace Festivalcito.Server.Controllers{
         }
 
 
-        // Kalder DeleteAssigned i AssignedRepository
-        // Sletter specifik Assigned på ID i DB
+        // Kalder DeleteLoginCredential i LoginCredentialRepository
+        // Sletter specifik LoginCredential på ID i DB
         [HttpDelete("{id:int}")]
         public StatusCodeResult DeleteLoginCredential(string email)
         {

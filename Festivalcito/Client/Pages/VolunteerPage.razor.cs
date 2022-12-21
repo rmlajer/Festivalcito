@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Blazored.LocalStorage;
 
-namespace Festivalcito.Client.Pages{
+namespace Festivalcito.Client.Pages
+{
 
-    partial class VolunteerPage {
+    partial class VolunteerPage
+    {
 
         [Inject]
         public IPersonService? PersonService { get; set; }
@@ -22,22 +24,29 @@ namespace Festivalcito.Client.Pages{
         public IPersonAssignmentService? PersonAssignmentService { get; set; }
 
 
-        List<Person> listOfAllPeople = new List<Person>();
+        //Liste af alle shifts fra DB
         List<Shift> listOfAllShifts = new List<Shift>();
+        //Liste af alle ShiftAssigments fra DB
         List<ShiftAssignment> listOfShiftAssignments = new List<ShiftAssignment>();
-        List<Shift> ListOfPersonAreaShifts = new List<Shift>();
+        //Liste af alle shifts der passer til aktiv Person fra DB
+        List<Shift> ListOfShiftsOnPersonArea = new List<Shift>();
+        //Liste af alle Shifts den aktive personer har ShiftAssignments på.
+        List<Shift> ListOfTakenShifts = new List<Shift>();
 
+        //Bruger email fra LocalStore
         public string? loggedInUserEmail { get; set; }
         int personAssignmentId = 0;
         float personTotalPoints = 0;
 
-
+        //Opretter Person til validering i EditForm
         private Person PersonValidation = new Person();
+        //Opretter EditContext til anvendelse af EditForm
         private EditContext? EditContext;
 
-        List<Shift> personShiftsList = new List<Shift>();
 
-        public VolunteerPage() {
+
+        public VolunteerPage()
+        {
         }
 
 
@@ -53,104 +62,136 @@ namespace Festivalcito.Client.Pages{
             Console.WriteLine("HandleInvalidSubmit Called...");
         }
 
-        protected override void OnInitialized() {
+        protected override void OnInitialized()
+        {
             base.OnInitialized();
             EditContext = new EditContext(PersonValidation);
         }
 
 
-
-        protected override async Task OnInitializedAsync() {
-            try{
+        //Køres asynkront når siden indlæses
+        protected override async Task OnInitializedAsync()
+        {
+            try
+            {
+                //Henter aktiv bruger fra localStore
                 loggedInUserEmail = await localStore.GetItemAsync<string>("userLoggedInEmail");
-                Console.WriteLine("\""+ loggedInUserEmail+"\"");
-                if (loggedInUserEmail != null){
-                    Console.WriteLine("Useremail not empty");
-                    PersonValidation = await PersonService!.ReadPersonEmail(loggedInUserEmail);
-                    await updateListsFromDatabase();
 
+                //Hvis bruger eksisterer i localStore sendes Get HTTP til DB via Controller
+                if (loggedInUserEmail != null)
+                {
+                    PersonValidation = await PersonService!.ReadPersonEmail(loggedInUserEmail);
+                    await UpdateListsFromDatabase();
                     personAssignmentId = (await PersonAssignmentService!.ReadPersonAssignment(PersonValidation.PersonID)).PersonAssignmentId;
-                    Console.WriteLine("personAssignmentId " + personAssignmentId);
-                    await updateShiftsTable();
+                    await UpdateShiftsTable();
                     EditContext = new EditContext(PersonValidation);
                 }
-                
+
 
             }
             catch
             {
+                //Test i tilfælde af direkte tilgået side uden localstore data
                 Console.WriteLine("No user logged in");
             }
-            
 
-           
+
+
 
         }
 
 
-        public async void TakeShiftClicked(Shift shift) {
+        //Opretter ShiftAssignment på valgt Shift og aktiv bruger.
+        //Opdaterer lister fra DB via controller samt opdaterer Tabel i HTML. 
+        public async void TakeShiftClicked(Shift shift)
+        {
             Console.WriteLine("TakeShiftClicked");
-            ShiftAssignment newShiftAssigned = new ShiftAssignment();
+            ShiftAssignment shiftAssignment = new ShiftAssignment();
             int personid = PersonValidation.PersonID;
 
 
-            newShiftAssigned.personassignmentid = personAssignmentId;
-            newShiftAssigned.ShiftId = shift.ShiftID;
+            shiftAssignment.personassignmentid = personAssignmentId;
+            shiftAssignment.ShiftId = shift.ShiftID;
 
-            await ShiftAssignmentService!.CreateShiftAssignment(newShiftAssigned);
+            await ShiftAssignmentService!.CreateShiftAssignment(shiftAssignment);
 
-            await updateListsFromDatabase();
-            await updateShiftsTable();
+            await UpdateListsFromDatabase();
+            await UpdateShiftsTable();
         }
 
-        public async void removeShiftClicked(int shiftId) {
-            int ShiftAssignmentidTmp = findShiftAssignmentID(shiftId);
+
+        //Fjerner shiftAssignment fra DB via Controller
+        //Opdaterer lister fra DB via controller samt opdaterer Tabel i HTML. 
+        public async void RemoveShiftClicked(int shiftId)
+        {
+            int ShiftAssignmentidTmp = FindShiftAssignmentID(shiftId);
             await ShiftAssignmentService!.DeleteShiftAssignment(ShiftAssignmentidTmp);
-            await updateListsFromDatabase();
-            await updateShiftsTable();
+            await UpdateListsFromDatabase();
+            await UpdateShiftsTable();
         }
 
-        public Task updateShiftsTable() {
+        //Opdaterer tabel i HTML med FRESH data.
+        public Task UpdateShiftsTable()
+        {
             Console.WriteLine("updateShiftsTable");
-            personShiftsList.Clear();
-            ListOfPersonAreaShifts.Clear();
-            foreach (Shift shift in listOfAllShifts) {
-                
-                if (shift.areaId == PersonValidation.areaId) {
-                    
-                    foreach (ShiftAssignment shiftAssignment in listOfShiftAssignments) {
+            ListOfTakenShifts.Clear();
+            ListOfShiftsOnPersonArea.Clear();
 
-                        if (shiftAssignment.ShiftId == shift.ShiftID && personAssignmentId == shiftAssignment.personassignmentid) {
+            //Løber alle shifts igennem i mod alle ShiftAssignments for at finde ud af om vagten skal markeres rød, grå eller grøn. 
+
+
+            foreach (Shift shift in listOfAllShifts)
+            {
+                //Hvis AreaId på Shift og PersonValidation passer tilføjes Shift til ListOfShiftsOnPersonArea
+                if (shift.areaId == PersonValidation.areaId)
+                {
+
+                    foreach (ShiftAssignment shiftAssignment in listOfShiftAssignments)
+                    {
+
+
+                        if (shiftAssignment.ShiftId == shift.ShiftID && personAssignmentId == shiftAssignment.personassignmentid)
+                        {
                             shift.backgroundColor = "red";
-                            personShiftsList.Add(shift);
+                            //Hvis Shift, PersonAssignment og ShiftAssignment alle har samme Id tilføjes Shift til ListOfTakenShifts
+                            ListOfTakenShifts.Add(shift);
                         }
                     }
-                    if (shift.IsLocked == true){
+                    if (shift.IsLocked == true)
+                    {
                         shift.backgroundColor = "grey";
                     }
-                    ListOfPersonAreaShifts.Add(shift);
+                    ListOfShiftsOnPersonArea.Add(shift);
                 }
             }
 
-            ListOfPersonAreaShifts = ListOfPersonAreaShifts.OrderBy((x) => x.StartTime).ToList();
-            calculatePersonPoints();
-            Console.WriteLine("ListOfPersonAreaShifts count: " + ListOfPersonAreaShifts.Count());
+            //Sorterer liste af Shifts baseret på startTime
+            ListOfShiftsOnPersonArea = ListOfShiftsOnPersonArea.OrderBy((x) => x.StartTime).ToList();
+            //Udregner aktiv persons shiftPoints
+            CalculatePersonPoints();
+            //Beder Blazor opdaterer HTML. 
             StateHasChanged();
             return Task.CompletedTask;
         }
-        public async Task updateListsFromDatabase()
+
+        //Opdaterer list fra DB via Controllere. 
+        public async Task UpdateListsFromDatabase()
         {
             listOfAllShifts = (await ShiftService!.ReadAllShifts())!.ToList();
             listOfShiftAssignments = (await ShiftAssignmentService!.ReadAllShiftAssignments())!.ToList();
 
+            //Udregner points på Shifts i listOfAllShifts
             foreach (Shift shift in listOfAllShifts)
             {
-                shift.calculateShiftPoints();
+
+                shift.CalculateShiftPoints();
             }
 
         }
 
-        public int findShiftAssignmentID(int shiftId)
+
+        //Finder AssignmentId baseret på shiftId og den aktive persons personAssignmentId
+        public int FindShiftAssignmentID(int shiftId)
         {
             foreach (ShiftAssignment shiftAssignment in listOfShiftAssignments)
             {
@@ -162,7 +203,8 @@ namespace Festivalcito.Client.Pages{
             return -1;
         }
 
-        public string convertDay(int i)
+        //Skriver dag baseret på dato i HTML
+        public string ConvertDay(int i)
         {
             switch (i)
             {
@@ -177,19 +219,20 @@ namespace Festivalcito.Client.Pages{
             }
         }
 
+        //Udregner samlet antal point på aktiv bruger baseret på Shifts i ListOfAllTakenShifts
+        public void CalculatePersonPoints()
+        {
 
-        public void calculatePersonPoints() {
-            Console.WriteLine("calculatePersonPoints");
             personTotalPoints = 0.0f;
 
-            foreach (Shift shift1 in personShiftsList)
+            foreach (Shift shift1 in ListOfTakenShifts)
             {
                 personTotalPoints += shift1.shiftPoints;
             }
 
-            Console.WriteLine("personTotalPoints: " + personTotalPoints);
 
         }
+
 
         public async void UserLogOut()
         {

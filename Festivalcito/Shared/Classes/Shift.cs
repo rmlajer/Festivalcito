@@ -2,9 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 
 
-namespace Festivalcito.Shared.Classes {
+namespace Festivalcito.Shared.Classes
+{
 
-    public class Shift{
+    public class Shift
+    {
 
         public int ShiftID { get; set; }
 
@@ -23,7 +25,7 @@ namespace Festivalcito.Shared.Classes {
         public DateTime EndTime { get; set; }
 
         [Required]
-        [Range(1,100, ErrorMessage = "You can't assign more than 100 volunteers to one shift")]
+        [Range(1, 100, ErrorMessage = "You can't assign more than 100 volunteers to one shift")]
         public int RequiredVolunteers { get; set; }
 
         [Required]
@@ -45,21 +47,25 @@ namespace Festivalcito.Shared.Classes {
         public string backgroundColor = "Green";
 
         public Shift()
-		{
+        {
             this.RequiredVolunteers = 1;
-		}
+        }
 
-        public void calculateShiftPoints(){
+
+        //Udregner shift points på shift
+        public void CalculateShiftPoints()
+        {
             this.shiftPoints = Convert.ToSingle(Math.Round((EndTime.Subtract(StartTime).TotalHours) * HourMultiplier, 1));
         }
 
-        public float calculateMissingPeople(List<ShiftAssignment> shiftAssignments)
+        //Udregner % manglende folk på shift
+        public float CalculateMissingPeople(List<ShiftAssignment> shiftAssignments)
         {
             PeopleAssignedToShift = 0;
 
             float returnFloat = 0.0f;
 
-            foreach(ShiftAssignment shiftAssignment in shiftAssignments)
+            foreach (ShiftAssignment shiftAssignment in shiftAssignments)
             {
                 if (shiftAssignment.ShiftId == ShiftID)
                 {
@@ -74,7 +80,7 @@ namespace Festivalcito.Shared.Classes {
             {
                 returnFloat = 0.0f;
             }
-            
+
             return returnFloat;
         }
 

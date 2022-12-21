@@ -4,8 +4,8 @@ using System.Net.Http.Json;
 
 namespace Festivalcito.Client.Services.AreaServicesFolder
 {
-	public class AreaService : IAreaService
-	{
+    public class AreaService : IAreaService
+    {
         private readonly HttpClient httpClient;
 
         public AreaService(HttpClient httpClient)

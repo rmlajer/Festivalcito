@@ -3,21 +3,24 @@ using Festivalcito.Shared.Classes;
 using Npgsql;
 using Dapper;
 
-namespace Festivalcito.Server.Models.LoginCredentialRepositoryFolder{
+namespace Festivalcito.Server.Models.LoginCredentialRepositoryFolder
+{
 
-	public class LoginCredentialRepository : GlobalConnections, ILoginCredentialRepository{
-		public LoginCredentialRepository()
-		{
-		}
+    public class LoginCredentialRepository : GlobalConnections, ILoginCredentialRepository
+    {
+        public LoginCredentialRepository()
+        {
+        }
 
-        public bool CreateLoginCredential(LoginCredential loginCredential){
-            //Tager et assigned Assigned object og indsætter via SQL statement i vores database
+        public bool CreateLoginCredential(LoginCredential loginCredential)
+        {
+            //Tager et assigned LoginCredential object og indsætter via SQL statement i vores database
             Console.WriteLine("Repository - CreateLoginCredential");
             var sql = $"INSERT INTO logincredential (useremail, hashedpassword) VALUES ('{loginCredential.UserEmail!.ToLower()}', '{loginCredential.HashedPassword}')";
             Console.WriteLine("sql: " + sql);
 
             //Isolere "var connection" fra resten af scope ved brug af using
-            //forsøger at eksikvere sql statement mod database
+            //forsøger at eksekverer sql statement mod database
             using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 try
@@ -32,34 +35,40 @@ namespace Festivalcito.Server.Models.LoginCredentialRepositoryFolder{
                 }
             }
         }
-        public LoginCredential ReadLoginCredential(string email){
+        public LoginCredential ReadLoginCredential(string email)
+        {
             Console.WriteLine("Repository - ReadLoginCredential");
             var SQL = $"SELECT * FROM logincredential WHERE useremail ilike '{email}'";
 
             //Isolere "var connection" fra resten af scope ved brug af using
-            //forsøger at eksikvere sql statement mod database
+            //forsøger at eksekverer sql statement mod database
             Console.WriteLine(SQL);
             LoginCredential returnLoginCredential = new LoginCredential();
-            try{
-                using (var connection = new NpgsqlConnection(AzureConnection)){
+            try
+            {
+                using (var connection = new NpgsqlConnection(AzureConnection))
+                {
                     var tmpLogin = connection.Query<LoginCredential>(SQL).First();
                     tmpLogin.loginResponse = "Login sucessfull";
 
                     return tmpLogin;
                 }
-            }catch (Exception e){
-                Console.WriteLine("No match on email: " + e.Message);
-                return new LoginCredential(message:e.Message);
             }
-            
+            catch (Exception e)
+            {
+                Console.WriteLine("No match on email: " + e.Message);
+                return new LoginCredential(message: e.Message);
+            }
+
         }
-        public List<LoginCredential> ReadAllLoginCredentials(){
+        public List<LoginCredential> ReadAllLoginCredentials()
+        {
             Console.WriteLine("Repository - ReadAllLoginCredentials");
             var SQL = $"SELECT * FROM logincredential";
             List<LoginCredential> returnList = new List<LoginCredential>();
 
             //Isolere "var connection" fra resten af scope ved brug af using
-            //forsøger at eksikvere sql statement mod database
+            //forsøger at eksekverer sql statement mod database
             using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 returnList = connection.Query<LoginCredential>(SQL).ToList();
@@ -68,13 +77,14 @@ namespace Festivalcito.Server.Models.LoginCredentialRepositoryFolder{
 
             return returnList;
         }
-        public bool DeleteLoginCredential(string email){
+        public bool DeleteLoginCredential(string email)
+        {
             Console.WriteLine("Repository - ReadAllLoginCredentials");
             var sql = $"DELETE FROM public.DeleteLoginCredential WHERE useremail ilike {email}";
 
             Console.WriteLine(sql);
             //Isolere "var connection" fra resten af scope ved brug af using
-            //forsøger at eksikvere sql statement mod database
+            //forsøger at eksekverer sql statement mod database
             using (var connection = new NpgsqlConnection(AzureConnection))
             {
                 try

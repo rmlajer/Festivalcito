@@ -3,8 +3,8 @@ using Festivalcito.Shared.Classes;
 
 namespace Festivalcito.Client.Services.AreaServicesFolder
 {
-	public interface IAreaService
-	{
+    public interface IAreaService
+    {
         Task<int> CreateArea(Area person);
         Task<Area> ReadArea(int? AreaId);
         Task<Area[]?> ReadAllAreas();

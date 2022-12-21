@@ -3,16 +3,21 @@ using Festivalcito.Shared.Classes;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace Festivalcito.Server.Controllers{
-	
+namespace Festivalcito.Server.Controllers
+{
+
+    /// PersonController håndterer kald af metoder som kommer fra services og kalder de respektive metoder i PersonRepository
+    /// Controlleren fungerer altså som bindeled og tillader os at skifte dele af programmet uden at ødelægge eksisterende struktur.
+
     [ApiController]
     [Route("api/person/")]
-    public class PersonController : ControllerBase{
+    public class PersonController : ControllerBase
+    {
 
         private readonly IPersonRepository Repository = new PersonRepository();
 
 
-        //contructor tjekker om repository er tom og hvis den er, laves et nyt
+        //Contructor tjekker om repository er tom og hvis den er, laves et nyt
         public PersonController(IPersonRepository personRepository)
         {
             if (Repository == null && personRepository != null)
@@ -53,8 +58,8 @@ namespace Festivalcito.Server.Controllers{
             return Repository.ReadPerson(id);
         }
 
-        
-        
+
+
         [HttpGet("joinarea/{id:int}")]
         public Person ReadPersonJoinArea(int id)
         {
@@ -90,12 +95,14 @@ namespace Festivalcito.Server.Controllers{
             Console.WriteLine("Server: Delete item called: id = " + id);
 
             bool deleted = Repository.DeletePerson(id);
-            if (deleted){
+            if (deleted)
+            {
                 Console.WriteLine("Server: Item deleted succces");
                 int code = (int)HttpStatusCode.OK;
                 return new StatusCodeResult(code);
             }
-            else{
+            else
+            {
                 Console.WriteLine("Server: Item deleted fail - not found");
                 int code = (int)HttpStatusCode.NotFound;
                 return new StatusCodeResult(code);
